@@ -1,0 +1,68 @@
+/* base.css — 색상 변수, 리셋, 타이포그래피
+   Tailwind 디자인 언어(slate 그레이 + indigo 포인트)를 따르는 라이트 테마 */
+
+:root {
+  /* 색상 (Tailwind 팔레트 기준) */
+  --bg: #f8fafc;             /* slate-50  */
+  --panel: #ffffff;
+  --panel-border: #e2e8f0;   /* slate-200 */
+  --text: #0f172a;           /* slate-900 */
+  --text-dim: #64748b;       /* slate-500 */
+  --text-soft: #94a3b8;      /* slate-400 */
+
+  --accent: #4f46e5;         /* indigo-600 */
+  --accent-hover: #6366f1;   /* indigo-500 */
+  --accent-soft: #eef2ff;    /* indigo-50  */
+  --accent-border: #c7d2fe;  /* indigo-200 */
+  --accent-deep: #3730a3;    /* indigo-800 */
+
+  --track: #f1f5f9;          /* slate-100 — 막대 트랙 등 */
+
+  /* 크기·효과 */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -6px rgba(15, 23, 42, 0.05);
+  --content-width: 1560px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo",
+    system-ui, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--accent);
+}
+
+button, select, input {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* 모션 최소화 설정을 켠 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

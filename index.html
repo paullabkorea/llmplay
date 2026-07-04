@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI는 어떻게 다음 단어를 맞출까? — LLM 시뮬레이터</title>
+  <meta name="description" content="중·고등학생과 비전공자를 위한 LLM(거대 언어 모델) 원리 시각화 시뮬레이션" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <header class="site-header">
+    <p class="eyebrow">인터랙티브 시뮬레이션</p>
+    <h1>AI는 어떻게 다음 단어를 맞출까?</h1>
+    <p class="subtitle">LLM(거대 언어 모델)이 글을 쓰는 원리를 눈으로 보는 시뮬레이션</p>
+  </header>
+
+  <main>
+    <!-- ───────────────── 시뮬레이터 ───────────────── -->
+    <section class="sim" id="simulator" aria-label="LLM 시뮬레이터">
+
+      <div class="sim-stage">
+        <!-- 1) 입력 문장 패널 -->
+        <div class="panel panel-text">
+          <div class="panel-tip" id="tip-input" hidden>
+            <span class="tip-badge"></span>
+            <p class="tip-body"></p>
+            <button class="tip-close" type="button" aria-label="설명 닫기">&times;</button>
+          </div>
+          <h2 class="panel-title">입력 문장</h2>
+          <div class="token-area" id="token-area"></div>
+          <div class="vector-area" id="vector-area" aria-live="polite"></div>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">→</div>
+
+        <!-- 2) 신경망 패널 -->
+        <div class="panel panel-network">
+          <div class="panel-tip" id="tip-network" hidden>
+            <span class="tip-badge"></span>
+            <p class="tip-body"></p>
+            <button class="tip-close" type="button" aria-label="설명 닫기">&times;</button>
+          </div>
+          <h2 class="panel-title">인공 신경망</h2>
+          <div class="canvas-wrap">
+            <canvas id="network-canvas" width="540" height="380"></canvas>
+          </div>
+          <div class="calc-counter" id="calc-counter">&nbsp;</div>
+          <p class="param-label" id="param-label"></p>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">→</div>
+
+        <!-- 3) 확률 패널 -->
+        <div class="panel panel-probs">
+          <div class="panel-tip" id="tip-probs" hidden>
+            <span class="tip-badge"></span>
+            <p class="tip-body"></p>
+            <button class="tip-close" type="button" aria-label="설명 닫기">&times;</button>
+          </div>
+          <h2 class="panel-title">다음 단어 확률</h2>
+          <div class="prob-list" id="prob-list">
+            <p class="prob-placeholder">계산이 끝나면<br />후보 단어들이 나타나요</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 조작부 -->
+      <div class="controls">
+        <div class="control-group">
+          <label for="scenario-select">문장 고르기</label>
+          <select id="scenario-select"></select>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group">
+          <span class="control-label">재생</span>
+          <div class="btn-group">
+            <button id="btn-play" class="btn btn-primary">자동 재생</button>
+            <button id="btn-step" class="btn">한 단계씩</button>
+            <button id="btn-reset" class="btn">처음부터</button>
+          </div>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group">
+          <label for="speed-select">속도</label>
+          <select id="speed-select">
+            <option value="0.6">느리게</option>
+            <option value="1" selected>보통</option>
+            <option value="1.8">빠르게</option>
+          </select>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group control-temp">
+          <label for="temp-slider">
+            온도(창의성) <span class="temp-value" id="temp-value">1.0</span>
+          </label>
+          <input type="range" id="temp-slider" min="0.2" max="2" step="0.1" value="1" />
+          <div class="temp-scale"><span>안정적</span><span>창의적</span></div>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group">
+          <span class="control-label">표시</span>
+          <label class="check-label" for="tips-toggle">
+            <input type="checkbox" id="tips-toggle" checked />
+            단계 설명
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────── 핵심 개념 ───────────────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">시뮬레이션에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">토큰 (Token)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI는 문장을 통째로 읽지 않고 작은 조각, 즉 <strong>토큰</strong>으로 잘라서 읽어요.
+              이 시뮬레이션은 단어 단위로 자르지만, 진짜 LLM은
+              <em>"싸늘" + "하다"</em>처럼 더 잘게 자르기도 해요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">파라미터 (Parameter)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              신경망 속 <strong>다이얼 하나하나가 파라미터</strong>예요.
+              GPT-4 같은 모델은 다이얼이 <strong>1조 개</strong>가 넘어요.
+              '학습'이란 다음 단어를 잘 맞히도록 이 다이얼들을 아주 조금씩 돌려 맞추는 과정이에요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">확률과 온도</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI는 정답을 '아는' 게 아니라 <strong>다음에 올 확률이 높은 단어를 뽑는 것</strong>뿐이에요.
+              온도를 높이면 확률이 낮은 단어도 자주 뽑혀서 창의적(가끔은 엉뚱!)해지고,
+              낮추면 늘 비슷한 답만 해요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">반복 (자동 회귀)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              단어 하나를 뽑으면 문장 끝에 붙이고, <strong>다시 처음부터 전체 문장을 읽고 예측</strong>해요.
+              ChatGPT가 쓰는 긴 글도 결국 '다음 단어 맞히기'를 수없이 반복한 결과예요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">실제와 다른 점</button>
+          <div class="concept-pop" hidden>
+            <p>
+              진짜 LLM은 미리 정해 둔 표가 아니라 수천억 개의 파라미터 계산으로
+              그때그때 확률을 만들어 내요. 이 페이지는 원리를 쉽게 보여 주기 위해
+              작은 확률표를 사용한 <em>모형</em>이에요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

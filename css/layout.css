@@ -1,0 +1,105 @@
+/* layout.css — 페이지 큰 틀(헤더, 시뮬레이터 3단 배치, 핵심 개념 섹션) */
+
+.site-header {
+  text-align: center;
+  padding: 72px 16px 20px;
+}
+
+.site-header .eyebrow {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.site-header h1 {
+  font-size: clamp(1.8rem, 4.5vw, 2.9rem);
+  font-weight: 800;
+}
+
+.site-header .subtitle {
+  margin-top: 12px;
+  color: var(--text-dim);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
+
+main {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 16px 80px;
+}
+
+/* ── 시뮬레이터 3단 구성: 문장 → 신경망 → 확률 ──
+   위쪽 여백은 단계 설명 팝업이 뜨는 자리 */
+.sim-stage {
+  display: grid;
+  grid-template-columns: 1.15fr auto 1.3fr auto 1fr;
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 110px;
+}
+
+.flow-arrow {
+  align-self: center;
+  font-size: 1.8rem;
+  color: var(--text-soft);
+  user-select: none;
+}
+
+.controls {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-end;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 24px;
+}
+
+/* ── 핵심 개념 영역 ── */
+.learn {
+  margin-top: 88px;
+}
+
+.learn-title {
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.learn-sub {
+  text-align: center;
+  color: var(--text-dim);
+  margin: 8px 0 28px;
+}
+
+.concept-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ── 좁은 화면: 세로로 쌓기 ── */
+@media (max-width: 1024px) {
+  .sim-stage {
+    grid-template-columns: 1fr;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+    font-size: 1.4rem;
+  }
+  /* 줄바꿈되면 세로 구분선은 어색하므로 숨김 */
+  .controls-divider {
+    display: none;
+  }
+}

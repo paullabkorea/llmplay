@@ -1,0 +1,495 @@
+/* components.css — 패널, 토큰 칩, 확률 막대, 버튼 등 부품 스타일 */
+
+/* ── 공통 패널 ── */
+.panel {
+  position: relative; /* 단계 설명 팝업의 기준 */
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+
+/* ── 단계 설명 팝업 (패널 위에 떨어져서 뜸) ── */
+.panel-tip {
+  position: absolute;
+  bottom: calc(100% + 14px); /* 패널 위쪽 바깥 — 내용을 가리지 않음 */
+  left: 8px;
+  right: 8px;
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--panel);
+  border: 1.5px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 12px 14px;
+  animation: tip-in 0.25s ease;
+}
+
+/* 말풍선 꼬리 (테두리선 + 흰 면 두 겹) */
+.panel-tip::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 30px;
+  border: 9px solid transparent;
+  border-top-color: var(--accent-border);
+}
+
+.panel-tip::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 2.5px);
+  left: 31px;
+  border: 8px solid transparent;
+  border-top-color: var(--panel);
+}
+
+.tip-badge {
+  flex-shrink: 0;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 3px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.tip-body {
+  flex: 1;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.tip-body strong {
+  color: var(--accent);
+}
+
+.tip-close {
+  background: none;
+  border: 0;
+  color: var(--text-soft);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.tip-close:hover {
+  color: var(--text);
+}
+
+@keyframes tip-in {
+  from { transform: translateY(-8px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* display:flex가 hidden 속성을 이기지 못하게 명시 */
+.panel-tip[hidden],
+.concept-pop[hidden] {
+  display: none;
+}
+
+.panel-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--track);
+}
+
+/* ── 토큰(단어 조각) 칩 ── */
+.token-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.token {
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* 토큰화 전: 평범한 글자 / 토큰화 후: 색깔 조각 */
+.token.tokenized {
+  border-color: var(--tok-color, var(--accent));
+  background: color-mix(in srgb, var(--tok-color, var(--accent)) 8%, white);
+  animation: pop-in 0.35s ease backwards;
+}
+
+.token.generated {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.token.blank {
+  border: 1.5px dashed var(--text-soft);
+  color: var(--text-soft);
+  min-width: 64px;
+  text-align: center;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.9; }
+  50%      { opacity: 0.35; }
+}
+
+/* ── 벡터(숫자 목록) 표시 ── */
+.vector-area {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.vec-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  animation: pop-in 0.3s ease backwards;
+}
+
+.vec-token {
+  color: var(--text);
+  min-width: 76px;
+  text-align: right;
+}
+
+.vec-nums {
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  padding: 2px 10px;
+  border-radius: 6px;
+  white-space: nowrap; /* 벡터 숫자는 한 줄로 */
+}
+
+/* ── 신경망 패널 ── */
+/* 캔버스는 화면이 커져도 늘어나지 않는 고정 크기 (작은 화면에서만 축소) */
+.canvas-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-network canvas {
+  width: 540px;
+  max-width: 100%;
+  height: auto;
+}
+
+.calc-counter {
+  text-align: center;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+  min-height: 1.6em;
+}
+
+.param-label {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* ── 확률 막대 ── */
+.prob-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  flex: 1;
+}
+
+.prob-placeholder {
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+
+.prob-row {
+  display: grid;
+  grid-template-columns: 92px 1fr 52px;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.prob-row .prob-token {
+  text-align: right;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prob-row .prob-bar-track {
+  height: 22px;
+  background: var(--track);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.prob-row .prob-bar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.7s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.prob-row .prob-pct {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* 룰렛(뽑기) 중 하이라이트 */
+.prob-row.spinning {
+  background: var(--track);
+}
+
+/* 최종 당첨 */
+.prob-row.winner {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.prob-row.winner .prob-token {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.prob-row.winner .prob-pct {
+  color: var(--accent);
+}
+
+/* ── 조작부 ── */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group > label,
+.control-group .control-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* 그룹 사이 세로 구분선 */
+.controls-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--panel-border);
+}
+
+/* 컨트롤 높이 통일 */
+.btn,
+select {
+  height: 42px;
+}
+
+.btn {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  padding: 0 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover { background: var(--bg); border-color: #cbd5e1; }
+.btn:active { background: var(--track); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* 재생 버튼 3개를 하나로 붙인 세그먼트 그룹 */
+.btn-group {
+  display: inline-flex;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+.btn-group .btn {
+  box-shadow: none;
+  border-radius: 0;
+  margin-left: -1px; /* 테두리 겹치기 */
+}
+
+.btn-group .btn:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  margin-left: 0;
+}
+
+.btn-group .btn:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.btn-group .btn-primary {
+  position: relative; /* 이웃 버튼 테두리에 덮이지 않게 */
+  z-index: 1;
+}
+
+select {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  padding: 0 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+/* 온도 슬라이더 */
+.control-temp {
+  min-width: 220px;
+}
+
+.temp-value {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.temp-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--text-soft);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* 단계 설명 표시 토글 */
+.check-label {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px; /* 버튼·셀렉트와 높이 통일 */
+  font-size: 0.9rem !important;
+  font-weight: 600;
+  color: var(--text) !important;
+  cursor: pointer;
+}
+
+.check-label input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ── 핵심 개념: 버튼을 누르면 그 위에 팝오버로 열림 ── */
+.concept {
+  position: relative;
+}
+
+.concept-btn {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.concept-btn:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.concept-btn.open {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  color: var(--accent-deep);
+}
+
+.concept-pop {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(400px, calc(100vw - 40px));
+  z-index: 30;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 16px 20px;
+  font-size: 0.93rem;
+  color: var(--text-dim);
+  text-align: left;
+  /* 주의: 가운데 정렬(translateX)을 포함한 전용 keyframe을 써야
+     등장 중에 위치가 어긋났다가 돌아오는 문제가 없다 */
+  animation: pop-fade 0.2s ease;
+}
+
+@keyframes pop-fade {
+  from { transform: translate(-50%, 6px); opacity: 0; }
+  to   { transform: translate(-50%, 0);   opacity: 1; }
+}
+
+/* 말풍선 꼬리 */
+.concept-pop::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: var(--panel);
+}
+
+.concept-pop strong { color: var(--text); }
+.concept-pop em { color: var(--accent); font-style: normal; }
