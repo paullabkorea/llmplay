@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI는 내 말을 학습할까? — 학습의 비밀</title>
+  <meta name="description" content="학습(훈련)이란 다이얼(파라미터)을 고쳐 맞추는 별도의 공정 — 대화 중에는 절대 일어나지 않는다는 것을 보여주는 시뮬레이션" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/training.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html" class="active" aria-current="page">학습의 비밀</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>AI는 내 말을 '학습'할까?</h1>
+    <p class="subtitle">
+      아니요! AI는 사실 <strong>거대한 수학 수식</strong>이고, 다이얼(파라미터)은
+      그 수식 속 <strong>숫자 하나하나</strong>예요. 학습이란 그 숫자들을 고쳐 맞추는
+      별도의 공정이라, 여러분과 대화하는 동안에는 절대 일어나지 않아요.
+    </p>
+  </header>
+
+  <main>
+    <section class="learn-sim" aria-label="학습과 추론 비교">
+      <div class="panel dial-panel">
+        <div class="mode-switch" role="group" aria-label="모드 선택">
+          <button id="mode-infer" class="btn mode-btn active" type="button" aria-pressed="true">
+            대화할 때 (추론)
+          </button>
+          <button id="mode-train" class="btn mode-btn" type="button" aria-pressed="false">
+            학습할 때 (훈련)
+          </button>
+        </div>
+
+        <div class="dial-board mode-infer" id="dial-board">
+          <div class="flow-lane" id="flow-lane" aria-hidden="true"></div>
+          <div class="dial-grid" id="dial-grid" aria-hidden="true"></div>
+          <div class="mode-badge" id="mode-badge"></div>
+        </div>
+
+        <div class="dial-zoom">
+          <div class="zoom-head">
+            <span id="zoom-index">1</span>번 다이얼을 확대해 보면 — 수식 속 숫자 하나
+          </div>
+          <p class="zoom-formula">
+            출력 = 입력 × <strong class="zoom-weight" id="zoom-weight">+0.000</strong>
+            <span class="zoom-rest">+ (나머지 다이얼들의 계산…)</span>
+          </p>
+          <p class="zoom-caption" id="zoom-caption"></p>
+          <p class="zoom-hint">위의 다른 다이얼도 눌러서 확대해 볼 수 있어요</p>
+        </div>
+
+        <p class="mode-caption" id="mode-caption"></p>
+
+        <p class="dial-note">
+          그래서 대화창을 닫으면 AI는 나를 완전히 잊어요 —
+          <strong>모델(다이얼)은 그대로</strong>이고,
+          <strong>묶음(대화 기록)은 사라지기</strong> 때문이에요.
+          묶음이 무엇인지는 <a href="context.html">대화의 비밀</a>에서 확인해 보세요.
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────── 핵심 개념 ───────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">시뮬레이션에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">학습 vs 추론</button>
+          <div class="concept-pop" hidden>
+            <p>
+              <strong>학습(훈련)</strong>은 다이얼(파라미터)을 수백만 번 조금씩 돌려 맞추는
+              별도의 공정이고, <strong>추론</strong>은 완성된 다이얼로 계산만 하는 거예요.
+              여러분과의 대화는 전부 추론이라서, 대화 내용이 모델에 <em>새겨지지 않아요</em>.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">"기억 기능"의 정체</button>
+          <div class="concept-pop" hidden>
+            <p>
+              ChatGPT의 '메모리' 같은 기능은 모델이 나를 학습한 게 아니라,
+              서비스가 내 정보를 <strong>따로 적어 뒀다가 매번 묶음 맨 앞에 몰래 끼워 넣는 것</strong>이에요.
+              다이얼은 여전히 그대로랍니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">그럼 새 지식은 어떻게 배울까?</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI 회사가 새 데이터로 <strong>다시 훈련(재훈련·파인튜닝)</strong>해서
+              다이얼을 고친 <em>새 버전 모델</em>을 내놓는 거예요. 그래서 모델에는
+              "지식이 몇 월까지"라는 <strong>지식 마감일</strong>이 있고,
+              그 뒤의 일은 검색 결과를 묶음에 넣어 줘야 알 수 있어요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">파라미터 (Parameter)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              신경망 속 <strong>다이얼 하나하나가 파라미터</strong>예요.
+              GPT-4 같은 모델은 다이얼이 <strong>1조 개</strong>가 넘어요.
+              다이얼이 계산에 어떻게 쓰이는지는
+              <a href="index.html">단어 맞히기</a>에서 볼 수 있어요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/training/app.js"></script>
+</body>
+</html>

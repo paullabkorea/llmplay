@@ -35,6 +35,46 @@ ____                                       타짜    █ 8% …
 관련 패널 위의 설명 팝업과 함께 진행되고, 뽑힌 단어를 붙인 뒤 문장이 끝날 때까지 반복됩니다.
 온도 슬라이더로 "안정적 ↔ 창의적" 차이를 실시간으로 체험할 수 있습니다.
 
+## 토큰의 비밀 (`tokens.html`)
+
+**"AI가 글자를 읽는다"는 착각**을 푸는 페이지입니다. 문장을 직접 입력해
+토큰 조각과 어휘표 번호로 잘리는 것을 보는 놀이터, "strawberry의 r 개수"를
+틀리는 이유(사람은 글자 10개를 보지만 AI는 번호 3개를 받음), 같은 뜻인데
+한국어가 영어보다 토큰을 더 쓰는 비교를 담았습니다. 토크나이저는 실제 BPE가
+아니라 `js/tokens/tokenizer.js`의 규칙 기반 교육용 모형입니다.
+
+## 환각의 비밀 (`hallucination.html`)
+
+**"확신 있게 말하면 사실"이라는 착각**을 푸는 페이지입니다. 진짜 질문
+("세종대왕이 만든 문자는?")과 세상에 없는 것을 묻는 질문("세종대왕이 만든
+스마트폰 이름은?")을 같은 확률 기계에 동시에 넣습니다. 두 쪽 모두 확률
+막대가 당당하게 움직이고, "그런 건 없어요"의 확률은 6%뿐이라 기계는 대부분
+그럴듯한 이름과 가짜 연도를 지어냅니다. 끝나면 두 답의 평균 확신도가 거의
+같았다는 평결이 나옵니다. 시나리오는 `js/hallucination/data.js`에서 수정합니다.
+
+## 대화의 비밀 (`context.html`)
+
+**"AI와 대화하고 있다"는 착각**을 푸는 시뮬레이션입니다. AI는 아무것도
+기억하지 않아서 매 턴 지금까지의 대화 **전체를 통째로** 다시 전송받습니다.
+왼쪽에 사용자가 보는 채팅 화면, 오른쪽에 실제로 전송되는 '묶음'을 나란히
+보여 주고, 각본이 진행될수록 토큰 게이지와 "AI의 집중력" 게이지가 변합니다.
+누적 토큰이 **1만을 넘으면** "요약만 들고 새 대화를 시작하는 게 유리하다"는
+배너가 떠서 직접 체험할 수 있습니다. 시뮬레이터 아래에는 이 현상을 실제로
+측정한 NoLiMa 벤치마크 그래프(출처: arXiv:2502.05167)를 함께 보여 줍니다.
+
+각본(대화 내용·토큰 수)은 `js/context/data.js`에서만 수정하면 됩니다.
+토큰 수는 실제 토크나이저 계산이 아니라 교육용 연출 숫자입니다.
+
+## 학습의 비밀 (`training.html`)
+
+**"AI가 내 대화를 학습한다"는 착각**을 푸는 시뮬레이션입니다. 학습이란
+다이얼(파라미터)을 수정하는 별도의 공정임을 보여 줍니다. "대화할 때(추론)"
+모드에서는 토큰이 흘러가도 다이얼이 고정이고, "학습할 때(훈련)"
+모드에서만 다이얼이 움직입니다. 다이얼이 추상적으로 느껴지지 않도록,
+다이얼을 클릭하면 돋보기 카드에 그 다이얼이 품은 수식 속 숫자
+(`출력 = 입력 × +0.483 + …`)가 보이고, 훈련 모드에서는 이 숫자가
+실시간으로 고쳐지는 모습이 나타납니다.
+
 ## 로컬에서 실행하기
 
 ES 모듈을 쓰기 때문에 파일을 더블클릭(`file://`)하면 안 되고, 간단한 로컬 서버가 필요합니다.
@@ -58,13 +98,25 @@ npx serve .
 ## 폴더 구조
 
 ```
-index.html              페이지 뼈대
+index.html              다음 단어 맞히기 뼈대
+tokens.html             토큰의 비밀 뼈대
+hallucination.html      환각의 비밀 뼈대
+context.html            대화의 비밀 뼈대
+training.html           학습의 비밀 뼈대
+assets/
+  weniv-logo.svg        상단 내비게이션의 위니브 로고
+  favicon.svg           브라우저 탭 아이콘 (위니브 심볼)
+  nolima-benchmark.png  NoLiMa 벤치마크 그래프 (대화의 비밀 연구 근거)
 css/
   base.css              색상 변수(Tailwind 팔레트 기준 라이트 테마), 리셋, 폰트
-  layout.css            페이지 큰 틀(3단 배치, 반응형)
+  layout.css            페이지 큰 틀(내비게이션, 3단 배치, 반응형)
   components.css        토큰 칩, 확률 막대, 버튼 등 부품
+  tokens.css            '토큰의 비밀' 페이지 전용 스타일
+  hallucination.css     '환각의 비밀' 페이지 전용 스타일
+  context.css           '대화의 비밀' 페이지 전용 스타일
+  training.css          '학습의 비밀' 페이지 전용 스타일
 js/
-  app.js                시작점 — 엔진과 UI를 연결
+  app.js                첫 페이지 시작점 — 엔진과 UI를 연결
   config.js             단계 시간, 캔버스 설정 등 상수
   utils.js              공용 도우미 함수
   data/scenarios.js     예시 문장(확률표) 데이터 — 문장 추가는 여기서
@@ -74,10 +126,23 @@ js/
   ui/networkView.js     신경망 캔버스 애니메이션
   ui/probView.js        확률 막대·룰렛 연출
   ui/explainView.js     단계별 설명 팝업(관련 패널 위에 표시)
-  ui/concepts.js        핵심 개념 버튼·팝오버
+  ui/concepts.js        핵심 개념 버튼·팝오버 (두 페이지 공용)
   ui/controls.js        버튼·슬라이더 조작부
+  tokens/app.js         토큰의 비밀 시작점
+  tokens/tokenizer.js   규칙 기반 교육용 토크나이저 (순수 함수)
+  hallucination/app.js  환각의 비밀 시작점
+  hallucination/data.js 진짜/가짜 질문 확률표 — 시나리오 수정은 여기서
+  hallucination/twinSim.js  두 질문 동시 재생 연출
+  context/app.js        대화의 비밀 시작점
+  context/data.js       대화 각본·토큰 수·집중력 곡선 — 각본 수정은 여기서
+  context/chatSim.js    채팅 화면 ↔ 전송 묶음 ↔ 게이지 연출
+  training/app.js       학습의 비밀 시작점
+  training/dialSim.js   학습 vs 추론 다이얼 비교 + 수식 돋보기
 tests/
-  smoke.test.mjs        엔진·데이터 검증 테스트 (node tests/smoke.test.mjs)
+  smoke.test.mjs        엔진·데이터 검증 (node tests/smoke.test.mjs)
+  tokens.test.mjs       토크나이저 검증 (node tests/tokens.test.mjs)
+  hallucination.test.mjs 환각 시나리오 검증 (node tests/hallucination.test.mjs)
+  context.test.mjs      대화 각본 검증 (node tests/context.test.mjs)
 ```
 
 ### 설계 원칙 (유지보수 가이드)
@@ -93,6 +158,12 @@ tests/
 
 ```powershell
 node tests/smoke.test.mjs
+node tests/tokens.test.mjs
+node tests/hallucination.test.mjs
+node tests/context.test.mjs
 ```
 
-모든 시나리오가 무한 루프 없이 끝나는지, 확률 합이 1인지, 온도 효과가 올바른지 검사합니다.
+모든 시나리오가 무한 루프 없이 끝나는지, 확률 합이 1인지, 온도 효과가 올바른지,
+토크나이저가 strawberry를 st/raw/berry로 자르고 한국어에 토큰을 더 쓰는지,
+환각 시나리오의 두 질문이 비슷한 확신도로 끝나는지, 대화 각본의 토큰 수가
+매 턴 늘어나 1만 토큰 경고선을 넘는지 검사합니다.

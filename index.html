@@ -5,13 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI는 어떻게 다음 단어를 맞출까? — LLM 시뮬레이터</title>
   <meta name="description" content="중·고등학생과 비전공자를 위한 LLM(거대 언어 모델) 원리 시각화 시뮬레이션" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
 </head>
 <body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active" aria-current="page">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+      </div>
+    </div>
+  </nav>
+
   <header class="site-header">
-    <p class="eyebrow">인터랙티브 시뮬레이션</p>
     <h1>AI는 어떻게 다음 단어를 맞출까?</h1>
     <p class="subtitle">LLM(거대 언어 모델)이 글을 쓰는 원리를 눈으로 보는 시뮬레이션</p>
   </header>
@@ -130,6 +145,7 @@
               AI는 문장을 통째로 읽지 않고 작은 조각, 즉 <strong>토큰</strong>으로 잘라서 읽어요.
               이 시뮬레이션은 단어 단위로 자르지만, 진짜 LLM은
               <em>"싸늘" + "하다"</em>처럼 더 잘게 자르기도 해요.
+              직접 잘라 보고 싶다면 <a href="tokens.html">토큰의 비밀</a>로!
             </p>
           </div>
         </div>
@@ -151,7 +167,8 @@
             <p>
               AI는 정답을 '아는' 게 아니라 <strong>다음에 올 확률이 높은 단어를 뽑는 것</strong>뿐이에요.
               온도를 높이면 확률이 낮은 단어도 자주 뽑혀서 창의적(가끔은 엉뚱!)해지고,
-              낮추면 늘 비슷한 답만 해요.
+              낮추면 늘 비슷한 답만 해요. 확률로만 답해서 생기는 사고는
+              <a href="hallucination.html">환각의 비밀</a>에서 확인해 보세요.
             </p>
           </div>
         </div>
@@ -162,6 +179,8 @@
             <p>
               단어 하나를 뽑으면 문장 끝에 붙이고, <strong>다시 처음부터 전체 문장을 읽고 예측</strong>해요.
               ChatGPT가 쓰는 긴 글도 결국 '다음 단어 맞히기'를 수없이 반복한 결과예요.
+              이 "매번 처음부터 다시 읽기"가 대화에서 어떤 일을 만드는지
+              <a href="context.html">대화의 비밀</a>에서 확인해 보세요.
             </p>
           </div>
         </div>

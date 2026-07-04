@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI는 왜 당당하게 지어낼까? — 환각의 비밀</title>
+  <meta name="description" content="확률 기계는 '모른다'를 잘 뽑지 않는다 — 진짜 질문과 말도 안 되는 질문을 같은 기계에 넣어 환각(할루시네이션)의 원리를 보여주는 시뮬레이션" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/hallucination.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html" class="active" aria-current="page">환각의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>AI는 왜 당당하게 지어낼까?</h1>
+    <p class="subtitle">
+      AI는 정답을 아는 게 아니라 <strong>다음에 올 확률이 높은 단어를 뽑을 뿐</strong>이에요.
+      답이 세상에 없어도, 기계는 멈추지 않고 그럴듯한 단어를 계속 뽑아요.
+    </p>
+  </header>
+
+  <main>
+    <!-- ───────── 트윈 시뮬레이터 ───────── -->
+    <section class="sim twin-sim" aria-label="환각 시뮬레이터">
+      <div class="twin-stage">
+        <!-- 왼쪽: 진짜 질문 -->
+        <div class="panel twin-panel">
+          <h2 class="panel-title">진짜 있는 것을 묻는 질문</h2>
+          <p class="twin-question" id="q-real"></p>
+          <h3 class="twin-label">만들어지는 답</h3>
+          <div class="ans-area" id="answer-real" aria-live="polite"></div>
+          <h3 class="twin-label">
+            다음 단어 후보
+            <span class="conf-inline">뽑힌 단어의 확률 <strong class="conf-value" id="conf-real">—</strong></span>
+          </h3>
+          <div class="prob-list" id="probs-real"></div>
+        </div>
+
+        <!-- 오른쪽: 세상에 없는 것을 묻는 질문 -->
+        <div class="panel twin-panel twin-fake">
+          <h2 class="panel-title">세상에 없는 것을 묻는 질문</h2>
+          <p class="twin-question" id="q-fake"></p>
+          <h3 class="twin-label">만들어지는 답</h3>
+          <div class="ans-area" id="answer-fake" aria-live="polite"></div>
+          <h3 class="twin-label">
+            다음 단어 후보
+            <span class="conf-inline">뽑힌 단어의 확률 <strong class="conf-value" id="conf-fake">—</strong></span>
+          </h3>
+          <div class="prob-list" id="probs-fake"></div>
+        </div>
+      </div>
+
+      <p class="honest-note">
+        노란 막대는 "그런 건 없어요" — 이 확률이 얼마나 작은지 지켜보세요.
+      </p>
+
+      <!-- 평결 -->
+      <div class="twin-verdict" id="twin-verdict" hidden>
+        <p id="twin-verdict-text"></p>
+      </div>
+
+      <!-- 조작부 -->
+      <div class="controls">
+        <div class="control-group">
+          <span class="control-label">재생</span>
+          <div class="btn-group">
+            <button id="btn-play" class="btn btn-primary" type="button">자동 재생</button>
+            <button id="btn-step" class="btn" type="button">한 단계씩</button>
+            <button id="btn-reset" class="btn" type="button">처음부터</button>
+          </div>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group">
+          <label for="speed-select">속도</label>
+          <select id="speed-select">
+            <option value="0.6" selected>느리게</option>
+            <option value="1">보통</option>
+            <option value="1.8">빠르게</option>
+          </select>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group stage-group">
+          <span class="control-label">지금 하는 일</span>
+          <p class="stage-label" id="stage-label"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 핵심 개념 ───────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">시뮬레이션에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">환각 (Hallucination)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI가 사실이 아닌 것을 <strong>사실처럼 당당하게</strong> 말하는 현상이에요.
+              거짓말(속이려는 의도)이 아니라, 확률 기계가 그럴듯한 단어를 뽑다 보니
+              생기는 <em>구조적인 부작용</em>이에요. 없는 논문, 없는 판례, 없는 함수를
+              지어내는 사고가 실제로 일어나요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">왜 "모른다"고 안 할까?</button>
+          <div class="concept-pop" hidden>
+            <p>
+              훈련 데이터 속 문장들은 대부분 질문에 <strong>답을 하는</strong> 글이에요.
+              그래서 "모르겠어요"가 뽑힐 확률은 늘 작게 계산돼요. 요즘 모델은
+              모를 때 모른다고 말하도록 <em>추가 훈련</em>을 받지만, 원리가 확률 뽑기인
+              이상 완전히 사라지지는 않아요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">어떻게 줄일 수 있을까?</button>
+          <div class="concept-pop" hidden>
+            <p>
+              질문에 <strong>"모르면 모른다고 답해 줘"</strong>라고 덧붙이기,
+              <strong>출처를 함께</strong> 요구하기, 검색 결과나 자료를
+              <a href="context.html">묶음</a>에 넣어 주기.
+              근거를 쥐여 주면 지어낼 이유가 줄어들어요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">그럼 믿으면 안 되나?</button>
+          <div class="concept-pop" hidden>
+            <p>
+              <strong>말투의 확신 ≠ 사실</strong>이라는 것만 기억하면 돼요.
+              이름·날짜·숫자·출처처럼 <em>틀리면 곤란한 정보</em>는 꼭 검증하는
+              습관을 들이세요. 시뮬레이션에서 봤듯, 지어낸 답도 확신도는
+              진짜 답과 거의 같으니까요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/hallucination/app.js"></script>
+</body>
+</html>

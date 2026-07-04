@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI는 내 말을 기억할까? — 대화의 비밀</title>
+  <meta name="description" content="LLM과의 대화는 사실 매번 전체를 다시 보내는 것 — 토큰이 쌓일수록 둔해지는 이유와, 대화로는 학습되지 않는 이유를 보여주는 시뮬레이션" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/context.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="context.html" class="active" aria-current="page">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>AI와의 대화, 사실은 '대화'가 아니에요</h1>
+    <p class="subtitle">
+      AI는 아무것도 기억하지 않아서, 매번 지금까지의 대화 <strong>전체를 통째로</strong> 다시 받아요.
+      그래서 대화가 길어질수록 무거워지고 둔해져요.
+    </p>
+  </header>
+
+  <main>
+    <!-- ───────── ① 내 화면 vs AI가 받는 것 ───────── -->
+    <section class="sim chat-sim" aria-label="대화 묶음 시뮬레이터">
+      <div class="chat-stage">
+        <!-- 왼쪽: 내가 보는 채팅 화면 -->
+        <div class="panel panel-chat">
+          <h2 class="panel-title">내가 보는 화면 — 대화하는 것처럼 보여요</h2>
+          <div class="chat-log" id="chat-log" aria-live="polite"></div>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">→</div>
+
+        <!-- 오른쪽: 실제로 전송되는 묶음 -->
+        <div class="panel panel-bundle">
+          <h2 class="panel-title">AI가 실제로 받는 것 — 매번 '전체 묶음'</h2>
+          <div class="req-line">
+            이번 요청에 보낸 토큰
+            <strong class="req-tokens" id="req-tokens">0</strong>
+          </div>
+          <div class="bundle-frame" id="bundle-frame">
+            <span class="bundle-tag">요청 1회분 = 지금까지의 대화 전체</span>
+            <div class="bundle-stack" id="bundle-stack"></div>
+          </div>
+          <p class="send-caption" id="send-caption"></p>
+        </div>
+      </div>
+
+      <!-- 상태판: 토큰·집중력 게이지 -->
+      <div class="status-board">
+        <div class="gauge-row">
+          <span class="gauge-name">대화에 쌓인 토큰</span>
+          <div class="gauge-track">
+            <div class="gauge-fill g-ok" id="token-fill"></div>
+            <div class="gauge-marker" aria-hidden="true">
+              <span class="gauge-marker-label">1만 — 새 창 추천</span>
+            </div>
+          </div>
+          <span class="gauge-value" id="token-label">0토큰</span>
+        </div>
+
+        <div class="gauge-row">
+          <span class="gauge-name">AI의 집중력</span>
+          <div class="gauge-track">
+            <div class="gauge-fill g-ok" id="focus-fill" style="width: 100%"></div>
+          </div>
+          <span class="gauge-value" id="focus-label">100%</span>
+        </div>
+
+        <p class="status-msg s-ok" id="status-msg"></p>
+        <p class="turn-label" id="turn-label"></p>
+      </div>
+
+      <!-- 1만 토큰 경고 배너 -->
+      <div class="warn-banner" id="limit-banner" hidden>
+        <p>
+          <strong>토큰이 1만 개를 넘었어요!</strong>
+          이제 질문 하나를 던질 때마다 책 반 권 분량을 통째로 다시 보내는 셈이에요.
+          느려지고, 비싸지고, AI는 앞부분을 놓치기 시작해요.
+          이럴 땐 <strong>필요한 요약만 들고 새 대화를 시작</strong>하는 게 유리해요.
+        </p>
+        <button id="btn-summary" class="btn btn-primary" type="button">
+          요약만 들고 새 대화 시작 (320토큰)
+        </button>
+      </div>
+
+      <!-- 조작부 -->
+      <div class="controls">
+        <div class="control-group">
+          <span class="control-label">대화 진행</span>
+          <div class="btn-group">
+            <button id="btn-send" class="btn btn-primary" type="button">다음 메시지 보내기</button>
+            <button id="btn-auto" class="btn" type="button">자동 재생</button>
+            <button id="btn-chat-reset" class="btn" type="button">처음부터</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 연구 근거 ───────── -->
+    <section class="evidence" aria-label="연구 근거">
+      <h2 class="learn-title">느낌이 아니라, 실제 연구 결과예요</h2>
+      <p class="learn-sub">맥락(컨텍스트)이 길어질수록 최신 모델들의 정확도가 일제히 떨어져요</p>
+
+      <figure class="panel paper-figure">
+        <img
+          src="assets/nolima-benchmark.png"
+          alt="NoLiMa 벤치마크 그래프 — 컨텍스트 길이가 1천 토큰에서 3만2천 토큰으로 늘어날수록 GPT-4o, Gemini, Claude 등 모든 모델의 성능 점수가 급격히 떨어지는 모습"
+          loading="lazy"
+        />
+        <figcaption>
+          짧은 맥락에서 정확도 99%에 가깝던 모델들이 약 3만 토큰에서는 가장 선전한 모델조차
+          70% 아래로, 상당수는 50% 밑으로 떨어졌어요.
+          위 시뮬레이션의 '집중력' 게이지가 바로 이 현상이에요.
+          <span class="figure-source">
+            출처:
+            <a href="https://arxiv.org/abs/2502.05167" target="_blank" rel="noopener">
+              NoLiMa: Long-Context Evaluation Beyond Literal Matching (arXiv:2502.05167)
+            </a>
+          </span>
+        </figcaption>
+      </figure>
+
+      <p class="evidence-more">
+        비슷한 연구 더 보기 —
+        <a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle</a>:
+        긴 맥락 가운데에 묻힌 정보는 놓친다 ·
+        <a href="https://arxiv.org/abs/2505.06120" target="_blank" rel="noopener">LLMs Get Lost in Multi-Turn Conversation</a>:
+        여러 턴에 나눠 지시하면 평균 39% 성능 하락
+      </p>
+    </section>
+
+    <!-- ───────── 다음 이야기: 학습의 비밀 ───────── -->
+    <div class="next-teaser">
+      <h2>그럼 AI는 방금 그 대화를 '학습'했을까요?</h2>
+      <p>
+        아니요! 대화하는 동안 다이얼(파라미터)은 절대 움직이지 않아요.
+        학습이 진짜로 무엇인지 다음 시뮬레이션에서 확인해 보세요.
+      </p>
+      <a class="btn btn-primary" href="training.html">학습의 비밀 보러 가기 →</a>
+    </div>
+
+    <!-- ───────── 핵심 개념 ───────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">시뮬레이션에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">컨텍스트 창 (Context Window)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI가 한 번에 읽을 수 있는 글의 최대 길이예요. 대화가 이 창 안에 다 들어가야 해서,
+              매번 <strong>대화 전체 묶음</strong>을 다시 보내는 거예요. 창을 넘치면
+              오래된 앞부분부터 잘려 나가서 AI가 <em>처음 약속을 까먹은 것처럼</em> 보여요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">왜 길어지면 둔해질까?</button>
+          <div class="concept-pop" hidden>
+            <p>
+              글이 길수록 AI는 <strong>훨씬 많은 계산</strong>을 하면서도 중요한 문장을
+              찾기 어려워져요. 시험 범위가 교과서 반 권에서 열 권으로 늘어난 셈이죠.
+              그래서 긴 대화 끝에서는 답이 느려지고, 앞의 내용을 놓치거나 섞기 시작해요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">새 창이 유리한 이유</button>
+          <div class="concept-pop" hidden>
+            <p>
+              1만 토큰이 넘은 대화에서는 질문 하나에도 <strong>1만 토큰 전체</strong>가 다시 전송돼요.
+              필요한 결론만 <em>서너 줄로 요약해 새 창에 붙여넣으면</em> 같은 정보를
+              수백 토큰으로 줄일 수 있어요. AI도 다시 또렷해지고, 속도·비용도 좋아져요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">왜 대화창을 닫으면 잊을까?</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI의 '기억'은 전부 <strong>매번 다시 보내는 묶음</strong> 안에만 있어요.
+              창을 닫아 묶음이 사라지면 기억도 함께 사라져요. 모델 자체는
+              내 대화로 바뀌지 않는데, 그 이유는 <a href="training.html">학습의 비밀</a>에서
+              확인할 수 있어요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/context/app.js"></script>
+</body>
+</html>
