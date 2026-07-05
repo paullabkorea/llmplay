@@ -81,7 +81,7 @@ export function initChatSim(refs) {
   async function playSend(requestTokens) {
     refs.bundleFrame.classList.add('sending');
     refs.sendCaption.textContent =
-      `메시지 ${msgCount}개를 통째로 전송 중 — 지금까지의 대화 전체를 다시 보내요!`;
+      `메시지 ${msgCount}개를 통째로 전송 중이에요. 지금까지의 대화 전체를 다시 보내요!`;
     countUp(refs.reqTokens, Math.max(0, requestTokens - 400), requestTokens, 600);
     await wait(1100);
     refs.bundleFrame.classList.remove('sending');

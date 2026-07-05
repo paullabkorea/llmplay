@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI는 글자를 못 읽어요 — 토큰의 비밀</title>
-  <meta name="description" content="AI가 문장을 토큰 조각과 번호로 바꿔 읽는 원리 — strawberry의 r을 못 세는 이유와 한국어가 토큰을 더 쓰는 이유를 보여주는 시뮬레이션" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <title>AI는 글자를 못 읽어요 | 토큰의 비밀</title>
+  <meta name="description" content="AI가 문장을 토큰 조각과 번호로 바꿔 읽는 원리와 함께, strawberry의 r을 못 세는 이유와 한국어가 토큰을 더 쓰는 이유를 보여주는 시뮬레이션" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -24,6 +24,14 @@
         <a href="context.html">대화의 비밀</a>
         <a href="training.html">학습의 비밀</a>
       </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
     </div>
   </nav>
 
@@ -66,7 +74,7 @@
 
       <div class="straw-stage">
         <div class="panel straw-panel">
-          <h3 class="panel-title">사람이 보는 것 — 글자 10개</h3>
+          <h3 class="panel-title">사람이 보는 것: 글자 10개</h3>
           <div class="straw-letters" id="straw-human"></div>
           <p class="straw-caption">
             <strong class="r-mark">r</strong>이 3개라는 게 한눈에 보여요.
@@ -76,7 +84,7 @@
         <div class="flow-arrow" aria-hidden="true">vs</div>
 
         <div class="panel straw-panel">
-          <h3 class="panel-title">AI가 보는 것 — 토큰 3개</h3>
+          <h3 class="panel-title">AI가 보는 것: 토큰 3개</h3>
           <div class="straw-tokens" id="straw-ai"></div>
           <p class="straw-caption">
             AI에게 도착하는 건 <strong>번호 3개</strong>예요.
@@ -168,6 +176,7 @@
     </section>
   </main>
 
+  <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/tokens/app.js"></script>
 </body>
 </html>

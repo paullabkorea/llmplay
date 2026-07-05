@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI는 내 말을 기억할까? — 대화의 비밀</title>
-  <meta name="description" content="LLM과의 대화는 사실 매번 전체를 다시 보내는 것 — 토큰이 쌓일수록 둔해지는 이유와, 대화로는 학습되지 않는 이유를 보여주는 시뮬레이션" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <title>AI는 내 말을 기억할까? | 대화의 비밀</title>
+  <meta name="description" content="LLM과의 대화는 사실 매번 전체를 다시 보내는 것이에요. 토큰이 쌓일수록 둔해지는 이유와, 대화로는 학습되지 않는 이유를 보여주는 시뮬레이션" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -24,6 +24,14 @@
         <a href="context.html" class="active" aria-current="page">대화의 비밀</a>
         <a href="training.html">학습의 비밀</a>
       </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
     </div>
   </nav>
 
@@ -41,7 +49,7 @@
       <div class="chat-stage">
         <!-- 왼쪽: 내가 보는 채팅 화면 -->
         <div class="panel panel-chat">
-          <h2 class="panel-title">내가 보는 화면 — 대화하는 것처럼 보여요</h2>
+          <h2 class="panel-title">내가 보는 화면: 대화하는 것처럼 보여요</h2>
           <div class="chat-log" id="chat-log" aria-live="polite"></div>
         </div>
 
@@ -49,7 +57,7 @@
 
         <!-- 오른쪽: 실제로 전송되는 묶음 -->
         <div class="panel panel-bundle">
-          <h2 class="panel-title">AI가 실제로 받는 것 — 매번 '전체 묶음'</h2>
+          <h2 class="panel-title">AI가 실제로 받는 것: 매번 '전체 묶음'</h2>
           <div class="req-line">
             이번 요청에 보낸 토큰
             <strong class="req-tokens" id="req-tokens">0</strong>
@@ -69,7 +77,7 @@
           <div class="gauge-track">
             <div class="gauge-fill g-ok" id="token-fill"></div>
             <div class="gauge-marker" aria-hidden="true">
-              <span class="gauge-marker-label">1만 — 새 창 추천</span>
+              <span class="gauge-marker-label">1만부터는 새 창 추천</span>
             </div>
           </div>
           <span class="gauge-value" id="token-label">0토큰</span>
@@ -121,7 +129,7 @@
       <figure class="panel paper-figure">
         <img
           src="assets/nolima-benchmark.png"
-          alt="NoLiMa 벤치마크 그래프 — 컨텍스트 길이가 1천 토큰에서 3만2천 토큰으로 늘어날수록 GPT-4o, Gemini, Claude 등 모든 모델의 성능 점수가 급격히 떨어지는 모습"
+          alt="NoLiMa 벤치마크 그래프. 컨텍스트 길이가 1천 토큰에서 3만2천 토큰으로 늘어날수록 GPT-4o, Gemini, Claude 등 모든 모델의 성능 점수가 급격히 떨어지는 모습"
           loading="lazy"
         />
         <figcaption>
@@ -138,7 +146,7 @@
       </figure>
 
       <p class="evidence-more">
-        비슷한 연구 더 보기 —
+        비슷한 연구 더 보기:
         <a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle</a>:
         긴 맥락 가운데에 묻힌 정보는 놓친다 ·
         <a href="https://arxiv.org/abs/2505.06120" target="_blank" rel="noopener">LLMs Get Lost in Multi-Turn Conversation</a>:
@@ -210,6 +218,7 @@
     </section>
   </main>
 
+  <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/context/app.js"></script>
 </body>
 </html>

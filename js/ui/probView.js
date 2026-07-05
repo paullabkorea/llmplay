@@ -21,14 +21,15 @@ export function initProbView(engine, { probList }, getSpeed) {
     probList.appendChild(p);
   }
 
-  /** 확률 막대 그리기. 막대 길이는 1등 확률을 100%로 놓고 상대 비율로. */
+  /** 확률 막대 그리기. 막대 길이 = 실제 확률.
+      전체 후보의 확률 합은 항상 100%라서, 온도를 올리면
+      1등 막대는 짧아지고 나머지가 길어지는 것(고르게 퍼짐)이 그대로 보인다. */
   function renderBars(dist) {
     clearTimers();
     probList.innerHTML = '';
     rowEls = [];
 
     const shown = dist.slice(0, MAX_PROB_ROWS);
-    const maxP = shown[0]?.p || 1;
 
     shown.forEach(({ token, p }) => {
       const row = el('div', 'prob-row');
@@ -45,7 +46,7 @@ export function initProbView(engine, { probList }, getSpeed) {
 
       // 다음 프레임에 폭을 넣어야 CSS transition이 발동한다
       requestAnimationFrame(() => {
-        bar.style.width = `${(p / maxP) * 100}%`;
+        bar.style.width = `${p * 100}%`;
       });
     });
 

@@ -21,7 +21,7 @@ export function initNetworkView(engine, { canvas, calcCounter, paramLabel }, get
   let calcCount = 0;
 
   paramLabel.textContent =
-    `다이얼(파라미터) ${TOTAL_DIALS}개짜리 모형 — 진짜 GPT는 수천억~1조 개!`;
+    `다이얼(파라미터) ${TOTAL_DIALS}개짜리 모형이에요. 진짜 GPT는 수천억~1조 개!`;
 
   function resetAngles() {
     angles = [];

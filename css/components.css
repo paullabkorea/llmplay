@@ -401,6 +401,14 @@ select {
   color: var(--text-soft);
 }
 
+.temp-note {
+  margin-top: 6px;
+  max-width: 230px;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--text-dim);
+}
+
 input[type="range"] {
   accent-color: var(--accent);
   cursor: pointer;

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI는 어떻게 다음 단어를 맞출까? — LLM 시뮬레이터</title>
+  <title>AI는 어떻게 다음 단어를 맞출까? | LLM 시뮬레이터</title>
   <meta name="description" content="중·고등학생과 비전공자를 위한 LLM(거대 언어 모델) 원리 시각화 시뮬레이션" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -23,6 +23,14 @@
         <a href="context.html">대화의 비밀</a>
         <a href="training.html">학습의 비밀</a>
       </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
     </div>
   </nav>
 
@@ -118,6 +126,7 @@
           </label>
           <input type="range" id="temp-slider" min="0.2" max="2" step="0.1" value="1" />
           <div class="temp-scale"><span>안정적</span><span>창의적</span></div>
+          <p class="temp-note">확률의 합은 늘 100%예요. 온도를 올리면 1등의 확률이 깎여서 낮은 후보들에게 나눠져요.</p>
         </div>
 
         <span class="controls-divider" aria-hidden="true"></span>
@@ -166,8 +175,12 @@
           <div class="concept-pop" hidden>
             <p>
               AI는 정답을 '아는' 게 아니라 <strong>다음에 올 확률이 높은 단어를 뽑는 것</strong>뿐이에요.
-              온도를 높이면 확률이 낮은 단어도 자주 뽑혀서 창의적(가끔은 엉뚱!)해지고,
-              낮추면 늘 비슷한 답만 해요. 확률로만 답해서 생기는 사고는
+              온도는 확률을 전부 키우는 게 아니에요. 합은 항상 100%거든요!
+              온도를 높이면 1등의 확률이 깎여 나머지에게 나눠지면서 분포가 고르게 퍼져요.
+              찌그러진 주사위가 <strong>점점 공정한 주사위에 가까워지는 것</strong>,
+              즉 주사위의 자유도가 커지는 것이라 어떤 단어든 뽑힐 수 있게 돼요(창의적, 가끔은 엉뚱!).
+              낮추면 반대로 1등 쪽으로 찌그러져서 늘 비슷한 답만 해요.
+              확률로만 답해서 생기는 사고는
               <a href="hallucination.html">환각의 비밀</a>에서 확인해 보세요.
             </p>
           </div>
@@ -199,6 +212,7 @@
     </section>
   </main>
 
+  <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
