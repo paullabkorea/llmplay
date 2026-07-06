@@ -407,6 +407,7 @@
 @media (max-width: 1024px) {
   .chat-stage {
     grid-template-columns: 1fr;
+    margin-top: 24px;
   }
 
   .panel-chat,
@@ -430,5 +431,33 @@
 
   .gauge-value {
     text-align: left;
+  }
+}
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  .evidence,
+  .next-teaser {
+    margin-top: 56px;
+  }
+
+  .bubble {
+    max-width: 94%;
+  }
+
+  .status-board {
+    padding: 16px;
+  }
+
+  .warn-banner {
+    padding: 14px 16px;
+  }
+
+  .warn-banner .btn {
+    width: 100%;
+  }
+
+  .next-teaser {
+    padding: 22px 18px;
   }
 }

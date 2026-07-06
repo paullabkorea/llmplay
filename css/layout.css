@@ -227,6 +227,8 @@ main {
 @media (max-width: 1024px) {
   .sim-stage {
     grid-template-columns: 1fr;
+    /* 팝업이 패널 안쪽으로 들어가므로(components.css) 위 여백이 필요 없다 */
+    margin-top: 24px;
   }
   .flow-arrow {
     transform: rotate(90deg);
@@ -236,5 +238,70 @@ main {
   /* 줄바꿈되면 세로 구분선은 어색하므로 숨김 */
   .controls-divider {
     display: none;
+  }
+}
+
+/* ── 모바일: 내비게이션 두 줄 구성 ──
+   1줄: 브랜드 + 위니브 서비스 / 2줄: 페이지 탭(가로 스크롤) */
+@media (max-width: 820px) {
+  .site-nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 12px 8px;
+    gap: 8px;
+  }
+
+  .nav-more {
+    margin-left: auto;
+  }
+
+  .nav-links {
+    order: 3;                /* 두 번째 줄로 내려보냄 */
+    margin-left: 0;
+    flex-basis: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;   /* 탭 바 스크롤바 숨김 */
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 6px 12px;
+  }
+}
+
+/* ── 모바일: 여백·조작부 ── */
+@media (max-width: 640px) {
+  .site-header {
+    padding: 28px 16px 12px;
+  }
+
+  main {
+    padding: 0 12px 56px;
+  }
+
+  .sim-stage {
+    gap: 10px;
+  }
+
+  .flow-arrow {
+    font-size: 1.2rem;
+  }
+
+  .controls {
+    margin-top: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .learn {
+    margin-top: 56px;
   }
 }

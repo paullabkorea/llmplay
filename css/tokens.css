@@ -287,3 +287,22 @@
     text-align: left;
   }
 }
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  .straw,
+  .compare {
+    margin-top: 56px;
+  }
+
+  .letter {
+    width: 30px;
+    height: 38px;
+    font-size: 1.15rem;
+  }
+
+  /* 한 칸 레이아웃에서는 말줄임 대신 줄바꿈이 낫다 */
+  .compare-text {
+    white-space: normal;
+  }
+}

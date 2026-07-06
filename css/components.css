@@ -501,3 +501,108 @@ input[type="range"] {
 
 .concept-pop strong { color: var(--text); }
 .concept-pop em { color: var(--accent); font-style: normal; }
+
+/* ── 좁은 화면(패널이 세로로 쌓이는 구간) ── */
+@media (max-width: 1024px) {
+  .panel {
+    min-height: 0;
+  }
+
+  /* 팝업을 패널 위 바깥이 아니라 패널 안쪽 상단에 흐름대로 배치
+     (쌓인 상태에서 위 패널을 가리는 문제 방지) */
+  .panel-tip {
+    position: static;
+    margin-bottom: 14px;
+  }
+
+  .panel-tip::before,
+  .panel-tip::after {
+    display: none; /* 말풍선 꼬리 제거 */
+  }
+
+  /* 패널 높이가 내용에 맞춰지므로 확률 영역이 뭉개지지 않게 최소 높이 확보 */
+  .prob-list {
+    min-height: 180px;
+  }
+}
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  .panel {
+    padding: 16px;
+  }
+
+  .token-area {
+    font-size: 1.1rem;
+  }
+
+  .vector-area {
+    font-size: 0.74rem;
+  }
+
+  .vec-token {
+    min-width: 60px;
+  }
+
+  .vec-nums {
+    max-width: 100%;
+    overflow-x: auto; /* 긴 벡터는 그 줄만 가로 스크롤 */
+  }
+
+  .prob-row {
+    grid-template-columns: 76px 1fr 46px;
+    gap: 8px;
+  }
+
+  .prob-row .prob-token {
+    font-size: 0.92rem;
+  }
+
+  /* 버튼 묶음은 화면 폭에 맞춰 균등 분할 */
+  .btn-group {
+    display: flex;
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    flex: 1;
+    padding: 0 10px;
+  }
+
+  .control-group select {
+    width: 100%;
+  }
+
+  .control-temp {
+    min-width: 0;
+  }
+
+  .control-temp input[type="range"] {
+    width: 100%;
+  }
+
+  .temp-note {
+    max-width: none;
+  }
+
+  /* 핵심 개념: 팝오버 대신 버튼 아래로 펼쳐지는 아코디언 */
+  .concept {
+    width: 100%;
+  }
+
+  .concept-btn {
+    width: 100%;
+  }
+
+  .concept-pop {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 8px;
+    animation: tip-in 0.2s ease;
+  }
+
+  .concept-pop::after {
+    display: none;
+  }
+}

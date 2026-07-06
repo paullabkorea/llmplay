@@ -168,9 +168,32 @@
 @media (max-width: 1024px) {
   .twin-stage {
     grid-template-columns: 1fr;
+    margin-top: 24px;
   }
 
   .twin-panel {
     min-height: 0;
+  }
+}
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  /* '다음 단어 후보'와 확률 표시가 좁으면 줄바꿈 */
+  .twin-label {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .twin-question {
+    font-size: 0.98rem;
+    padding: 10px 14px;
+  }
+
+  .stage-group {
+    min-width: 0;
+  }
+
+  .twin-verdict {
+    padding: 14px 16px;
   }
 }
