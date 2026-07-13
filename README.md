@@ -52,6 +52,25 @@ ____                                       타짜    █ 8% …
 그럴듯한 이름과 가짜 연도를 지어냅니다. 끝나면 두 답의 평균 확신도가 거의
 같았다는 평결이 나옵니다. 시나리오는 `js/hallucination/data.js`에서 수정합니다.
 
+## 계산의 비밀 (`calc.html`)
+
+**"AI는 계산기"라는 착각**을 푸는 페이지입니다. 훈련 데이터에 수없이 나온
+계산("12 + 34 =")과 세상에 없는 계산("48,372 × 2,917 =")을 같은 확률 기계에
+동시에 넣습니다. 왼쪽은 정답 후보의 확률이 88%라 사실상 암기로 맞히고,
+오른쪽은 자릿수 느낌만 그럴듯한 숫자 조각들이 확률로 뽑혀 당당하게
+틀립니다(어떤 경로로도 정답 141,101,124는 나오지 않음). "계산기가
+필요해요"의 확률은 6%뿐입니다. 시나리오는 `js/calc/data.js`에서 수정합니다.
+
+## 프롬프트의 비밀 (`prompt.html`)
+
+**"AI가 내 마음을 읽는다"는 착각**을 푸는 페이지입니다. 데모 1은 같은 질문
+"사과에 대해 알려줘." 앞에 붙이는 글(아이폰 고민, 과수원 일기, 친구와 싸움)만
+바꾸면 답이 향할 방향의 확률 막대가 실시간으로 재배치되는 것을 보여 주고,
+룰렛으로 실제 답을 뽑아 볼 수 있습니다. 데모 2는 챗봇이 매번 몰래 붙이는
+숨은 쪽지(시스템 프롬프트)를 바꾸면 같은 질문에도 전혀 다른 답(해적 말투,
+1학년 선생님 등)이 나오는 것을 보여 줍니다. 데이터는 `js/prompt/data.js`에서만
+수정하면 됩니다.
+
 ## 대화의 비밀 (`context.html`)
 
 **"AI와 대화하고 있다"는 착각**을 푸는 시뮬레이션입니다. AI는 아무것도
@@ -101,6 +120,8 @@ npx serve .
 index.html              다음 단어 맞히기 뼈대
 tokens.html             토큰의 비밀 뼈대
 hallucination.html      환각의 비밀 뼈대
+calc.html               계산의 비밀 뼈대
+prompt.html             프롬프트의 비밀 뼈대
 context.html            대화의 비밀 뼈대
 training.html           학습의 비밀 뼈대
 assets/
@@ -112,7 +133,8 @@ css/
   layout.css            페이지 큰 틀(내비게이션, 3단 배치, 반응형)
   components.css        토큰 칩, 확률 막대, 버튼 등 부품
   tokens.css            '토큰의 비밀' 페이지 전용 스타일
-  hallucination.css     '환각의 비밀' 페이지 전용 스타일
+  twin.css              트윈 시뮬레이터 스타일 ('환각의 비밀'·'계산의 비밀' 공용)
+  prompt.css            '프롬프트의 비밀' 페이지 전용 스타일
   context.css           '대화의 비밀' 페이지 전용 스타일
   training.css          '학습의 비밀' 페이지 전용 스타일
 js/
@@ -126,13 +148,19 @@ js/
   ui/networkView.js     신경망 캔버스 애니메이션
   ui/probView.js        확률 막대·룰렛 연출
   ui/explainView.js     단계별 설명 팝업(관련 패널 위에 표시)
-  ui/concepts.js        핵심 개념 버튼·팝오버 (두 페이지 공용)
+  ui/concepts.js        핵심 개념 버튼·팝오버 (여러 페이지 공용)
   ui/controls.js        버튼·슬라이더 조작부
+  ui/twinSim.js         두 질문 동시 재생 연출 ('환각의 비밀'·'계산의 비밀' 공용)
   tokens/app.js         토큰의 비밀 시작점
   tokens/tokenizer.js   규칙 기반 교육용 토크나이저 (순수 함수)
   hallucination/app.js  환각의 비밀 시작점
   hallucination/data.js 진짜/가짜 질문 확률표 — 시나리오 수정은 여기서
-  hallucination/twinSim.js  두 질문 동시 재생 연출
+  calc/app.js           계산의 비밀 시작점
+  calc/data.js          쉬운/어려운 계산 확률표 — 시나리오 수정은 여기서
+  prompt/app.js         프롬프트의 비밀 시작점
+  prompt/data.js        앞글 변형·방향 확률·숨은 쪽지 — 시나리오 수정은 여기서
+  prompt/promptSim.js   같은 질문, 다른 앞글 연출 (확률 재배치 + 룰렛)
+  prompt/hiddenNoteSim.js  숨은 쪽지(시스템 프롬프트) 연출
   context/app.js        대화의 비밀 시작점
   context/data.js       대화 각본·토큰 수·집중력 곡선 — 각본 수정은 여기서
   context/chatSim.js    채팅 화면 ↔ 전송 묶음 ↔ 게이지 연출
@@ -142,6 +170,8 @@ tests/
   smoke.test.mjs        엔진·데이터 검증 (node tests/smoke.test.mjs)
   tokens.test.mjs       토크나이저 검증 (node tests/tokens.test.mjs)
   hallucination.test.mjs 환각 시나리오 검증 (node tests/hallucination.test.mjs)
+  calc.test.mjs         계산 시나리오 검증 (node tests/calc.test.mjs)
+  prompt.test.mjs       프롬프트 시나리오 검증 (node tests/prompt.test.mjs)
   context.test.mjs      대화 각본 검증 (node tests/context.test.mjs)
 ```
 
@@ -160,10 +190,14 @@ tests/
 node tests/smoke.test.mjs
 node tests/tokens.test.mjs
 node tests/hallucination.test.mjs
+node tests/calc.test.mjs
+node tests/prompt.test.mjs
 node tests/context.test.mjs
 ```
 
 모든 시나리오가 무한 루프 없이 끝나는지, 확률 합이 1인지, 온도 효과가 올바른지,
 토크나이저가 strawberry를 st/raw/berry로 자르고 한국어에 토큰을 더 쓰는지,
-환각 시나리오의 두 질문이 비슷한 확신도로 끝나는지, 대화 각본의 토큰 수가
-매 턴 늘어나 1만 토큰 경고선을 넘는지 검사합니다.
+환각 시나리오의 두 질문이 비슷한 확신도로 끝나는지, 계산 시나리오에서 쉬운
+계산은 정답이 압도적 1등이고 어려운 계산은 어떤 경로로도 정답이 나오지 않는지,
+프롬프트 앞글이 의도한 방향을 압도적 1등으로 밀어 올리는지, 대화 각본의 토큰
+수가 매 턴 늘어나 1만 토큰 경고선을 넘는지 검사합니다.

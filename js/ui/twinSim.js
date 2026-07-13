@@ -1,16 +1,18 @@
-// twinSim.js — '환각의 비밀' 핵심 화면.
-// 진짜 질문과 세상에 없는 것을 묻는 질문을 같은 확률 기계에 동시에 넣고,
+// twinSim.js — 두 시나리오를 나란히 재생하는 공용 화면 ('환각의 비밀'·'계산의 비밀'에서 사용).
+// 왼쪽·오른쪽 질문을 같은 확률 기계에 동시에 넣고,
 // 두 쪽 모두 같은 방식으로 다음 단어를 뽑아 나가는 모습을 나란히 보여 준다.
 //
 // 진행은 두 단계가 번갈아 반복되는 상태 기계다 (첫 페이지와 같은 조작 방식):
 //   1단계(bars): 다음 단어 후보들의 확률 계산 → 막대로 표시
 //   2단계(pick): 확률 룰렛으로 하나를 뽑아 답에 붙임
 // '한 단계씩' 버튼으로 한 단계씩 볼 수도 있고, 자동 재생 + 속도 조절도 된다.
+//
+// 페이지마다 다른 것(시나리오, 노란색으로 강조할 정직한 후보, 평결 문구)은
+// options로 받는다 — 이 파일은 어떤 페이지의 데이터도 직접 모른다.
 
 import { el, formatPct } from '../utils.js';
 import { getDistribution, sampleIndex } from '../core/model.js';
 import { END_TOKEN } from '../config.js';
-import { TWIN, HONEST_TOKENS } from './data.js';
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -20,16 +22,25 @@ const DURATIONS = { bars: 2800, pick: 2000 };
 /** 룰렛이 돌아가는 시간(ms) */
 const ROULETTE_MS = 1100;
 
-const STAGE_LABELS = {
+const DEFAULT_STAGE_LABELS = {
   idle: '자동 재생이나 한 단계씩을 눌러 시작해 보세요',
   bars: '1단계: 두 질문 모두, 다음 단어 후보의 확률을 계산해요',
   pick: '2단계: 확률 룰렛을 돌려 단어 하나를 뽑아 답에 붙여요',
   done: '끝! 두 답의 확신도를 비교해 보세요',
 };
 
-export function initTwinSim(refs) {
-  // refs: panels: { real: {answer, probList, conf}, fake: {...} },
-  //       btnPlay, btnStep, btnReset, speedSelect, stageLabel, verdict, verdictText
+/**
+ * @param refs    panels: { <key>: {answer, probList, conf}, ... },
+ *                btnPlay, btnStep, btnReset, speedSelect, stageLabel, verdict, verdictText
+ * @param options scenarios: { <key>: 시나리오, ... } — refs.panels와 같은 키,
+ *                honestTokens: Set — 노란색으로 강조할 정직한 후보,
+ *                buildVerdict({ avg, states }): 평결 HTML 문자열을 돌려주는 함수,
+ *                stageLabels: '지금 하는 일' 문구 덮어쓰기(선택)
+ */
+export function initTwinSim(refs, options) {
+  const { scenarios, honestTokens = new Set(), buildVerdict } = options;
+  const stageLabels = { ...DEFAULT_STAGE_LABELS, ...(options.stageLabels ?? {}) };
+  const keys = Object.keys(scenarios);
 
   let states;
   let phase = null;   // null(다음은 bars) | 'bars'(다음은 pick)
@@ -49,7 +60,7 @@ export function initTwinSim(refs) {
     };
   }
 
-  const activeKeys = () => Object.keys(states).filter((k) => !states[k].done);
+  const activeKeys = () => keys.filter((k) => !states[k].done);
   const finished = () => activeKeys().length === 0;
 
   // ── 그리기 ─────────────────────────────────────────
@@ -68,7 +79,7 @@ export function initTwinSim(refs) {
     const list = refs.panels[key].probList;
     list.replaceChildren();
     const rows = s.dist.map((d) => {
-      const row = el('div', `prob-row${HONEST_TOKENS.has(d.token) ? ' honest' : ''}`);
+      const row = el('div', `prob-row${honestTokens.has(d.token) ? ' honest' : ''}`);
       row.dataset.token = d.token;
       row.appendChild(el('span', 'prob-token', d.token === END_TOKEN ? '(답 끝)' : d.token));
       const track = el('div', 'prob-bar-track');
@@ -84,7 +95,7 @@ export function initTwinSim(refs) {
   }
 
   function setStage(name) {
-    refs.stageLabel.textContent = STAGE_LABELS[name];
+    refs.stageLabel.textContent = stageLabels[name];
   }
 
   function setButtons() {
@@ -158,14 +169,8 @@ export function initTwinSim(refs) {
 
   function showVerdict() {
     setStage('done');
-    const honestP = getDistribution(TWIN.fake, TWIN.fake.prompt.at(-1))
-      .filter((c) => HONEST_TOKENS.has(c.token))
-      .reduce((a, c) => a + c.p, 0);
-    refs.verdictText.innerHTML =
-      `두 답의 평균 확신도는 왼쪽 <strong>${formatPct(avgConf('real'))}</strong>, ` +
-      `오른쪽 <strong>${formatPct(avgConf('fake'))}</strong>로 비슷했어요. ` +
-      `하지만 오른쪽 답은 전부 지어낸 것이에요. 확률 기계에게 당당한 말투와 사실 여부는 별개예요. ` +
-      `"그런 건 없어요"가 뽑힐 확률은 처음부터 <strong>${formatPct(honestP)}</strong>뿐이었거든요.`;
+    const avg = Object.fromEntries(keys.map((k) => [k, avgConf(k)]));
+    refs.verdictText.innerHTML = buildVerdict({ avg, states });
     refs.verdict.hidden = false;
   }
 
@@ -201,11 +206,11 @@ export function initTwinSim(refs) {
   // ── 초기화 ─────────────────────────────────────────
   function reset() {
     stopAuto();
-    states = { real: makeState(TWIN.real), fake: makeState(TWIN.fake) };
+    states = Object.fromEntries(keys.map((k) => [k, makeState(scenarios[k])]));
     phase = null;
     refs.verdict.hidden = true;
     setStage('idle');
-    for (const key of ['real', 'fake']) {
+    for (const key of keys) {
       drawAnswer(key);
       refs.panels[key].conf.textContent = '—';
       refs.panels[key].probList.replaceChildren(

@@ -1,0 +1,255 @@
+/* prompt.css — '프롬프트의 비밀' 페이지 전용 스타일
+   (확률 막대 .prob-row, 버튼 등은 components.css를 그대로 사용) */
+
+/* ── 데모 머리글 ── */
+.prompt-sim {
+  margin-top: 36px;
+}
+
+.hidden-sim {
+  margin-top: 72px;
+}
+
+.demo-head {
+  text-align: center;
+}
+
+.demo-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.demo-sub {
+  margin-top: 8px;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── 변형 고르기 버튼 줄 (앞글·숨은 쪽지 공용) ── */
+.variant-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 22px 0 16px;
+}
+
+.variant-btn {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.variant-btn:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.variant-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+/* ── 두 패널 배치 ── */
+.prompt-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.prompt-panel {
+  min-height: 0; /* 내용 높이에 맞춤 (components.css의 480px 최소 높이 해제) */
+  gap: 0;
+}
+
+/* ── 전송되는 글 상자 ── */
+.send-box {
+  background: var(--track);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* 추가된 앞글: 노란 형광펜 느낌으로 강조 */
+.send-prefix {
+  background: #fef9c3;                 /* yellow-100 */
+  border: 1.5px solid #fde047;         /* yellow-300 */
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  animation: pop-in 0.3s ease;
+}
+
+.send-prefix.empty {
+  background: transparent;
+  border: 1.5px dashed var(--text-soft);
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+.send-question {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+
+.variant-note {
+  margin-top: 14px;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+/* ── 방향 확률 막대: 이름표가 길어서 칸을 넓힘 ── */
+.direction-probs {
+  flex: 0 0 auto;
+  margin-bottom: 16px;
+}
+
+.direction-probs .prob-row {
+  grid-template-columns: 178px 1fr 52px;
+}
+
+/* ── 룰렛 버튼과 뽑힌 답 ── */
+.btn-sample {
+  align-self: stretch;
+}
+
+.sampled-answer {
+  margin-top: 14px;
+  background: var(--accent-soft);
+  border: 1.5px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  animation: pop-in 0.3s ease;
+}
+
+.sampled-answer[hidden] {
+  display: none;
+}
+
+.sampled-direction {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  margin-bottom: 6px;
+}
+
+.sampled-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ── 데모 2: 채팅 화면 ── */
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--track);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  min-height: 180px;
+}
+
+/* 답 말풍선을 매번 새로 갈아 끼우는 자리 — 배치는 부모 flex를 그대로 따른다 */
+.chat-answer-slot {
+  display: contents;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 11px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.chat-user {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-ai {
+  align-self: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-bottom-left-radius: 4px;
+  animation: pop-in 0.35s ease;
+}
+
+/* ── 데모 2: 숨은 쪽지 ── */
+.hidden-note {
+  background: #fffbeb;                 /* amber-50 */
+  border: 1.5px dashed #f59e0b;        /* amber-500 */
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.hidden-note-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #b45309;                      /* amber-700 */
+  margin-bottom: 6px;
+}
+
+.hidden-note p {
+  font-weight: 600;
+}
+
+.bundle-speaker {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+/* ── 좁은 화면 ── */
+@media (max-width: 1024px) {
+  .prompt-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  .prompt-sim {
+    margin-top: 24px;
+  }
+
+  .hidden-sim {
+    margin-top: 48px;
+  }
+
+  .variant-btn {
+    flex: 1 1 calc(50% - 10px);
+    padding: 9px 10px;
+    font-size: 0.85rem;
+  }
+
+  .direction-probs .prob-row {
+    grid-template-columns: 118px 1fr 44px;
+  }
+
+  .direction-probs .prob-token {
+    font-size: 0.82rem;
+  }
+}

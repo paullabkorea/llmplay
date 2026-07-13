@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI는 왜 당당하게 지어낼까? | 환각의 비밀</title>
-  <meta name="description" content="확률 기계는 '모른다'를 잘 뽑지 않아요. 진짜 질문과 말도 안 되는 질문을 같은 기계에 넣어 환각(할루시네이션)의 원리를 보여주는 시뮬레이션" />
+  <title>AI는 왜 수학을 틀릴까? | 계산의 비밀</title>
+  <meta name="description" content="AI는 계산기가 아니에요. 12+34도, 48,372×2,917도 똑같이 다음 숫자 조각을 확률로 뽑을 뿐이라는 것을 보여주는 시뮬레이션" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="LLM 시뮬레이터" />
   <meta property="og:locale" content="ko_KR" />
-  <meta property="og:title" content="AI는 왜 당당하게 지어낼까? | 환각의 비밀" />
-  <meta property="og:description" content="확률 기계는 '모른다'를 잘 뽑지 않아요. 진짜 질문과 말도 안 되는 질문을 같은 기계에 넣어 환각(할루시네이션)의 원리를 보여주는 시뮬레이션" />
-  <meta property="og:url" content="https://llmplay.weniv.co.kr/hallucination.html" />
+  <meta property="og:title" content="AI는 왜 수학을 틀릴까? | 계산의 비밀" />
+  <meta property="og:description" content="AI는 계산기가 아니에요. 12+34도, 48,372×2,917도 똑같이 다음 숫자 조각을 확률로 뽑을 뿐이라는 것을 보여주는 시뮬레이션" />
+  <meta property="og:url" content="https://llmplay.weniv.co.kr/calc.html" />
   <meta property="og:image" content="https://llmplay.weniv.co.kr/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -30,8 +30,8 @@
       <div class="nav-links">
         <a href="index.html">단어 맞히기</a>
         <a href="tokens.html">토큰의 비밀</a>
-        <a href="hallucination.html" class="active" aria-current="page">환각의 비밀</a>
-        <a href="calc.html">계산의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="calc.html" class="active" aria-current="page">계산의 비밀</a>
         <a href="prompt.html">프롬프트의 비밀</a>
         <a href="context.html">대화의 비밀</a>
         <a href="training.html">학습의 비밀</a>
@@ -48,46 +48,48 @@
   </nav>
 
   <header class="site-header">
-    <h1>AI는 왜 당당하게 지어낼까?</h1>
+    <h1>AI는 왜 수학을 틀릴까?</h1>
     <p class="subtitle">
-      AI는 정답을 아는 게 아니라 <strong>다음에 올 확률이 높은 단어를 뽑을 뿐</strong>이에요.
-      답이 세상에 없어도, 기계는 멈추지 않고 그럴듯한 단어를 계속 뽑아요.
+      AI는 계산기가 아니에요. 12+34도, 48,372×2,917도 똑같이
+      <strong>다음에 올 숫자 조각을 확률로 뽑을 뿐</strong>이에요.
+      많이 본 문제는 외워서 맞히고, 처음 보는 문제는 그럴듯하게 지어내요.
     </p>
   </header>
 
   <main>
     <!-- ───────── 트윈 시뮬레이터 ───────── -->
-    <section class="sim twin-sim" aria-label="환각 시뮬레이터">
+    <section class="sim twin-sim" aria-label="계산 시뮬레이터">
       <div class="twin-stage">
-        <!-- 왼쪽: 진짜 질문 -->
+        <!-- 왼쪽: 훈련 데이터에 수없이 나온 계산 -->
         <div class="panel twin-panel">
-          <h2 class="panel-title">진짜 있는 것을 묻는 질문</h2>
-          <p class="twin-question" id="q-real"></p>
+          <h2 class="panel-title">훈련 데이터에 수없이 나온 계산</h2>
+          <p class="twin-question" id="q-easy"></p>
           <h3 class="twin-label">만들어지는 답</h3>
-          <div class="ans-area" id="answer-real" aria-live="polite"></div>
+          <div class="ans-area" id="answer-easy" aria-live="polite"></div>
           <h3 class="twin-label">
-            다음 단어 후보
-            <span class="conf-inline">뽑힌 단어의 확률 <strong class="conf-value" id="conf-real">—</strong></span>
+            다음 조각 후보
+            <span class="conf-inline">뽑힌 조각의 확률 <strong class="conf-value" id="conf-easy">—</strong></span>
           </h3>
-          <div class="prob-list" id="probs-real"></div>
+          <div class="prob-list" id="probs-easy"></div>
         </div>
 
-        <!-- 오른쪽: 세상에 없는 것을 묻는 질문 -->
+        <!-- 오른쪽: 훈련 데이터에 없는 계산 -->
         <div class="panel twin-panel twin-fake">
-          <h2 class="panel-title">세상에 없는 것을 묻는 질문</h2>
-          <p class="twin-question" id="q-fake"></p>
+          <h2 class="panel-title">훈련 데이터에 없는 계산</h2>
+          <p class="twin-question" id="q-hard"></p>
           <h3 class="twin-label">만들어지는 답</h3>
-          <div class="ans-area" id="answer-fake" aria-live="polite"></div>
+          <div class="ans-area" id="answer-hard" aria-live="polite"></div>
           <h3 class="twin-label">
-            다음 단어 후보
-            <span class="conf-inline">뽑힌 단어의 확률 <strong class="conf-value" id="conf-fake">—</strong></span>
+            다음 조각 후보
+            <span class="conf-inline">뽑힌 조각의 확률 <strong class="conf-value" id="conf-hard">—</strong></span>
           </h3>
-          <div class="prob-list" id="probs-fake"></div>
+          <div class="prob-list" id="probs-hard"></div>
         </div>
       </div>
 
       <p class="honest-note">
-        노란 막대가 "그런 건 없어요"예요. 이 확률이 얼마나 작은지 지켜보세요.
+        노란 막대가 "계산기가 필요해요"예요. 이 확률이 얼마나 작은지,
+        그리고 숫자가 <strong>계산이 아니라 조각 단위로 뽑히는지</strong> 지켜보세요.
       </p>
 
       <!-- 평결 -->
@@ -133,49 +135,49 @@
 
       <div class="concept-row" id="concept-row">
         <div class="concept">
-          <button class="concept-btn" type="button" aria-expanded="false">환각 (Hallucination)</button>
+          <button class="concept-btn" type="button" aria-expanded="false">계산이 아니라 예측</button>
           <div class="concept-pop" hidden>
             <p>
-              AI가 사실이 아닌 것을 <strong>사실처럼 당당하게</strong> 말하는 현상이에요.
-              거짓말(속이려는 의도)이 아니라, 확률 기계가 그럴듯한 단어를 뽑다 보니
-              생기는 <em>구조적인 부작용</em>이에요. 없는 논문, 없는 판례, 없는 함수를
-              지어내는 사고가 실제로 일어나요.
+              LLM에게 숫자는 그냥 <a href="tokens.html">토큰 조각</a>이에요.
+              "12 + 34 ="을 받으면 덧셈 회로를 돌리는 게 아니라,
+              <strong>이런 글 다음에 어떤 조각이 자주 왔는지</strong>를 확률로 계산해요.
+              큰 숫자가 조각 단위로 뽑히다가 틀리는 이유예요.
             </p>
           </div>
         </div>
 
         <div class="concept">
-          <button class="concept-btn" type="button" aria-expanded="false">왜 "모른다"고 안 할까?</button>
+          <button class="concept-btn" type="button" aria-expanded="false">왜 쉬운 계산은 맞을까?</button>
           <div class="concept-pop" hidden>
             <p>
-              훈련 데이터 속 문장들은 대부분 질문에 <strong>답을 하는</strong> 글이에요.
-              그래서 "모르겠어요"가 뽑힐 확률은 늘 작게 계산돼요. 요즘 모델은
-              모를 때 모른다고 말하도록 <em>추가 훈련</em>을 받지만, 원리가 확률 뽑기인
-              이상 완전히 사라지지는 않아요.
+              "12 + 34 = 46" 같은 문장은 훈련 데이터에 <strong>수없이 등장</strong>해요.
+              그래서 정답 조각의 확률이 압도적으로 높아져요. 우리가 구구단을
+              계산하지 않고 <em>외워서</em> 답하는 것과 비슷해요. 처음 보는
+              큰 곱셈은 외운 적이 없으니 자릿수 감으로 지어낼 수밖에 없어요.
             </p>
           </div>
         </div>
 
         <div class="concept">
-          <button class="concept-btn" type="button" aria-expanded="false">어떻게 줄일 수 있을까?</button>
+          <button class="concept-btn" type="button" aria-expanded="false">요즘 AI는 수학을 잘하던데?</button>
           <div class="concept-pop" hidden>
             <p>
-              질문에 <strong>"모르면 모른다고 답해 줘"</strong>라고 덧붙이기,
-              <strong>출처를 함께</strong> 요구하기, 검색 결과나 자료를
-              <a href="context.html">묶음</a>에 넣어 주기.
-              근거를 쥐여 주면 지어낼 이유가 줄어들어요.
+              두 가지 요령 덕분이에요. 풀이 과정을 <strong>한 줄씩 쓰면서</strong> 풀면
+              각 단계가 쉬운 예측이 되어 정확도가 크게 올라가고(생각의 사슬),
+              아예 <strong>계산기나 코드 실행 도구</strong>를 몰래 불러 쓰기도 해요.
+              원리가 확률 뽑기라는 건 변하지 않아요.
             </p>
           </div>
         </div>
 
         <div class="concept">
-          <button class="concept-btn" type="button" aria-expanded="false">그럼 믿으면 안 되나?</button>
+          <button class="concept-btn" type="button" aria-expanded="false">어떻게 써야 할까?</button>
           <div class="concept-pop" hidden>
             <p>
-              <strong>말투의 확신 ≠ 사실</strong>이라는 것만 기억하면 돼요.
-              이름·날짜·숫자·출처처럼 <em>틀리면 곤란한 정보</em>는 꼭 검증하는
-              습관을 들이세요. 시뮬레이션에서 봤듯, 지어낸 답도 확신도는
-              진짜 답과 거의 같으니까요.
+              돈·점수·통계처럼 <strong>틀리면 곤란한 숫자</strong>는 꼭 검산하세요.
+              AI에게 "풀이 과정을 단계별로 보여 줘"라고 부탁하면 정확도가 올라가고,
+              틀린 단계를 찾기도 쉬워져요. <a href="hallucination.html">환각의 비밀</a>에서
+              봤듯, 당당한 말투는 정답의 증거가 아니에요.
             </p>
           </div>
         </div>
@@ -184,6 +186,6 @@
   </main>
 
   <script type="module" src="js/nav.js"></script>
-  <script type="module" src="js/hallucination/app.js"></script>
+  <script type="module" src="js/calc/app.js"></script>
 </body>
 </html>

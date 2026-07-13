@@ -1,5 +1,5 @@
-/* hallucination.css — '환각의 비밀' 페이지 전용 스타일
-   (확률 막대 .prob-row 등은 components.css를 그대로 사용) */
+/* twin.css — 두 질문을 나란히 재생하는 트윈 시뮬레이터 스타일
+   ('환각의 비밀'·'계산의 비밀' 공용. 확률 막대 .prob-row 등은 components.css를 그대로 사용) */
 
 .twin-stage {
   display: grid;

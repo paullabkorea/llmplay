@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI에게 왜 자세히 말해야 할까? | 프롬프트의 비밀</title>
+  <meta name="description" content="AI는 마음을 읽는 게 아니라 받은 글만 보고 확률을 계산해요. 앞에 붙이는 글에 따라 답의 확률이 통째로 달라지는 것을 보여주는 시뮬레이션" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM 시뮬레이터" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="AI에게 왜 자세히 말해야 할까? | 프롬프트의 비밀" />
+  <meta property="og:description" content="AI는 마음을 읽는 게 아니라 받은 글만 보고 확률을 계산해요. 앞에 붙이는 글에 따라 답의 확률이 통째로 달라지는 것을 보여주는 시뮬레이션" />
+  <meta property="og:url" content="https://llmplay.weniv.co.kr/prompt.html" />
+  <meta property="og:image" content="https://llmplay.weniv.co.kr/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/prompt.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="calc.html">계산의 비밀</a>
+        <a href="prompt.html" class="active" aria-current="page">프롬프트의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+      </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>AI에게 왜 자세히 말해야 할까?</h1>
+    <p class="subtitle">
+      AI는 마음을 읽는 게 아니라 <strong>받은 글만 보고 확률을 계산</strong>해요.
+      질문 앞에 어떤 글을 붙이느냐에 따라, 답의 확률이 통째로 달라져요.
+    </p>
+  </header>
+
+  <main>
+    <!-- ───────── 데모 1: 같은 질문, 다른 앞글 ───────── -->
+    <section class="sim prompt-sim" aria-label="같은 질문, 다른 앞글">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 1 · 같은 질문, 다른 앞글</h2>
+        <p class="demo-sub">
+          질문 "사과에 대해 알려줘."는 그대로 두고, 앞에 붙이는 글만 바꿔 보세요.
+          오른쪽 확률 막대가 실시간으로 재배치돼요.
+        </p>
+      </div>
+
+      <div class="variant-row" id="variant-row" role="group" aria-label="앞글 고르기"></div>
+
+      <div class="prompt-stage">
+        <div class="panel prompt-panel">
+          <h2 class="panel-title">AI에게 실제로 전송되는 글</h2>
+          <div class="send-box">
+            <p class="send-prefix empty" id="send-prefix"></p>
+            <p class="send-question" id="send-question"></p>
+          </div>
+          <p class="variant-note" id="variant-note" aria-live="polite"></p>
+        </div>
+
+        <div class="panel prompt-panel">
+          <h2 class="panel-title">답이 향할 방향의 확률</h2>
+          <div class="prob-list direction-probs" id="direction-probs"></div>
+          <button id="btn-sample" class="btn btn-primary btn-sample" type="button">룰렛 돌려 답 뽑아 보기</button>
+          <div class="sampled-answer" id="sampled-answer" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 데모 2: 챗봇의 숨은 쪽지 ───────── -->
+    <section class="sim hidden-sim" aria-label="챗봇의 숨은 쪽지">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 2 · 챗봇의 숨은 쪽지</h2>
+        <p class="demo-sub">
+          챗봇은 여러분의 말 앞에 항상 <strong>숨은 쪽지(시스템 프롬프트)</strong>를 몰래 붙여 보내요.
+          쪽지를 바꾸면 같은 질문에도 전혀 다른 답이 나와요.
+        </p>
+      </div>
+
+      <div class="variant-row" id="note-btn-row" role="group" aria-label="숨은 쪽지 고르기"></div>
+
+      <div class="prompt-stage">
+        <div class="panel prompt-panel">
+          <h2 class="panel-title">여러분이 보는 채팅 화면</h2>
+          <div class="chat-area">
+            <div class="chat-bubble chat-user" id="chat-question"></div>
+            <div class="chat-answer-slot" id="chat-answer-slot"></div>
+          </div>
+        </div>
+
+        <div class="panel prompt-panel">
+          <h2 class="panel-title">실제로 전송되는 묶음</h2>
+          <div class="send-box">
+            <div class="hidden-note">
+              <span class="hidden-note-tag">숨은 쪽지 (사용자에게는 안 보여요)</span>
+              <p id="note-text"></p>
+            </div>
+            <p class="send-question"><span class="bundle-speaker">사용자:</span> <span id="bundle-question"></span></p>
+          </div>
+          <p class="variant-note">
+            여러분이 쓰는 챗봇에도 이런 쪽지가 항상 붙어 있어요. "너는 ○○ 역할이야"라고
+            직접 써 주는 것도 쪽지를 한 장 더 얹는 것과 같은 원리예요.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 핵심 개념 ───────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">시뮬레이션에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">프롬프트 (Prompt)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI에게 전송되는 <strong>글 전체</strong>를 말해요. 질문만이 아니라
+              역할 지시, 예시, 붙여 넣은 자료, 이전 대화까지 모두 포함해요.
+              AI는 이 글자들만 보고 다음 단어의 확률을 계산하니까,
+              <em>프롬프트가 곧 AI가 아는 세상의 전부</em>예요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">AI는 마음을 못 읽어요</button>
+          <div class="concept-pop" hidden>
+            <p>
+              내 머릿속 상황은 프롬프트에 <strong>쓰지 않으면 존재하지 않는 정보</strong>예요.
+              데모 1에서 봤듯, 상황을 한 줄만 알려 줘도 원하는 방향의 확률이
+              확 올라가요. AI의 답이 엉뚱하다면 대부분
+              <em>맥락을 덜 준 것</em>이 원인이에요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">시스템 프롬프트</button>
+          <div class="concept-pop" hidden>
+            <p>
+              챗봇 회사가 <a href="context.html">전송 묶음</a> 맨 앞에 붙이는
+              <strong>숨은 지시문</strong>이에요. 말투, 지켜야 할 규칙, 하지 말아야 할 일이
+              적혀 있어요. 같은 모델이라도 이 쪽지가 다르면 전혀 다른 성격의
+              챗봇처럼 보여요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">좋은 프롬프트 요령</button>
+          <div class="concept-pop" hidden>
+            <p>
+              <strong>상황</strong>(내가 누구고 왜 묻는지), <strong>역할</strong>(너는 ○○야),
+              <strong>조건</strong>(다섯 줄 이내로, 초등학생 눈높이로),
+              <strong>예시</strong>(이런 식으로)를 담아 보세요.
+              전부 <em>원하는 답의 확률을 끌어올리는</em> 장치예요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/prompt/app.js"></script>
+</body>
+</html>
