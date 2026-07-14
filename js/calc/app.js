@@ -4,6 +4,7 @@
 import { $, formatPct } from '../utils.js';
 import { initTwinSim } from '../ui/twinSim.js';
 import { initConcepts } from '../ui/concepts.js';
+import { initDigitSim } from './digits.js';
 import { getDistribution } from '../core/model.js';
 import { CALC_TWIN, HONEST_TOKENS, CORRECT } from './data.js';
 
@@ -73,5 +74,13 @@ function getHonestP() {
     .filter((c) => HONEST_TOKENS.has(c.token))
     .reduce((a, c) => a + c.p, 0);
 }
+
+initDigitSim({
+  grid: $('#digit-grid'),
+  verdict: $('#digit-verdict'),
+  trace: $('#digit-trace'),
+  btnGrow: $('#digit-grow'),
+  btnReset: $('#digit-reset'),
+});
 
 initConcepts($('#concept-row'));

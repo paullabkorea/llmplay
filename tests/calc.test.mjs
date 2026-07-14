@@ -1,6 +1,7 @@
 // calc.test.mjs — '계산의 비밀' 시나리오 검증.
 // 브라우저 없이 실행: node tests/calc.test.mjs
 import { CALC_TWIN, HONEST_TOKENS, CORRECT } from '../js/calc/data.js';
+import { chunksLtr, groupsRtl, isAligned, placeName } from '../js/calc/digits.js';
 import { getDistribution, sampleIndex } from '../js/core/model.js';
 import { END_TOKEN } from '../js/config.js';
 
@@ -66,6 +67,21 @@ for (const scenario of [CALC_TWIN.easy, CALC_TWIN.hard]) {
     if (n === CORRECT.hard) fail(`정답이 나올 수 있는 경로가 있음: ${n}`);
   }
   console.log(`어려운 계산의 가능한 답 ${numbers.length}가지 — 전부 오답 (예: ${numbers[0]})`);
+}
+
+// 6) 자릿수 vs 토큰 실험: 두 묶음이 실제로 어긋나야 연출이 성립한다
+{
+  if (chunksLtr('48372').join('|') !== '483|72') fail(`토큰 묶음 오류: ${chunksLtr('48372')}`);
+  if (groupsRtl('48372').join('|') !== '48|372') fail(`자릿수 묶음 오류: ${groupsRtl('48372')}`);
+  if (isAligned('48372')) fail('5자리 숫자가 정렬로 판정됨');
+  if (!isAligned('148372')) fail('6자리 숫자는 정렬이어야 함');
+  if (placeName(4) !== '만') fail(`자릿수 이름 오류: ${placeName(4)}`);
+
+  // 앞에 숫자를 붙일 때마다 일의 자리가 든 조각이 바뀌어야 한다 — 실험의 핵심 장치
+  const tail = (s) => chunksLtr(s).at(-1);
+  const seq = ['48372', '148372', '9148372'].map(tail);
+  if (new Set(seq).size !== 3) fail(`일의 자리 조각이 바뀌지 않음: ${seq.join(', ')}`);
+  console.log(`일의 자리 2가 든 조각의 변화: ${seq.join(' → ')}`);
 }
 
 console.log(failures === 0 ? '\n모든 테스트 통과 ✅' : `\n실패 ${failures}건 ❌`);

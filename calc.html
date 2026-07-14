@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/twin.css" />
+  <link rel="stylesheet" href="css/calc.css" />
 </head>
 <body>
   <nav class="site-nav" aria-label="주 메뉴">
@@ -125,6 +126,39 @@
           <span class="control-label">지금 하는 일</span>
           <p class="stage-label" id="stage-label"></p>
         </div>
+      </div>
+    </section>
+
+    <!-- ───────── 자릿수 vs 토큰 실험 ───────── -->
+    <section class="digit" aria-label="자릿수와 토큰 묶음 비교 실험">
+      <h2 class="learn-title">숫자는 자릿수대로 잘리지 않아요</h2>
+      <p class="learn-sub">같은 숫자를 사람은 일의 자리부터 묶어 읽고, 토큰은 앞에서부터 잘라요</p>
+
+      <div class="panel digit-panel">
+        <p class="digit-view-label">
+          사람이 보는 것: 자릿수 묶음 <span>(일의 자리부터 3칸씩, 쉼표가 눈금)</span>
+        </p>
+        <div class="digit-grid" id="digit-grid" aria-label="자릿수 묶음과 토큰 묶음 비교"></div>
+
+        <p class="digit-verdict" id="digit-verdict" aria-live="polite"></p>
+        <p class="digit-trace" id="digit-trace" aria-live="polite"></p>
+
+        <div class="digit-controls">
+          <button id="digit-grow" class="btn btn-primary" type="button">앞에 숫자 하나 붙이기</button>
+          <button id="digit-reset" class="btn" type="button">처음부터</button>
+        </div>
+
+        <p class="digit-note">
+          덧셈·곱셈은 <strong>일의 자리부터</strong> 자리를 맞춰야 하는데, AI에게 도착하는
+          조각은 이렇게 자릿수와 어긋나 있어요. <a href="tokens.html">토큰의 비밀</a>에서 본
+          "글자가 안 보이는 구조"가, 숫자에서는 <strong>"자릿수가 안 보이는 구조"</strong>가
+          되는 거예요.
+        </p>
+        <p class="model-note">
+          ※ 교육용 모형이지만 실제와 같은 방식이에요. GPT 계열 토크나이저는 숫자를
+          앞에서부터 최대 3자리씩 잘라요. 최신 모델 중에는 계산을 돕기 위해 일부러
+          일의 자리부터 묶는 것도 있어요 — 그만큼 자릿수가 계산에 중요하거든요.
+        </p>
       </div>
     </section>
 

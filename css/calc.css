@@ -1,0 +1,182 @@
+/* calc.css — '계산의 비밀' 페이지 전용 스타일 (자릿수 vs 토큰 실험) */
+
+.digit {
+  margin-top: 88px;
+}
+
+.digit-panel {
+  max-width: 860px;
+  margin: 28px auto 0;
+  min-height: 0;
+  gap: 18px;
+  align-items: center;
+  text-align: center;
+}
+
+.digit-view-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.digit-view-label span {
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+/* 한 자리 = 한 칸. 위 줄은 자릿수 셀, 아래 줄은 같은 칸을 덮는 토큰 칩 */
+.digit-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--dg-n, 5), minmax(30px, 46px));
+  column-gap: 6px;
+  row-gap: 12px;
+  justify-content: center;
+}
+
+.dg-cell {
+  position: relative;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0 4px;
+  border: 1.5px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+/* 자릿수 3칸 묶음을 배경색 교차로 표시 */
+.dg-alt {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.dg-digit {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dg-place {
+  font-size: 0.62rem;
+  color: var(--text-soft);
+}
+
+/* 천 단위 쉼표 — 사람의 눈금 */
+.dg-comma::before {
+  content: ",";
+  position: absolute;
+  left: -7px;
+  bottom: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+}
+
+.dg-mid {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
+  width: max-content;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+/* 토큰 칩 — 토큰의 비밀 페이지의 tok-piece와 같은 문법 */
+.dg-chip {
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 4px 5px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--tok-color, var(--accent));
+  background: color-mix(in srgb, var(--tok-color, var(--accent)) 8%, white);
+  animation: pop-in 0.3s ease backwards;
+}
+
+.dg-chip-text {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.dg-chip-id {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+}
+
+/* 자릿수 묶음 한가운데를 가른 토큰 경계 = 칼자국 */
+.dg-cut {
+  border-left: 3px dashed #dc2626;   /* red-600 */
+}
+
+.dg-cut-mark {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.digit-verdict {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 640px;
+}
+
+.digit-trace {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.digit-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.digit-note {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  max-width: 640px;
+}
+
+.model-note {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  .digit {
+    margin-top: 56px;
+  }
+
+  .digit-grid {
+    grid-template-columns: repeat(var(--dg-n, 5), minmax(24px, 36px));
+    column-gap: 4px;
+  }
+
+  .dg-digit {
+    font-size: 1.05rem;
+  }
+
+  .dg-place {
+    font-size: 0.56rem;
+  }
+
+  .dg-chip-text {
+    font-size: 0.95rem;
+  }
+
+  .dg-mid {
+    white-space: normal;
+    width: auto;
+  }
+}
