@@ -5,6 +5,8 @@
 //   붙이느냐에 따라 답이 향할 방향의 확률이 통째로 재배치되는 것을 보여 준다.
 // 데모 2 (숨은 쪽지): 챗봇이 매번 묶음 맨 앞에 몰래 붙이는 시스템 프롬프트가
 //   바뀌면 같은 질문에도 전혀 다른 답이 나오는 것을 보여 준다.
+// 데모 3 (프롬프트 조립하기): 상황·역할·조건·예시 재료를 얹을수록
+//   원하는 답이 나올 확률이 올라가는 것을 게이지와 답변 예시로 보여 준다.
 
 /* ───────── 데모 1: 같은 질문, 다른 앞글 ───────── */
 
@@ -103,3 +105,77 @@ export const HIDDEN_NOTES = [
     answer: '저는 AI 도우미예요!',
   },
 ];
+
+/* ───────── 데모 3: 프롬프트 조립하기 ───────── */
+
+export const BUILD_QUESTION = '여행 계획 좀 짜 줘.';
+
+/** 아무 재료도 없을 때 원하는 답이 나올 확률(%) */
+export const BUILD_BASE = 15;
+
+/**
+ * 얹을 수 있는 재료들. gain은 이 재료가 끌어올리는 확률(%p).
+ * 전부 더해도 100%가 되지 않게 유지한다 — 확률 뽑기라는 본질은 그대로니까.
+ */
+export const INGREDIENTS = [
+  {
+    id: 'situation',
+    tag: '상황',
+    btn: '상황 알려주기',
+    text: '나는 초등학생이고, 부모님·8살 동생과 2박 3일 제주도 여행을 가.',
+    gain: 35,
+  },
+  {
+    id: 'role',
+    tag: '역할',
+    btn: '역할 정해주기',
+    text: '너는 아이와 잘 다니는 가족 여행 가이드야.',
+    gain: 10,
+  },
+  {
+    id: 'condition',
+    tag: '조건',
+    btn: '조건 걸기',
+    text: '하루에 두 곳만 가고, 많이 걷지 않았으면 좋겠어.',
+    gain: 18,
+  },
+  {
+    id: 'example',
+    tag: '예시',
+    btn: '예시 보여주기',
+    text: '"첫째 날 오전: ○○, 오후: ○○" 이런 식으로 써 줘.',
+    gain: 14,
+  },
+];
+
+/** 켠 재료 목록 → 원하는 답이 나올 확률(%) */
+export function buildScore(onIds) {
+  const on = new Set(onIds);
+  return INGREDIENTS.filter((i) => on.has(i.id))
+    .reduce((acc, i) => acc + i.gain, BUILD_BASE);
+}
+
+/**
+ * 켠 재료 목록 → 그때 나올 법한 답변 예시.
+ * 재료마다 문장이 하나씩 달라지거나 추가되도록 조립해서,
+ * 어떤 조합이든 자연스럽게 읽히고 조합끼리 겹치지 않는다.
+ */
+export function buildAnswer(onIds) {
+  const on = new Set(onIds);
+  const parts = [];
+
+  parts.push(on.has('role') ? '가족 여행 가이드로서 추천해 드릴게요!' : '네, 여행 계획을 짜 볼게요.');
+
+  if (on.has('situation')) {
+    parts.push(on.has('example')
+      ? '첫째 날 오전: 협재 해수욕장, 오후: 한림공원. 둘째 날 오전: 아쿠아플라넷, 오후: 성산일출봉. 셋째 날 오전: 동문시장 구경 후 공항으로!'
+      : '8살 동생과 함께라면 협재 해수욕장, 아쿠아플라넷, 성산일출봉을 2박 3일에 나눠 도는 걸 추천해요.');
+    if (on.has('condition')) parts.push('말씀하신 대로 하루 두 곳씩만 넣고, 걷기 적은 곳으로 골랐어요.');
+  } else {
+    parts.push('그런데 어디로, 누구와, 며칠 가시는지 몰라서 유명한 곳을 아무거나 고를 수밖에 없어요. 부산이나 경주는 어떠세요?');
+    if (on.has('condition')) parts.push('일단 하루 두 곳만 도는 일정으로 할게요.');
+    if (on.has('example')) parts.push('형식은 말씀하신 대로 날짜별로 정리해 드릴게요.');
+  }
+
+  return parts.join(' ');
+}

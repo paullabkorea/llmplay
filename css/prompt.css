@@ -222,6 +222,96 @@
   font-weight: 600;
 }
 
+/* ── 데모 3: 프롬프트 조립하기 ── */
+.build-sim {
+  margin-top: 72px;
+}
+
+.ingredient-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ingredient-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* 전송 글 안의 재료 줄: 형광펜 상자 안에 태그 + 문장 */
+.ingredient-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+/* 원하는 답이 나올 확률 게이지 */
+.build-gauge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.build-gauge-track {
+  flex: 1;
+  height: 26px;
+  background: var(--track);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.build-gauge-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f59e0b, var(--accent));  /* amber-500 → accent */
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.build-gauge-pct {
+  min-width: 58px;
+  text-align: right;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.build-missing {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  min-height: 1.5em;
+  margin-bottom: 14px;
+}
+
+.build-answer {
+  background: var(--accent-soft);
+  border: 1.5px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.build-answer-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent-deep);
+  margin-bottom: 6px;
+}
+
+.build-answer p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 /* ── 좁은 화면 ── */
 @media (max-width: 1024px) {
   .prompt-stage {
@@ -235,7 +325,8 @@
     margin-top: 24px;
   }
 
-  .hidden-sim {
+  .hidden-sim,
+  .build-sim {
     margin-top: 48px;
   }
 

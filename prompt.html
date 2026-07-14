@@ -119,8 +119,45 @@
           </div>
           <p class="variant-note">
             여러분이 쓰는 챗봇에도 이런 쪽지가 항상 붙어 있어요. "너는 ○○ 역할이야"라고
-            직접 써 주는 것도 쪽지를 한 장 더 얹는 것과 같은 원리예요.
+            직접 써 주는 것도 쪽지를 한 장 더 얹는 것과 같은 원리예요. 다만 쪽지도
+            마법 명령이 아니라 <strong>확률을 밀어 올리는 장치</strong>라서,
+            아주 가끔은 지켜지지 않을 때도 있어요.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 데모 3: 프롬프트 조립하기 ───────── -->
+    <section class="sim build-sim" aria-label="프롬프트 조립하기">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 3 · 프롬프트 조립하기</h2>
+        <p class="demo-sub">
+          막연한 부탁 "여행 계획 좀 짜 줘."에 <strong>상황·역할·조건·예시</strong>
+          재료를 하나씩 얹어 보세요. 원하는 답이 나올 확률이 눈에 띄게 올라가요.
+        </p>
+      </div>
+
+      <div class="variant-row" id="ingredient-row" role="group" aria-label="재료 얹고 빼기"></div>
+
+      <div class="prompt-stage">
+        <div class="panel prompt-panel">
+          <h2 class="panel-title">AI에게 실제로 전송되는 글</h2>
+          <div class="send-box" id="build-send-box"></div>
+        </div>
+
+        <div class="panel prompt-panel">
+          <h2 class="panel-title">원하는 답이 나올 확률</h2>
+          <div class="build-gauge">
+            <div class="build-gauge-track">
+              <div class="build-gauge-bar" id="build-gauge-bar"></div>
+            </div>
+            <strong class="build-gauge-pct" id="build-gauge-pct">—</strong>
+          </div>
+          <p class="build-missing" id="build-missing" aria-live="polite"></p>
+          <div class="build-answer">
+            <span class="build-answer-tag">이런 답이 나와요</span>
+            <p id="build-answer-text" aria-live="polite"></p>
+          </div>
         </div>
       </div>
     </section>
@@ -173,8 +210,10 @@
             <p>
               <strong>상황</strong>(내가 누구고 왜 묻는지), <strong>역할</strong>(너는 ○○야),
               <strong>조건</strong>(다섯 줄 이내로, 초등학생 눈높이로),
-              <strong>예시</strong>(이런 식으로)를 담아 보세요.
+              <strong>예시</strong>(이런 식으로)를 담아 보세요. 데모 3에서 조립해 봤듯
               전부 <em>원하는 답의 확률을 끌어올리는</em> 장치예요.
+              <a href="calc.html">계산의 비밀</a>에서 본 "풀이 과정을 단계별로
+              보여 줘"도 같은 원리랍니다.
             </p>
           </div>
         </div>
