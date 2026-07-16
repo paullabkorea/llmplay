@@ -11,6 +11,7 @@ overflow.className = 'nav-more';
 overflow.innerHTML = '<summary>더보기</summary><div class="nav-more-menu"></div>';
 overflow.hidden = true;
 const overflowMenu = overflow.querySelector('.nav-more-menu');
+const overflowLabel = overflow.querySelector('summary');
 
 function updateOverflow() {
   overflow.open = false;
@@ -18,14 +19,19 @@ function updateOverflow() {
   // 일단 탭을 전부 원래 자리로 되돌린 뒤 넘치는지 다시 측정
   while (overflowMenu.firstChild) links.appendChild(overflowMenu.firstChild);
   overflow.hidden = true;
+  overflowLabel.textContent = '더보기';
   if (links.scrollWidth <= links.clientWidth) return;
 
   // '더보기' 버튼이 차지할 공간을 먼저 확보하고,
-  // 한 줄에 들어갈 때까지 오른쪽 탭부터 드롭다운으로 이동
+  // 한 줄에 들어갈 때까지 오른쪽 탭부터 드롭다운으로 이동.
+  // 마지막 탭까지 안 들어가면 전부 드롭다운으로 옮긴다(모바일).
   overflow.hidden = false;
-  while (links.scrollWidth > links.clientWidth && links.children.length > 1) {
+  while (links.scrollWidth > links.clientWidth && links.children.length > 0) {
     overflowMenu.prepend(links.lastElementChild);
   }
+
+  // 탭이 하나도 안 남았으면 '더보기'가 아니라 페이지 메뉴 전체이므로 라벨을 바꾼다
+  if (links.children.length === 0) overflowLabel.textContent = '메뉴';
 }
 
 if (links) {

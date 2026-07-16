@@ -313,3 +313,22 @@ main {
     margin-top: 56px;
   }
 }
+
+/* ── 아주 좁은 화면: 로고 + '메뉴' + '위니브 서비스' 두 드롭다운이
+   한 줄에 들어가도록 여백과 크기를 줄인다 ── */
+@media (max-width: 480px) {
+  .site-nav-inner {
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .nav-brand img {
+    height: 20px;
+  }
+
+  .nav-links a,
+  .nav-more summary {
+    font-size: 0.85rem;
+    padding: 6px 9px;
+  }
+}
