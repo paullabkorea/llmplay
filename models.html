@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 모델, 어떤 걸 골라야 할까? | 모델의 비밀</title>
+  <meta name="description" content="AI 모델은 클수록 똑똑하지만 비싸고 느려요. 작업에 맞는 모델을 고르면 같은 일을 더 빠르고 저렴하게 할 수 있다는 것을 보여주는 비교 시뮬레이션" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM 시뮬레이터" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="AI 모델, 어떤 걸 골라야 할까? | 모델의 비밀" />
+  <meta property="og:description" content="AI 모델은 클수록 똑똑하지만 비싸고 느려요. 작업에 맞는 모델을 고르면 같은 일을 더 빠르고 저렴하게 할 수 있다는 것을 보여주는 비교 시뮬레이션" />
+  <meta property="og:url" content="https://llmplay.weniv.co.kr/models.html" />
+  <meta property="og:image" content="https://llmplay.weniv.co.kr/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/models.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="calc.html">계산의 비밀</a>
+        <a href="prompt.html">프롬프트의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+        <a href="models.html" class="active" aria-current="page">모델의 비밀</a>
+      </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>AI 모델, 어떤 걸 골라야 할까?</h1>
+    <p class="subtitle">
+      AI 모델은 클수록 똑똑하지만, 그만큼 <strong>비싸고 느려요</strong>.
+      작업에 딱 맞는 모델을 고르면 같은 일을
+      <strong>훨씬 빠르고 저렴하게</strong> 끝낼 수 있어요.
+    </p>
+  </header>
+
+  <main>
+    <!-- ───────── 데모 1: 가격 비교 ───────── -->
+    <section class="sim price-sim" aria-label="모델별 가격 비교">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 1 · 같은 100만 토큰, 가격은 최대 10배</h2>
+        <p class="demo-sub">
+          AI 회사는 글자 수 대신 <a href="tokens.html">토큰</a> 수로 요금을 매겨요.
+          같은 회사의 모델인데도 어떤 모델이냐에 따라 100만 토큰당 가격이 10배까지 벌어져요.
+        </p>
+      </div>
+
+      <div class="models-stage">
+        <div class="panel models-panel">
+          <h2 class="panel-title">입력 토큰 가격 (100만 토큰당)</h2>
+          <p class="panel-sub">AI에게 보내는 글, 즉 질문과 자료의 값이에요.</p>
+          <div class="bar-chart" id="chart-input"></div>
+        </div>
+
+        <div class="panel models-panel">
+          <h2 class="panel-title">출력 토큰 가격 (100만 토큰당)</h2>
+          <p class="panel-sub">AI가 만들어 내는 답의 값이에요. 입력보다 5배 비싸요.</p>
+          <div class="bar-chart" id="chart-output"></div>
+        </div>
+      </div>
+
+      <p class="chart-note">
+        단위는 미국 달러이고 정가 기준이에요. 두 그래프의 눈금은 서로 달라요.
+        Sonnet 5는 2026년 8월 31일까지 입력 $2 / 출력 $10 할인 가격이 적용돼요.
+      </p>
+    </section>
+
+    <!-- ───────── 데모 2: 성능과 속도 ───────── -->
+    <section class="sim perf-sim" aria-label="모델별 성능과 속도 비교">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 2 · 성능과 속도는 얼마나 다를까?</h2>
+        <p class="demo-sub">
+          가격이 10배라고 성능도 10배는 아니에요. 종합 성능 지수는 1.6배 차이인데
+          가격은 10배 차이가 나요. 대신 작은 모델일수록 답이 훨씬 빨리 나와요.
+        </p>
+      </div>
+
+      <div class="models-stage">
+        <div class="panel models-panel">
+          <h2 class="panel-title">종합 성능 지수 (100점 만점)</h2>
+          <p class="panel-sub">코딩, 과학, 추론 등 여러 시험을 합산한 점수예요.</p>
+          <div class="bar-chart" id="chart-perf"></div>
+        </div>
+
+        <div class="panel models-panel">
+          <h2 class="panel-title">상대 속도</h2>
+          <p class="panel-sub">작은 모델일수록 계산이 적어 답이 빨리 나와요.</p>
+          <div class="speed-list" id="speed-list"></div>
+        </div>
+      </div>
+
+      <p class="chart-note">
+        성능 지수는 Artificial Analysis Intelligence Index v4.1(2026년 7월) 기준이에요.
+        과제 종류와 측정 환경에 따라 순위는 달라질 수 있어요.
+      </p>
+    </section>
+
+    <!-- ───────── 데모 3: 작업에 맞는 모델 고르기 ───────── -->
+    <section class="sim pick-sim" aria-label="작업에 맞는 모델 고르기">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 3 · 작업에 맞는 모델 고르기</h2>
+        <p class="demo-sub">
+          작업을 하나 골라 보세요. 모델마다 비용이 얼마나 드는지,
+          성능은 충분한지 비교해 볼 수 있어요.
+          핵심은 <strong>가장 비싼 모델이 아니라 딱 맞는 모델</strong>을 고르는 거예요.
+        </p>
+      </div>
+
+      <div class="variant-row" id="task-row" role="group" aria-label="작업 고르기"></div>
+
+      <p class="task-desc" id="task-desc" aria-live="polite"></p>
+
+      <div class="model-cards" id="model-cards"></div>
+
+      <div class="pick-verdict" id="pick-verdict" aria-live="polite"></div>
+    </section>
+
+    <!-- ───────── 핵심 개념 ───────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">비교에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">토큰당 과금</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI 사용료는 월정액이 아니라 <strong>주고받은 토큰 수만큼</strong> 내는 방식이
+              기본이에요. 그래서 같은 작업이라도 프롬프트가 길어지거나 답이 길어지면
+              요금이 늘어나요. 토큰이 뭔지 헷갈린다면
+              <a href="tokens.html">토큰의 비밀</a>에서 직접 잘라 보세요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">출력은 왜 더 비쌀까</button>
+          <div class="concept-pop" hidden>
+            <p>
+              입력은 한꺼번에 읽지만, 출력은 <strong>토큰 하나를 뽑을 때마다
+              전체 계산을 다시</strong> 해야 해요(자동 회귀).
+              <a href="index.html">단어 맞히기</a>에서 본 그 반복이에요.
+              계산량이 훨씬 많으니 모든 모델에서 출력 가격이 입력의 5배예요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">비싼 모델이 항상 정답일까</button>
+          <div class="concept-pop" hidden>
+            <p>
+              성능 지수는 37점에서 60점으로 <strong>1.6배</strong> 오르는데
+              가격은 <strong>10배</strong> 뛰어요. 맞춤법 고치기 같은 쉬운 작업은
+              작은 모델로도 충분하고, 어려운 작업일수록 큰 모델의 점수 차이가
+              결과 품질로 이어져요. 그래서 개발자들은
+              <em>작업 난이도에 맞춰 모델을 골라</em> 비용과 속도를 아껴요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">더 아끼는 방법</button>
+          <div class="concept-pop" hidden>
+            <p>
+              모델 선택 말고도 절약 장치가 있어요. 급하지 않은 작업을 모아서 보내면
+              절반 가격에 처리해 주는 <strong>배치 처리</strong>,
+              같은 앞부분을 반복해서 보낼 때 다시 계산하지 않는
+              <strong>프롬프트 캐시</strong> 같은 것들이에요.
+              둘 다 "같은 일을 더 싸게"라는 같은 목표를 향해요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 자료 출처 ───────── -->
+    <section class="sources" aria-label="자료 출처">
+      <h2 class="sources-title">자료 출처와 기준일</h2>
+      <ul>
+        <li>
+          가격과 상대 속도:
+          <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">Anthropic 공식 문서 Models overview</a> ·
+          <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Pricing</a>
+          (2026년 7월 19일 확인)
+        </li>
+        <li>
+          종합 성능 지수:
+          <a href="https://artificialanalysis.ai/models" target="_blank" rel="noopener">Artificial Analysis Intelligence Index v4.1</a>
+          (2026년 7월 기준)
+        </li>
+        <li>Sonnet 5는 2026년 8월 31일까지 입력 $2 / 출력 $10의 출시 기념 가격이 적용되고, 이 페이지의 그래프는 정가 기준이에요.</li>
+        <li>원화 표시는 1달러 = 1,400원으로 어림한 참고 값이에요.</li>
+        <li>가격과 모델 구성은 이후 바뀔 수 있어요. 실제 사용 전에는 공식 가격표를 확인하세요.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/models/app.js"></script>
+</body>
+</html>
