@@ -1,0 +1,607 @@
+/* usage.css — '사용의 비밀' 페이지 전용 스타일
+   (패널·버튼·핵심 개념·평결 상자는 components.css와 같은 패턴) */
+
+/* ── 데모 머리글 (models.css와 같은 패턴) ── */
+.map-sim {
+  margin-top: 36px;
+}
+
+.compare-sim {
+  margin-top: 72px;
+}
+
+.demo-head {
+  text-align: center;
+}
+
+.demo-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.demo-sub {
+  margin-top: 8px;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chart-note {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+/* ── 데모 1: 지도 + 상세 패널 배치 ── */
+.usage-stage {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 22px;
+}
+
+.usage-stage .panel {
+  min-height: 0;
+  gap: 0;
+}
+
+.panel-sub {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin: -6px 0 16px;
+}
+
+/* ── 지도 색칠 기준 토글 ── */
+.map-mode {
+  display: inline-flex;
+  align-self: flex-start;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  margin-bottom: 12px;
+  background: var(--bg);
+}
+
+.mode-btn {
+  border: 0;
+  background: none;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mode-btn:hover {
+  color: var(--text);
+}
+
+.mode-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* ── 지도 ── */
+.map-wrap {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.map-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 나라는 <path id> 하나이거나, 여러 조각이 든 <g id>다.
+   fill·stroke는 SVG에서 자식으로 상속되므로 그룹에 걸어도 조각 전체에 적용된다. */
+.map-wrap .country {
+  fill: #e2e8f0; /* slate-200: 데이터 없는 나라 */
+  stroke: #ffffff;
+  stroke-width: 0.5;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.map-wrap .country:hover {
+  opacity: 0.75;
+}
+
+/* 사용 비중 6단계 (indigo 스케일) */
+.map-wrap .lv0, .legend-chip.lv0 { fill: #c7d2fe; background: #c7d2fe; } /* indigo-200 */
+.map-wrap .lv1, .legend-chip.lv1 { fill: #a5b4fc; background: #a5b4fc; } /* indigo-300 */
+.map-wrap .lv2, .legend-chip.lv2 { fill: #818cf8; background: #818cf8; } /* indigo-400 */
+.map-wrap .lv3, .legend-chip.lv3 { fill: #6366f1; background: #6366f1; } /* indigo-500 */
+.map-wrap .lv4, .legend-chip.lv4 { fill: #4338ca; background: #4338ca; } /* indigo-700 */
+.map-wrap .lv5, .legend-chip.lv5 { fill: #312e81; background: #312e81; } /* indigo-900 */
+.legend-chip.none { background: #e2e8f0; }
+
+.map-wrap .selected {
+  stroke: #0f172a;
+  stroke-width: 1.4;
+}
+
+/* 마우스를 따라다니는 이름 툴팁 */
+.map-tip {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+  background: var(--text);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* 범례 */
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 14px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--track);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.legend-chip {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+/* ── 나라 상세 패널 ── */
+.detail-pick {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.detail-pick label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.detail-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detail-rank {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  padding: 3px 12px;
+  white-space: nowrap;
+}
+
+.detail-rank.soft {
+  color: var(--text-dim);
+  background: var(--track);
+  border-color: var(--panel-border);
+}
+
+.detail-empty {
+  margin-top: 14px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+}
+
+.detail-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.detail-stat {
+  background: var(--bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-stat strong {
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-stat span {
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+
+.detail-sub-title {
+  margin: 18px 0 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+}
+
+/* 상세: 많이 시키는 일 TOP 3 */
+.detail-top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-top-row {
+  display: grid;
+  grid-template-columns: 22px 1fr 48px;
+  gap: 8px;
+  align-items: center;
+}
+
+.detail-top-rank {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: 0.76rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-top-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.detail-top-track {
+  margin-top: 3px;
+  height: 6px;
+  background: var(--track);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.detail-top-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.detail-top-pct {
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* 상세: 용도 나눔 막대 */
+.use-bar {
+  display: flex;
+  height: 18px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--track);
+}
+
+.use-seg.u0 { background: var(--accent); }       /* 업무 */
+.use-seg.u1 { background: #a5b4fc; }             /* 학업: indigo-300 */
+.use-seg.u2 { background: #cbd5e1; }             /* 개인: slate-300 */
+
+.use-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 8px;
+}
+
+.use-key {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.use-key::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.use-key.u0::before { background: var(--accent); }
+.use-key.u1::before { background: #a5b4fc; }
+.use-key.u2::before { background: #cbd5e1; }
+
+.detail-collab {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.detail-collab strong {
+  color: var(--accent-deep);
+}
+
+/* ── 데모 2: 한국 vs 세계 짝 막대 ── */
+.duo-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.duo-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.duo-key::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.duo-key.kr::before, .duo-fill.kr { background: var(--accent); }
+.duo-key.gl::before, .duo-fill.gl { background: #cbd5e1; } /* slate-300 */
+
+.duo-stage {
+  grid-template-columns: 1fr 1fr;
+}
+
+.duo-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.duo-row {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.duo-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.duo-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.duo-track {
+  position: relative;
+  height: 16px;
+  background: var(--track);
+  border-radius: 999px;
+}
+
+.duo-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.duo-pct {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+  white-space: nowrap;
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── 데모 2: TOP 5 목록 ── */
+.top-panel {
+  margin-top: 14px;
+}
+
+.top-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.top-col-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.top-col-title::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.top-col-title.kr::before { background: var(--accent); }
+.top-col-title.gl::before { background: #cbd5e1; }
+
+.top-row {
+  display: grid;
+  grid-template-columns: 24px 1fr 52px;
+  gap: 10px;
+  align-items: center;
+  padding: 7px 0;
+}
+
+.top-rank {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.top-track {
+  margin-top: 4px;
+  height: 6px;
+  background: var(--track);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.top-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.top-pct {
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* ── 데모 2 평결 문장 (models.css의 pick-verdict와 같은 패턴) ── */
+.pick-verdict {
+  margin-top: 16px;
+  background: var(--accent-soft);
+  border: 1.5px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 0.98rem;
+}
+
+.pick-verdict strong {
+  color: var(--accent-deep);
+}
+
+/* ── 자료 출처 (models.css와 같은 패턴) ── */
+.sources {
+  margin-top: 88px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+}
+
+.sources-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.sources ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sources li {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  padding-left: 16px;
+  position: relative;
+}
+
+.sources li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  font-weight: 800;
+  color: var(--text-soft);
+}
+
+/* ── 반응형 ── */
+@media (max-width: 1024px) {
+  .usage-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-cols {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .duo-row {
+    grid-template-columns: 72px 1fr;
+  }
+
+  .detail-stats {
+    gap: 6px;
+  }
+
+  .sources {
+    padding: 20px;
+  }
+}

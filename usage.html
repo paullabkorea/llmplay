@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>사람들은 AI로 뭘 할까? | AI 사용 통계</title>
+  <meta name="description" content="일주일 동안 쌓인 Claude 대화 100만 건을 나라별로 살펴봐요. 세계 지도를 클릭해 나라마다 AI를 어디에, 어떻게 쓰는지 비교하는 인터랙티브 통계" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM 시뮬레이터" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="사람들은 AI로 뭘 할까? | AI 사용 통계" />
+  <meta property="og:description" content="일주일 동안 쌓인 Claude 대화 100만 건을 나라별로 살펴봐요. 세계 지도를 클릭해 나라마다 AI를 어디에, 어떻게 쓰는지 비교하는 인터랙티브 통계" />
+  <meta property="og:url" content="https://llmplay.weniv.co.kr/usage.html" />
+  <meta property="og:image" content="https://llmplay.weniv.co.kr/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/usage.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="calc.html">계산의 비밀</a>
+        <a href="prompt.html">프롬프트의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+        <a href="models.html">모델의 비밀</a>
+        <a href="usage.html" class="active" aria-current="page">사용 통계</a>
+      </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>사람들은 AI로 뭘 할까?</h1>
+    <p class="subtitle">
+      일주일 동안 쌓인 Claude 대화 <strong>약 100만 건</strong>을 나라별로 들여다봐요.
+      남들은 AI를 <strong>어디에, 어떻게 쓰는지</strong> 지도에서 직접 확인해 보세요.
+    </p>
+  </header>
+
+  <main>
+    <!-- ───────── 데모 1: 세계 지도 ───────── -->
+    <section class="sim map-sim" aria-label="세계 지도로 보는 사용량">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 1 · 세계 지도로 보는 Claude 사용</h2>
+        <p class="demo-sub">
+          대화 999,875건이 어느 나라에서 왔는지 지도에 칠했어요.
+          색이 진할수록 많이 쓰는 나라예요.
+          <strong>나라를 클릭</strong>하면 그 나라 사람들이 AI로 뭘 하는지 보여드려요.
+        </p>
+      </div>
+
+      <div class="usage-stage">
+        <div class="panel map-panel">
+          <h2 class="panel-title">나라별 사용 비중</h2>
+          <div class="map-mode" id="map-mode" role="group" aria-label="지도 색칠 기준">
+            <button class="mode-btn active" data-mode="total" type="button" aria-pressed="true">전체 사용량</button>
+            <button class="mode-btn" data-mode="percap" type="button" aria-pressed="false">인구 대비</button>
+          </div>
+          <div class="map-wrap" id="map-wrap" aria-label="세계 지도"></div>
+          <div class="map-legend" id="map-legend" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel detail-panel">
+          <h2 class="panel-title">나라 통계</h2>
+          <div class="detail-pick">
+            <label for="country-select">나라 고르기</label>
+            <select id="country-select" aria-label="나라 고르기"></select>
+          </div>
+          <div class="country-detail" id="country-detail" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <p class="chart-note">
+        전체 사용량은 미국(22.0%), 인도(5.8%), 일본(3.1%), 영국(3.1%), 한국(3.1%) 순이에요.
+        인구 대비로 바꾸면 모나코, 안도라, 싱가포르, 이스라엘 같은 곳이 상위권으로 올라와요.
+        회색은 대화 수가 적어 통계에 잡히지 않은 나라이고,
+        인구 대비 1위인 세이셸은 VPN 서버를 거친 접속이 몰린 이상치로 보여요.
+      </p>
+    </section>
+
+    <!-- ───────── 데모 2: 한국 vs 세계 ───────── -->
+    <section class="sim compare-sim" aria-label="한국과 세계 비교">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 2 · 한국은 세계와 뭐가 다를까?</h2>
+        <p class="demo-sub">
+          같은 AI인데 나라마다 쓰는 방식이 달라요.
+          한국 사용자의 대화 30,618건을 세계 전체 평균과 나란히 놓고 비교해 봤어요.
+        </p>
+        <div class="duo-legend" aria-hidden="true">
+          <span class="duo-key kr">한국</span>
+          <span class="duo-key gl">세계</span>
+        </div>
+      </div>
+
+      <div class="usage-stage duo-stage">
+        <div class="panel">
+          <h2 class="panel-title">무엇에 쓸까 (용도)</h2>
+          <p class="panel-sub">한국은 업무 비중이 세계 평균보다 높고, 학업 비중은 낮아요.</p>
+          <div class="duo-chart" id="chart-use"></div>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">어떻게 함께 일할까 (협업 방식)</h2>
+          <p class="panel-sub">한국은 결과를 주고받으며 다듬는 '작업 반복'이 유난히 많아요.</p>
+          <div class="duo-chart" id="chart-collab"></div>
+        </div>
+      </div>
+
+      <div class="panel top-panel">
+        <h2 class="panel-title">가장 많이 시키는 일 TOP 5</h2>
+        <div class="top-cols">
+          <div class="top-col">
+            <h3 class="top-col-title kr">한국</h3>
+            <div id="top-kr"></div>
+          </div>
+          <div class="top-col">
+            <h3 class="top-col-title gl">세계</h3>
+            <div id="top-global"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pick-verdict" id="usage-verdict" aria-live="polite"></div>
+    </section>
+
+    <!-- ───────── 핵심 개념 ───────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">통계에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">이 데이터는 어떻게 모았을까</button>
+          <div class="concept-pop" hidden>
+            <p>
+              Anthropic이 2025년 11월 13일부터 일주일 동안의 Claude 대화
+              999,875건을 집계한 <strong>Anthropic Economic Index</strong> 자료예요.
+              사람이 대화를 읽는 게 아니라, 개인정보를 지운 채
+              <em>주제만 자동으로 분류</em>하는 방식(Clio)으로 만들어서
+              누가 무슨 말을 했는지는 아무도 볼 수 없어요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">함께 일하는 5가지 방식</button>
+          <div class="concept-pop" hidden>
+            <p>
+              사람과 AI가 협업하는 모습은 다섯 가지로 나뉘어요.
+              결과만 받는 <strong>지시하기</strong>,
+              결과를 주고받으며 다듬는 <strong>작업 반복</strong>,
+              설명을 들으며 이해하는 <strong>배우기</strong>,
+              AI가 되물으며 함께 완성하는 <strong>피드백 반복</strong>,
+              내가 한 것을 확인받는 <strong>검증하기</strong>.
+              세계적으로는 지시하기(31.7%)가 1위지만 나라마다 순위가 달라요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">한국은 왜 콘텐츠 제작이 1위일까</button>
+          <div class="concept-pop" hidden>
+            <p>
+              세계 1위 요청은 소프트웨어 개발인데 한국만
+              <strong>멀티미디어 콘텐츠 제작</strong>(11.6%)이 1위예요.
+              데이터는 이유까지 말해 주지 않지만, 마케팅·SNS 콘텐츠(7.2%)도
+              세계 평균(5.3%)보다 높은 걸 보면 한국에서는 창작과 콘텐츠
+              업무에 AI를 활발히 쓴다고 <em>추정</em>할 수 있어요.
+              작업 반복이 많은 것도 결과물을 다듬는 창작 활동과 잘 어울리죠.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">숫자를 볼 때 조심할 점</button>
+          <div class="concept-pop" hidden>
+            <p>
+              이 통계는 <strong>Claude 웹·앱 사용자</strong>의 일주일 기록이에요.
+              ChatGPT 등 다른 AI 사용자는 빠져 있고, 개발자용 API 사용도
+              별도 집계라 여기 없어요. 나라별 비중은 인구나 인터넷 보급률
+              차이의 영향도 받으니 "이 나라가 AI를 잘 쓴다"가 아니라
+              <em>"Claude 사용자들이 이렇게 쓴다"</em>로 읽는 게 정확해요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 자료 출처 ───────── -->
+    <section class="sources" aria-label="자료 출처">
+      <h2 class="sources-title">자료 출처와 기준일</h2>
+      <ul>
+        <li>
+          통계 원자료:
+          <a href="https://www.anthropic.com/economic-index" target="_blank" rel="noopener">Anthropic Economic Index</a>
+          공개 데이터 (Claude AI Free·Pro 대화, 2025년 11월 13일부터 20일까지)
+        </li>
+        <li>
+          더 깊은 분석이 궁금하다면:
+          <a href="https://paullabkorea.github.io/anthropic_economic_index/" target="_blank" rel="noopener">Anthropic Economic Index 분석 리포트</a>
+          (플랫폼 비교, 직업별 사용, 지역 분석 등)
+        </li>
+        <li>요청 분류는 Anthropic의 자동 분류(영어)를 이 페이지에서 한국어로 짧게 옮긴 거예요.</li>
+        <li>
+          나라별 인구:
+          <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a>
+          (CC BY 4.0). '인구 10만 명당 대화'는 일주일 대화 수를 전체 인구로 나눈 어림값이에요.
+        </li>
+        <li>
+          세계 지도:
+          <a href="https://github.com/flekschas/simple-world-map" target="_blank" rel="noopener">Simple World Map</a>
+          (Al MacDonald 제작, Fritz Lekschas 편집, CC BY-SA 3.0)
+        </li>
+        <li>일주일 스냅숏이라 지금의 사용 패턴과는 다를 수 있어요.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/usage/app.js"></script>
+</body>
+</html>
