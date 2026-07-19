@@ -51,30 +51,34 @@ const TASKS = [
   },
 ];
 
-/* ── 공통: 가로 막대 그래프 ── */
+/* ── 공통: 세로 막대 그래프 ── */
 
 function renderBarChart(container, rows, maxValue, formatValue) {
   container.replaceChildren();
-  const fills = [];
+  const anims = [];
 
   rows.forEach(({ label, value }) => {
-    const row = el('div', 'bar-row');
-    row.appendChild(el('span', 'bar-label', label));
+    const item = el('div', 'col-item');
 
-    const track = el('div', 'bar-track');
-    const fill = el('div', 'bar-fill');
+    const track = el('div', 'col-track');
+    const fill = el('div', 'col-fill');
+    const val = el('span', 'col-value', formatValue(value));
     track.appendChild(fill);
-    row.appendChild(track);
+    track.appendChild(val);
+    item.appendChild(track);
 
-    row.appendChild(el('span', 'bar-value', formatValue(value)));
-    container.appendChild(row);
-    fills.push([fill, (value / maxValue) * 100]);
+    item.appendChild(el('span', 'col-label', label));
+    container.appendChild(item);
+    anims.push([fill, val, (value / maxValue) * 100]);
   });
 
-  // 그린 직후 폭을 넣어 트랜지션으로 차오르게 한다
+  // 그린 직후 높이를 넣어 트랜지션으로 차오르게 한다. 값 라벨은 막대 끝을 따라간다.
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      fills.forEach(([fill, pct]) => (fill.style.width = `${pct}%`));
+      anims.forEach(([fill, val, pct]) => {
+        fill.style.height = `${pct}%`;
+        val.style.bottom = `calc(${pct}% + 6px)`;
+      });
     });
   });
 }

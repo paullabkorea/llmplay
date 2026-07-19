@@ -72,13 +72,13 @@
         <div class="panel models-panel">
           <h2 class="panel-title">입력 토큰 가격 (100만 토큰당)</h2>
           <p class="panel-sub">AI에게 보내는 글, 즉 질문과 자료의 값이에요.</p>
-          <div class="bar-chart" id="chart-input"></div>
+          <div class="col-chart" id="chart-input"></div>
         </div>
 
         <div class="panel models-panel">
           <h2 class="panel-title">출력 토큰 가격 (100만 토큰당)</h2>
           <p class="panel-sub">AI가 만들어 내는 답의 값이에요. 입력보다 5배 비싸요.</p>
-          <div class="bar-chart" id="chart-output"></div>
+          <div class="col-chart" id="chart-output"></div>
         </div>
       </div>
 
@@ -102,12 +102,12 @@
         <div class="panel models-panel">
           <h2 class="panel-title">종합 성능 지수 (100점 만점)</h2>
           <p class="panel-sub">코딩, 과학, 추론 등 여러 시험을 합산한 점수예요.</p>
-          <div class="bar-chart" id="chart-perf"></div>
+          <div class="col-chart" id="chart-perf"></div>
         </div>
 
         <div class="panel models-panel">
           <h2 class="panel-title">상대 속도</h2>
-          <p class="panel-sub">작은 모델일수록 계산이 적어 답이 빨리 나와요.</p>
+          <p class="panel-sub">작은 모델일수록 토큰 하나를 만드는 계산이 적어서 답이 빨리 나와요.</p>
           <div class="speed-list" id="speed-list"></div>
         </div>
       </div>
@@ -164,6 +164,21 @@
               전체 계산을 다시</strong> 해야 해요(자동 회귀).
               <a href="index.html">단어 맞히기</a>에서 본 그 반복이에요.
               계산량이 훨씬 많으니 모든 모델에서 출력 가격이 입력의 5배예요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">작은 모델은 왜 빠를까</button>
+          <div class="concept-pop" hidden>
+            <p>
+              모델의 크기는 <strong>매개변수(파라미터) 수</strong>예요.
+              AI는 토큰 하나를 만들 때마다 이 매개변수를 거의 전부 곱하고 더하는
+              계산을 해요. 매개변수가 10배 많으면 토큰 하나에 드는 계산도
+              대략 10배로 늘어나죠. 그래서 작은 모델은 같은 답이라도
+              <strong>토큰이 훨씬 빨리</strong> 나오고, 계산기(GPU)를 덜 쓰니
+              가격도 싼 거예요. 속도와 가격은 사실
+              <em>계산량</em>이라는 같은 뿌리에서 나와요.
             </p>
           </div>
         </div>
