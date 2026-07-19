@@ -35,6 +35,7 @@
         <a href="prompt.html" class="active" aria-current="page">프롬프트의 비밀</a>
         <a href="context.html">대화의 비밀</a>
         <a href="training.html">학습의 비밀</a>
+        <a href="models.html">모델의 비밀</a>
       </div>
       <details class="nav-more">
         <summary>위니브 서비스</summary>
@@ -132,8 +133,9 @@
       <div class="demo-head">
         <h2 class="demo-title">데모 3 · 프롬프트 조립하기</h2>
         <p class="demo-sub">
+          같은 질문에도 답이 갈 수 있는 <strong>갈래</strong>는 여러 개예요.
           막연한 부탁 "여행 계획 좀 짜 줘."에 <strong>상황·역할·조건·예시</strong>
-          재료를 하나씩 얹어 보세요. 원하는 답이 나올 확률이 눈에 띄게 올라가요.
+          재료를 하나씩 얹어 보세요. 내가 원하는 갈래로 갈 확률이 눈에 띄게 올라가요.
         </p>
       </div>
 
@@ -146,7 +148,14 @@
         </div>
 
         <div class="panel prompt-panel">
-          <h2 class="panel-title">원하는 답이 나올 확률</h2>
+          <h2 class="panel-title">답이 갈 수 있는 갈래</h2>
+          <div class="branch-map" id="branch-map" role="img"
+               aria-label="질문에서 갈라져 나가는 답변 갈래들과 각 갈래로 갈 확률을 보여 주는 지도"></div>
+          <p class="branch-map-note">
+            파란 갈래가 <strong>내가 원하는 답과 가까운 쪽</strong>이에요.
+            재료를 얹을수록 확률의 물줄기가 그쪽으로 굵어지고, 나머지 갈래는 옅어져요.
+          </p>
+          <p class="build-gauge-label">원하는 갈래로 갈 확률</p>
           <div class="build-gauge">
             <div class="build-gauge-track">
               <div class="build-gauge-bar" id="build-gauge-bar"></div>

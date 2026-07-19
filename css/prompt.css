@@ -70,6 +70,7 @@
 
 .prompt-panel {
   min-height: 0; /* 내용 높이에 맞춤 (components.css의 480px 최소 높이 해제) */
+  min-width: 0;  /* 갈래 지도(고정 최소 폭 SVG)가 패널을 밀어 넓히지 않게 */
   gap: 0;
 }
 
@@ -252,7 +253,112 @@
   gap: 8px;
 }
 
-/* 원하는 답이 나올 확률 게이지 */
+/* 답변 갈래 지도 (SVG 트리) */
+.branch-map {
+  background: var(--track);
+  border-radius: var(--radius-sm);
+  padding: 12px 8px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.branch-map svg {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+}
+
+.bm-edge {
+  fill: none;
+  stroke: var(--text-soft);
+  stroke-linecap: round;
+  transition: stroke-width 0.5s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.5s ease;
+}
+
+.bm-edge.desired {
+  stroke: var(--accent);
+}
+
+.bm-node {
+  transition: opacity 0.5s ease;
+}
+
+.bm-node rect {
+  fill: var(--panel);
+  stroke: var(--panel-border);
+  stroke-width: 1.2;
+}
+
+.bm-node.desired rect {
+  fill: var(--accent-soft);
+  stroke: var(--accent-border);
+}
+
+.bm-node.best rect {
+  stroke: var(--accent);
+  stroke-width: 1.6;
+}
+
+.bm-node.bm-faint {
+  opacity: 0.45;
+}
+
+.bm-label {
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--text);
+}
+
+.bm-node.desired .bm-label {
+  fill: var(--accent-deep);
+}
+
+.bm-meta {
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.bm-node.desired .bm-meta {
+  fill: var(--accent);
+}
+
+.bm-pct {
+  font-size: 12px;
+  font-weight: 800;
+  fill: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.bm-node.desired .bm-pct {
+  fill: var(--accent);
+}
+
+.bm-best-tag {
+  font-size: 10px;
+  font-weight: 800;
+  fill: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.branch-map-note {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* 원하는 갈래로 갈 확률 게이지 */
+.build-gauge-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
 .build-gauge {
   display: flex;
   align-items: center;

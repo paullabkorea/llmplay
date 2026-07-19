@@ -2,7 +2,8 @@
 // 브라우저 없이 실행: node tests/prompt.test.mjs
 import {
   DIRECTIONS, VARIANTS, HIDDEN_NOTES, QUESTION, HIDDEN_QUESTION,
-  BUILD_QUESTION, BUILD_BASE, INGREDIENTS, buildScore, buildAnswer,
+  BUILD_QUESTION, BUILD_BASE, INGREDIENTS, BUILD_BRANCHES,
+  buildScore, buildAnswer, branchProbs,
 } from '../js/prompt/data.js';
 
 let failures = 0;
@@ -80,6 +81,47 @@ for (const v of VARIANTS.filter((v) => v.boost)) {
   if (!buildAnswer([]).includes('몰라서')) fail('상황 없는 답변이 막연함을 드러내지 않음');
   if (!buildAnswer(['situation']).includes('협재')) fail('상황을 줬는데 맞춤 답이 아님');
   console.log(`재료 조합 ${answers.length}가지 답변 전부 서로 다름`);
+}
+
+// 7) 데모 3 갈래 지도: 재료를 얹으면 확률 물줄기가 원하는 갈래로 옮겨 가야 한다
+{
+  const allIds = INGREDIENTS.map((i) => i.id);
+  const desired = BUILD_BRANCHES.filter((b) => b.desired);
+  if (desired.length !== 1) fail(`원하는 갈래는 정확히 1개여야 함 (현재 ${desired.length}개)`);
+  const bestLeaves = BUILD_BRANCHES.flatMap((b) => b.leaves).filter((l) => l.best);
+  if (bestLeaves.length !== 1) fail(`최선 잔가지는 정확히 1개여야 함 (현재 ${bestLeaves.length}개)`);
+  if (!desired[0].leaves.some((l) => l.best)) fail('최선 잔가지가 원하는 갈래 안에 없음');
+
+  for (const onIds of [[], ['situation'], ['example'], allIds]) {
+    const p = branchProbs(onIds);
+    const total = BUILD_BRANCHES.reduce((a, b) => a + p.branch[b.id], 0);
+    if (Math.abs(total - 100) > 1e-9) fail(`갈래 확률 합이 ${total} (재료: ${onIds.join(',') || '없음'})`);
+    for (const b of BUILD_BRANCHES) {
+      const leafSum = b.leaves.reduce((a, l) => a + p.leaf[l.id], 0);
+      if (Math.abs(leafSum - p.branch[b.id]) > 1e-9) fail(`갈래 ${b.id}: 잔가지 확률 합이 갈래 확률과 다름`);
+      for (const l of b.leaves) {
+        if (!(p.leaf[l.id] > 0)) fail(`잔가지 ${l.id}: 확률이 0 (어떤 갈래도 완전히 배제되면 안 됨)`);
+      }
+    }
+    if (Math.abs(p.branch[desired[0].id] - buildScore(onIds)) > 1e-9) {
+      fail('원하는 갈래의 확률이 게이지(buildScore)와 다름');
+    }
+  }
+
+  // 재료가 없으면 원하는 갈래가 1등이 아니고, 다 얹으면 최선 잔가지가 잎 중 1등이어야
+  const empty = branchProbs([]);
+  const topBranch = Object.entries(empty.branch).sort((a, b) => b[1] - a[1])[0][0];
+  if (topBranch === desired[0].id) fail('재료가 없는데 원하는 갈래가 이미 1등임');
+  const full = branchProbs(allIds);
+  const topLeaf = Object.entries(full.leaf).sort((a, b) => b[1] - a[1])[0][0];
+  if (topLeaf !== bestLeaves[0].id) fail(`재료를 다 얹었는데 잎 1등이 ${topLeaf} (기대: ${bestLeaves[0].id})`);
+
+  // 예시 재료는 원하는 갈래 안에서 최선 잔가지의 비중을 키워야
+  const noExample = branchProbs(allIds.filter((id) => id !== 'example'));
+  const bestShare = (p) => p.leaf[bestLeaves[0].id] / p.branch[desired[0].id];
+  if (!(bestShare(full) > bestShare(noExample))) fail('예시 재료가 최선 잔가지의 비중을 못 올림');
+
+  console.log(`갈래 지도: 원하는 갈래 ${empty.branch[desired[0].id]}% → ${full.branch[desired[0].id]}%, 최선 잔가지 ${full.leaf[bestLeaves[0].id].toFixed(1)}%`);
 }
 
 console.log(failures === 0 ? '\n모든 테스트 통과 ✅' : `\n실패 ${failures}건 ❌`);

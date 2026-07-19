@@ -29,6 +29,7 @@ initHiddenNoteSim({
 initBuildSim({
   ingredientRow: $('#ingredient-row'),
   sendBox: $('#build-send-box'),
+  branchMap: $('#branch-map'),
   gaugeBar: $('#build-gauge-bar'),
   gaugePct: $('#build-gauge-pct'),
   missing: $('#build-missing'),

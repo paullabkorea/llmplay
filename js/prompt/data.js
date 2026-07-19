@@ -5,8 +5,9 @@
 //   붙이느냐에 따라 답이 향할 방향의 확률이 통째로 재배치되는 것을 보여 준다.
 // 데모 2 (숨은 쪽지): 챗봇이 매번 묶음 맨 앞에 몰래 붙이는 시스템 프롬프트가
 //   바뀌면 같은 질문에도 전혀 다른 답이 나오는 것을 보여 준다.
-// 데모 3 (프롬프트 조립하기): 상황·역할·조건·예시 재료를 얹을수록
-//   원하는 답이 나올 확률이 올라가는 것을 게이지와 답변 예시로 보여 준다.
+// 데모 3 (프롬프트 조립하기): 같은 질문에도 답이 갈 수 있는 갈래는 여러 개다.
+//   상황·역할·조건·예시 재료를 얹을수록 원하는 갈래로 갈 확률이 커지는 것을
+//   갈래 지도(트리)·게이지·답변 예시로 보여 준다.
 
 /* ───────── 데모 1: 같은 질문, 다른 앞글 ───────── */
 
@@ -148,11 +149,94 @@ export const INGREDIENTS = [
   },
 ];
 
-/** 켠 재료 목록 → 원하는 답이 나올 확률(%) */
+/** 켠 재료 목록 → 원하는 갈래로 갈 확률(%) */
 export function buildScore(onIds) {
   const on = new Set(onIds);
   return INGREDIENTS.filter((i) => on.has(i.id))
     .reduce((acc, i) => acc + i.gain, BUILD_BASE);
+}
+
+/**
+ * 답변 갈래 지도. 질문에서 큰 갈래 4개가 갈라지고, 각 갈래가 다시 잔가지 2개로
+ * 갈라진다. desired가 켜진 갈래가 '내가 원하는 답'과 가까운 쪽이고,
+ * best가 켜진 잔가지가 그중에서도 내가 원한 최선의 답이다.
+ */
+export const BUILD_BRANCHES = [
+  {
+    id: 'generic',
+    label: '아무 곳 유명지 나열',
+    desired: false,
+    leaves: [
+      { id: 'generic-busan', label: '부산 인기 명소 코스' },
+      { id: 'generic-seoul', label: '서울 인기 명소 코스' },
+    ],
+  },
+  {
+    id: 'family',
+    label: '가족 맞춤 제주 일정',
+    desired: true,
+    leaves: [
+      { id: 'family-prose', label: '줄글로 길게 설명' },
+      { id: 'family-daily', label: '날짜별로 두 곳씩 정리', best: true },
+    ],
+  },
+  {
+    id: 'adult',
+    label: '어른 취향 자유 여행',
+    desired: false,
+    leaves: [
+      { id: 'adult-walk', label: '많이 걷는 올레길 코스' },
+      { id: 'adult-food', label: '맛집 투어 위주 코스' },
+    ],
+  },
+  {
+    id: 'ask',
+    label: '정보가 없어 되묻기',
+    desired: false,
+    leaves: [
+      { id: 'ask-where', label: '"어디로 가세요?"' },
+      { id: 'ask-who', label: '"누구랑 가세요?"' },
+    ],
+  },
+];
+
+/**
+ * 켠 재료 목록 → 갈래별·잔가지별 확률(%).
+ * 원하는 갈래의 확률은 게이지(buildScore)와 항상 같고,
+ * 나머지 갈래들은 남은 확률을 나눠 갖는다. 재료가 확률의 물줄기를
+ * 원하는 갈래 쪽으로 옮길 뿐, 어떤 갈래도 완전히 0이 되지는 않는다.
+ */
+export function branchProbs(onIds) {
+  const on = new Set(onIds);
+  const desiredP = buildScore(onIds);
+  const restP = 100 - desiredP;
+
+  // 원하는 갈래가 아닌 갈래들이 남은 확률을 나눠 갖는 비율.
+  // 상황을 알려 주면 '아무 곳'과 '되묻기'가, 조건을 걸면 '어른 취향'이 줄어든다.
+  const restW = {
+    generic: on.has('situation') ? 1 : 5,
+    adult: on.has('condition') ? 1 : 3,
+    ask: on.has('situation') ? 2 : 4,
+  };
+  const restSum = Object.values(restW).reduce((a, b) => a + b, 0);
+
+  // 갈래 안에서 잔가지 둘이 나눠 갖는 비율
+  const split = {
+    generic: [0.55, 0.45],
+    family: on.has('example') ? [0.15, 0.85] : [0.65, 0.35],
+    adult: on.has('condition') ? [0.15, 0.85] : [0.6, 0.4],
+    ask: [0.55, 0.45],
+  };
+
+  const probs = { branch: {}, leaf: {} };
+  for (const b of BUILD_BRANCHES) {
+    const p = b.desired ? desiredP : (restP * restW[b.id]) / restSum;
+    probs.branch[b.id] = p;
+    b.leaves.forEach((leaf, k) => {
+      probs.leaf[leaf.id] = p * split[b.id][k];
+    });
+  }
+  return probs;
 }
 
 /**
