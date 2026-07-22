@@ -2,10 +2,11 @@
    (패널·버튼·핵심 개념은 components.css를 그대로 사용) */
 
 /* ── 데모 머리글 (prompt.css와 같은 패턴) ── */
-.price-sim {
+.size-sim {
   margin-top: 36px;
 }
 
+.price-sim,
 .perf-sim,
 .pick-sim {
   margin-top: 72px;
@@ -53,6 +54,25 @@
   text-align: center;
   font-size: 0.88rem;
   color: var(--text-dim);
+}
+
+/* ── 데모 1: 다이얼 판과 점수 곡선 ── */
+.size-sim .variant-row {
+  margin-bottom: 0;
+}
+
+.dial-wrap canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dial-count {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── 세로 막대 그래프 ── */
@@ -112,40 +132,62 @@
   white-space: nowrap;
 }
 
-/* ── 상대 속도 목록 ── */
-.speed-list {
+/* ── 상대 속도: 토큰 만들기 경주 ── */
+.race-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
-.speed-row {
+.race-row {
+  /* 배지 열은 auto가 아니라 고정 폭: '가장 빠름'처럼 긴 배지 때문에
+     행마다 트랙(1fr) 길이가 달라지는 것을 막는다 */
   display: grid;
-  grid-template-columns: 92px 1fr auto;
+  grid-template-columns: 92px 1fr 58px 80px;
   align-items: center;
   gap: 10px;
 }
 
-.speed-name {
+.race-row .speed-badge {
+  justify-self: center;
+}
+
+.race-name {
   font-size: 0.9rem;
   font-weight: 700;
   text-align: right;
 }
 
-.speed-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.speed-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+.race-track {
+  position: relative;
+  height: 16px;
   background: var(--track);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
-.speed-dot.on {
+.race-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
   background: var(--accent);
+  border-radius: 999px;
+}
+
+.race-count {
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.race-replay {
+  display: block;
+  margin: 16px auto 0;
 }
 
 .speed-badge {
@@ -359,8 +401,13 @@
     grid-template-columns: 1fr;
   }
 
-  .speed-row {
-    grid-template-columns: 76px 1fr auto;
+  .race-row {
+    grid-template-columns: 76px 1fr 52px;
+  }
+
+  /* 좁은 화면에서는 경주 줄의 속도 배지를 숨겨 트랙 공간 확보 */
+  .race-row .speed-badge {
+    display: none;
   }
 
   .col-chart {

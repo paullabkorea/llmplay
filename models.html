@@ -59,10 +59,50 @@
   </header>
 
   <main>
-    <!-- ───────── 데모 1: 가격 비교 ───────── -->
+    <!-- ───────── 데모 1: 다이얼(파라미터) 수 ───────── -->
+    <section class="sim size-sim" aria-label="모델 크기와 다이얼 수 비교">
+      <div class="demo-head">
+        <h2 class="demo-title">데모 1 · 모델의 크기는 다이얼(파라미터) 수</h2>
+        <p class="demo-sub">
+          <a href="index.html">단어 맞히기</a>에서 본 다이얼 판을 기억하나요?
+          모델이 크다는 건 이 다이얼(파라미터)이 많다는 뜻이에요.
+          모델을 골라 다이얼 수와 점수가 어떻게 달라지는지 비교해 보세요.
+        </p>
+      </div>
+
+      <div class="variant-row" id="size-row" role="group" aria-label="모델 고르기"></div>
+
+      <div class="models-stage">
+        <div class="panel models-panel">
+          <h2 class="panel-title">다이얼 판 (파라미터)</h2>
+          <p class="panel-sub">학습이란 이 다이얼들을 조금씩 돌려 맞추는 일이에요.</p>
+          <div class="dial-wrap">
+            <canvas id="dial-canvas" width="520" height="300"></canvas>
+          </div>
+          <p class="dial-count" id="dial-count" aria-live="polite"></p>
+        </div>
+
+        <div class="panel models-panel">
+          <h2 class="panel-title">다이얼이 10배면 점수도 10배?</h2>
+          <p class="panel-sub">가로축은 다이얼 수(한 칸 갈 때마다 10배), 세로축은 종합 성능 지수예요.</p>
+          <div class="dial-wrap">
+            <canvas id="curve-canvas" width="520" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="pick-verdict" id="size-verdict" aria-live="polite"></div>
+
+      <p class="chart-note">
+        실제 다이얼 수는 회사들이 공개하지 않아요. 여기서는 "작은 모델일수록 다이얼이 적다"는
+        상대 크기만 어림 모형으로 보여줘요. 점수는 데모 3의 종합 성능 지수와 같아요.
+      </p>
+    </section>
+
+    <!-- ───────── 데모 2: 가격 비교 ───────── -->
     <section class="sim price-sim" aria-label="모델별 가격 비교">
       <div class="demo-head">
-        <h2 class="demo-title">데모 1 · 같은 100만 토큰, 가격은 최대 10배</h2>
+        <h2 class="demo-title">데모 2 · 같은 100만 토큰, 가격은 최대 10배</h2>
         <p class="demo-sub">
           AI 회사는 글자 수 대신 <a href="tokens.html">토큰</a> 수로 요금을 매겨요.
           같은 회사의 모델인데도 어떤 모델이냐에 따라 100만 토큰당 가격이 10배까지 벌어져요.
@@ -92,7 +132,7 @@
     <!-- ───────── 데모 2: 성능과 속도 ───────── -->
     <section class="sim perf-sim" aria-label="모델별 성능과 속도 비교">
       <div class="demo-head">
-        <h2 class="demo-title">데모 2 · 성능과 속도는 얼마나 다를까?</h2>
+        <h2 class="demo-title">데모 3 · 성능과 속도는 얼마나 다를까?</h2>
         <p class="demo-sub">
           가격이 10배라고 성능도 10배는 아니에요. 종합 성능 지수는 1.6배 차이인데
           가격은 10배 차이가 나요. 대신 작은 모델일수록 답이 훨씬 빨리 나와요.
@@ -107,9 +147,10 @@
         </div>
 
         <div class="panel models-panel">
-          <h2 class="panel-title">상대 속도</h2>
-          <p class="panel-sub">작은 모델일수록 토큰 하나를 만드는 계산이 적어서 답이 빨리 나와요.</p>
-          <div class="speed-list" id="speed-list"></div>
+          <h2 class="panel-title">상대 속도: 토큰 만들기 경주</h2>
+          <p class="panel-sub">작은 모델일수록 토큰 하나를 만드는 계산이 적어서 답이 빨리 나와요. 같은 시간 동안 누가 토큰을 많이 만드는지 지켜보세요. (어림 연출)</p>
+          <div class="race-list" id="race-list"></div>
+          <button class="btn race-replay" id="race-replay" type="button">다시 경주</button>
         </div>
       </div>
 
@@ -122,7 +163,7 @@
     <!-- ───────── 데모 3: 작업에 맞는 모델 고르기 ───────── -->
     <section class="sim pick-sim" aria-label="작업에 맞는 모델 고르기">
       <div class="demo-head">
-        <h2 class="demo-title">데모 3 · 작업에 맞는 모델 고르기</h2>
+        <h2 class="demo-title">데모 4 · 작업에 맞는 모델 고르기</h2>
         <p class="demo-sub">
           작업을 하나 골라 보세요. 모델마다 비용이 얼마나 드는지,
           성능은 충분한지 비교해 볼 수 있어요.
@@ -145,6 +186,21 @@
       <p class="learn-sub">비교에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
 
       <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">계속 학습하면 무한히 똑똑해질까</button>
+          <div class="concept-pop" hidden>
+            <p>
+              아니에요. <a href="training.html">학습</a>은 다이얼(파라미터)을 돌려 맞추는
+              과정이라, 다이얼 수가 정해진 모델은 아무리 오래 학습해도 담을 수 있는
+              실력에 한계가 있어요. 그래서 회사들은 다이얼을 늘려 더 큰 모델을
+              만드는데, 데모 1에서 봤듯 다이얼을 <strong>10배</strong>로 늘려도
+              점수는 <strong>몇 점씩만</strong> 올라요. 계산량과 전기 요금은
+              그대로 10배씩 뛰는데 말이죠. AI는 무한히 똑똑해지는 게 아니라,
+              <em>조금 더 좋아지는 데에 훨씬 큰 비용이 드는 것</em>이에요.
+            </p>
+          </div>
+        </div>
+
         <div class="concept">
           <button class="concept-btn" type="button" aria-expanded="false">토큰당 과금</button>
           <div class="concept-pop" hidden>
@@ -227,6 +283,7 @@
           <a href="https://artificialanalysis.ai/models" target="_blank" rel="noopener">Artificial Analysis Intelligence Index v4.1</a>
           (2026년 7월 기준)
         </li>
+        <li>데모 1의 다이얼 수는 실제 파라미터 수가 아니라 상대 크기를 나타내는 교육용 어림 모형이에요. 실제 모델의 파라미터 수는 공개되어 있지 않아요.</li>
         <li>Sonnet 5는 2026년 8월 31일까지 입력 $2 / 출력 $10의 출시 기념 가격이 적용되고, 이 페이지의 그래프는 정가 기준이에요.</li>
         <li>원화 표시는 1달러 = 1,400원으로 어림한 참고 값이에요.</li>
         <li>가격과 모델 구성은 이후 바뀔 수 있어요. 실제 사용 전에는 공식 가격표를 확인하세요.</li>
