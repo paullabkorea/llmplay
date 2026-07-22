@@ -1,45 +1,45 @@
 // nav.js — 상단 내비게이션 공통 동작 (모든 페이지에서 로드).
-// 1) 폭이 모자라 넘치는 페이지 탭을 '더보기' 드롭다운으로 옮긴다.
-// 2) 드롭다운('더보기', '위니브 서비스')을 바깥 클릭이나 Esc 키로 닫는다.
+// 페이지가 9개로 늘어 탭을 한 줄로 나열하지 않고,
+// 1) 페이지 탭 전체를 '현재 페이지 이름 ▾' 드롭다운 하나로 접는다.
+// 2) 드롭다운(페이지 메뉴, '위니브 서비스')을 바깥 클릭이나 Esc 키로 닫는다.
+// HTML의 .nav-links는 그대로 두어 자바스크립트가 꺼진 환경에서도 탭이 보이게 한다.
+
+// 드롭다운 안에서 각 페이지 아래에 붙는 한 줄 소개
+const PAGE_INTROS = {
+  'index.html': 'AI가 다음 단어를 맞히는 원리',
+  'tokens.html': 'AI가 글을 자르는 단위',
+  'hallucination.html': 'AI는 왜 그럴듯한 거짓말을 할까',
+  'calc.html': 'AI는 왜 계산 실수를 할까',
+  'prompt.html': '질문이 달라지면 답이 달라져요',
+  'context.html': 'AI는 대화를 어떻게 기억할까',
+  'training.html': '다이얼을 돌려 맞추는 과정',
+  'models.html': '크기, 가격, 속도 비교해 고르기',
+  'usage.html': '세계는 AI를 얼마나 쓸까',
+};
 
 const links = document.querySelector('.nav-links');
 
-// '더보기' 드롭다운은 페이지마다 HTML을 고치지 않도록 여기서 생성해
-// 탭 목록과 '위니브 서비스' 사이에 끼워 넣는다.
-const overflow = document.createElement('details');
-overflow.className = 'nav-more';
-overflow.innerHTML = '<summary>더보기</summary><div class="nav-more-menu"></div>';
-overflow.hidden = true;
-const overflowMenu = overflow.querySelector('.nav-more-menu');
-const overflowLabel = overflow.querySelector('summary');
-
-function updateOverflow() {
-  overflow.open = false;
-
-  // 일단 탭을 전부 원래 자리로 되돌린 뒤 넘치는지 다시 측정
-  while (overflowMenu.firstChild) links.appendChild(overflowMenu.firstChild);
-  overflow.hidden = true;
-  overflowLabel.textContent = '더보기';
-  if (links.scrollWidth <= links.clientWidth) return;
-
-  // '더보기' 버튼이 차지할 공간을 먼저 확보하고,
-  // 한 줄에 들어갈 때까지 오른쪽 탭부터 드롭다운으로 이동.
-  // 마지막 탭까지 안 들어가면 전부 드롭다운으로 옮긴다(모바일).
-  overflow.hidden = false;
-  while (links.scrollWidth > links.clientWidth && links.children.length > 0) {
-    overflowMenu.prepend(links.lastElementChild);
-  }
-
-  // 탭이 하나도 안 남았으면 '더보기'가 아니라 페이지 메뉴 전체이므로 라벨을 바꾼다
-  if (links.children.length === 0) overflowLabel.textContent = '메뉴';
-}
-
 if (links) {
-  links.after(overflow);
-  updateOverflow();
-  window.addEventListener('resize', updateOverflow);
-  // 웹폰트가 늦게 로드되면 탭 폭이 달라지므로 한 번 더 측정
-  document.fonts?.ready.then(updateOverflow);
+  const menu = document.createElement('details');
+  menu.className = 'nav-more nav-pages';
+  menu.innerHTML = '<summary></summary><div class="nav-more-menu"></div>';
+
+  // 버튼 라벨은 현재 페이지 이름 — 어디에 와 있는지도 함께 보여준다
+  const active = links.querySelector('a.active');
+  menu.querySelector('summary').textContent = active ? active.textContent : '메뉴';
+
+  const box = menu.querySelector('.nav-more-menu');
+  while (links.firstElementChild) {
+    const a = links.firstElementChild;
+    box.appendChild(a);
+    const intro = PAGE_INTROS[a.getAttribute('href')];
+    if (intro) {
+      const span = document.createElement('span');
+      span.textContent = intro;
+      a.appendChild(span);
+    }
+  }
+  links.replaceWith(menu);
 }
 
 const dropdowns = document.querySelectorAll('.nav-more');

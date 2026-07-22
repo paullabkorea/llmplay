@@ -35,10 +35,12 @@
 .nav-links {
   display: flex;
   gap: 6px;
-  margin-left: auto; /* 브랜드는 왼쪽, 탭 + 서비스 드롭다운은 오른쪽 */
-  min-width: 0;      /* 폭이 모자라면 줄어들 수 있게 — nav.js가 이를 감지해
-                        넘친 탭을 '더보기' 드롭다운으로 옮긴다 */
+  margin-left: auto; /* 브랜드는 왼쪽, 메뉴들은 오른쪽 */
+  min-width: 0;
   overflow: hidden;
+  /* 자바스크립트가 켜져 있으면 nav.js가 이 탭 전체를
+     '현재 페이지 이름 ▾' 드롭다운(.nav-pages)으로 접는다.
+     아래 탭 스타일은 자바스크립트가 꺼진 환경의 대비책. */
 }
 
 .nav-links a {
@@ -62,7 +64,7 @@
   color: var(--accent-deep);
 }
 
-/* ── 드롭다운 공통: 위니브 서비스(맨 오른쪽), 더보기(nav.js가 생성) ── */
+/* ── 드롭다운 공통: 페이지 메뉴(nav.js가 생성), 위니브 서비스(맨 오른쪽) ── */
 .nav-more {
   position: relative;
   flex-shrink: 0; /* 폭이 좁아져도 드롭다운 버튼은 줄어들지 않게 */
@@ -142,10 +144,31 @@
   background: var(--track);
 }
 
-/* 현재 페이지 탭이 '더보기' 안으로 들어갔을 때의 강조 */
+/* 드롭다운 안에서 현재 페이지 강조 */
 .nav-more-menu a.active {
   background: var(--accent-soft);
   color: var(--accent-deep);
+}
+
+/* ── 페이지 메뉴 드롭다운 (nav.js가 .nav-links 탭 전체를 접어서 만든다) ── */
+.nav-pages {
+  margin-left: auto; /* 접히기 전의 .nav-links 자리를 이어받아 오른쪽 정렬 유지 */
+  min-width: 0;
+}
+
+.nav-pages summary {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+}
+
+.nav-pages summary:hover,
+.nav-pages[open] summary {
+  background: var(--accent-border);
+  color: var(--accent-deep);
+}
+
+.nav-pages .nav-more-menu {
+  min-width: 248px;
 }
 
 .site-header {
@@ -254,9 +277,7 @@ main {
   }
 }
 
-/* ── 중간 폭(브라우저 확대 포함): 탭을 압축해 한 줄 유지 ──
-   탭이 7개라 여백이 빠듯해지는 구간. 패딩·글자를 줄여
-   확대해도 탭이 아랫줄로 떨어지지 않게 버틴다 */
+/* ── 중간 폭(브라우저 확대 포함): 메뉴 버튼을 살짝 압축 ── */
 @media (max-width: 1440px) {
   .site-nav-inner {
     gap: 12px;
@@ -273,9 +294,7 @@ main {
   }
 }
 
-/* ── 좁은 화면: 한 줄 유지 ──
-   넘치는 탭은 nav.js가 '더보기' 드롭다운으로 옮기므로
-   여기서는 여백만 좁혀 탭이 최대한 많이 보이게 한다 */
+/* ── 좁은 화면: 여백 압축 ── */
 @media (max-width: 1140px) {
   .site-nav-inner {
     gap: 10px;
@@ -314,7 +333,7 @@ main {
   }
 }
 
-/* ── 아주 좁은 화면: 로고 + '메뉴' + '위니브 서비스' 두 드롭다운이
+/* ── 아주 좁은 화면: 로고 + 페이지 메뉴 + '위니브 서비스'가
    한 줄에 들어가도록 여백과 크기를 줄인다 ── */
 @media (max-width: 480px) {
   .site-nav-inner {
