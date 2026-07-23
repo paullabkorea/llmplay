@@ -23,11 +23,13 @@ for (const s of SCENARIOS) {
 }
 
 // 2) 온도 효과: 온도가 낮으면 1등 확률이 커져야 한다
+// (시나리오 순서가 바뀌어도 깨지지 않게, 첫 시나리오의 프롬프트 마지막 토큰을 쓴다)
 {
   const s = SCENARIOS[0];
-  const cold = getDistribution(s, '날아와', 0.2)[0].p;
-  const base = getDistribution(s, '날아와', 1)[0].p;
-  const hot = getDistribution(s, '날아와', 2)[0].p;
+  const key = s.prompt[s.prompt.length - 1];
+  const cold = getDistribution(s, key, 0.2)[0].p;
+  const base = getDistribution(s, key, 1)[0].p;
+  const hot = getDistribution(s, key, 2)[0].p;
   if (!(cold > base && base > hot)) fail(`온도 효과 이상: ${cold} / ${base} / ${hot}`);
 }
 
