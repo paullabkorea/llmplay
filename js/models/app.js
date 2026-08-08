@@ -254,10 +254,16 @@ function selectSizeModel(index) {
       `가장 빠르고 저렴하죠. 더 큰 모델을 눌러 다이얼 수와 점수가 어떻게 변하는지 보세요.`;
   } else {
     const ratio = (Math.round((m.perf / base.perf) * 10) / 10).toLocaleString('ko-KR');
+    const prev = MODELS[index - 1];
+    // 다이얼을 늘렸는데 점수가 오히려 낮아지는 경우도 있다(예: Fable 5 < Opus 5).
+    const tail =
+      m.perf > prev.perf
+        ? '다이얼과 학습을 늘릴수록 성능은 오르지만, 갈수록 조금씩만 올라요.'
+        : `그런데 다이얼이 더 적은 <strong>${prev.name}</strong>(${prev.perf}점)보다 오히려 낮아요. ` +
+          '크기만으로 성능이 정해지는 건 아니에요.';
     p.innerHTML =
       `다이얼은 <strong>${m.mult}</strong>로 늘었는데 점수는 ${base.perf}점에서 ` +
-      `${m.perf}점, <strong>${ratio}배</strong>예요. 다이얼과 학습을 늘릴수록 성능은 ` +
-      `오르지만, 갈수록 조금씩만 올라요.`;
+      `${m.perf}점, <strong>${ratio}배</strong>예요. ${tail}`;
   }
   sizeVerdict.appendChild(p);
 }
