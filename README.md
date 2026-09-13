@@ -108,6 +108,29 @@ ____                                       비빔밥  █ 14% …
 (`출력 = 입력 × +0.483 + …`)가 보이고, 훈련 모드에서는 이 숫자가
 실시간으로 고쳐지는 모습이 나타납니다.
 
+### 이미지·음성의 비밀 (`multimodal.html`)
+
+**"AI가 사진을 보고 소리를 듣는다"는 착각**을 푸는 페이지입니다. 언어 모델은
+글자(토큰)만 읽는 뇌라서, 사진과 소리는 **눈·귀·손 역할을 하는 전용 모델**이 먼저
+숫자로 바꿔 줘야 하고 그 과정에서 정보가 흐려집니다. index.html처럼 세 패널
+(`내가 보낸 것 → 전용 모델 → 언어 모델`) 위에 단계 설명 말풍선이 뜨고,
+"자동 재생 / 한 단계씩" 버튼으로 눈으로만 따라갑니다. 파일 업로드는 없습니다.
+
+1. **사진을 보내면**: 사진은 언어 모델 문 앞에서 막히고, 눈 모델이 8×8 조각으로 잘라
+   숫자 묶음으로 바꿔 전달합니다. 조각보다 작은 OPEN 글씨는 뭉개집니다.
+2. **목소리를 보내면**: 비꼬는 "정말~ 잘했네"가 받아쓰기를 거치며 말투를 잃고,
+   언어 모델은 칭찬으로 알아듣습니다.
+3. **사진을 고쳐 달라고 하면**: 언어 모델은 주문서만 쓰고, 이미지 생성 모델이
+   새로 그려서 지붕 말고 문·창문·표지판 글자까지 바뀝니다.
+4. **같은 정보, 사진 vs 글**: 표 캡처는 작은 숫자가 조각 안에서 뭉개지기 쉽고 토큰을
+   수십 배 쓰며, 글은 정확합니다.
+
+데모 아래에 '그래서 어떻게 할까요?'(플랫폼 고를 때 확인할 것, AI에게 정보 줄 때는 글로),
+핵심 개념 팝오버, 근거로 삼은 공식 문서 목록(확인일 2026-09-13)이 이어집니다.
+수업 흐름과 확인 질문은 [장 구성안](docs/multimodal-chapter.md)에 있습니다.
+조각 64개·숫자 3개는 교육용 모형이며 답변도 미리 써 둔 예시입니다.
+검증은 `node tests/multimodal.test.mjs`로 실행합니다.
+
 ### 모델의 비밀 (`models.html`)
 
 **"AI는 다 똑같다"는 착각**을 푸는 페이지입니다. 네 개의 데모가 있습니다.
@@ -164,6 +187,7 @@ calc.html               계산의 비밀 뼈대
 prompt.html             프롬프트의 비밀 뼈대
 context.html            대화의 비밀 뼈대
 training.html           학습의 비밀 뼈대
+multimodal.html         이미지·음성의 비밀 뼈대
 models.html             모델의 비밀 뼈대
 usage.html              사용 통계 뼈대
 assets/
@@ -182,6 +206,7 @@ css/
   prompt.css            '프롬프트의 비밀' 페이지 전용 스타일
   context.css           '대화의 비밀' 페이지 전용 스타일
   training.css          '학습의 비밀' 페이지 전용 스타일
+  multimodal.css        '이미지·음성의 비밀' 페이지 전용 스타일
   models.css            '모델의 비밀' 페이지 전용 스타일
   usage.css             '사용 통계' 페이지 전용 스타일
 js/
@@ -217,6 +242,12 @@ js/
   context/chatSim.js    채팅 화면 ↔ 전송 묶음 ↔ 게이지 연출
   training/app.js       학습의 비밀 시작점
   training/dialSim.js   학습 vs 추론 다이얼 비교 + 수식 돋보기
+  multimodal/app.js     이미지·음성의 비밀 시작점 (조작부·말풍선 연결)
+  multimodal/player.js  단계 재생 상태 기계 (reset/step/done 이벤트)
+  multimodal/scenarios.js 데모 4개의 단계 설명과 세 패널 그리기 — 문구 수정은 여기서
+  multimodal/draw.js    집 그림·격자·모자이크·파형·표 캡처 캔버스 그리기
+  multimodal/fx.js      타자 효과, 흐린 그림이 또렷해지는 생성 연출
+  multimodal/model.js   조각 평균 색, 시간 조각 세기, 목소리 모형 (순수 함수)
   models/app.js         모델의 비밀 시작점
   models/data.js        모델 가격·성능 지수·작업 목록 — 가격 갱신은 여기서
   usage/app.js          사용 통계 시작점
@@ -228,6 +259,9 @@ tests/
   calc.test.mjs         계산 시나리오 검증 (node tests/calc.test.mjs)
   prompt.test.mjs       프롬프트 시나리오 검증 (node tests/prompt.test.mjs)
   context.test.mjs      대화 각본 검증 (node tests/context.test.mjs)
+  multimodal.test.mjs   조각 계산·목소리 모형·시나리오 구조 검증 (node tests/multimodal.test.mjs)
+docs/
+  multimodal-chapter.md 이미지·음성의 비밀 수업 흐름·확인 질문·교사용 주의
 ```
 
 ### 설계 원칙 (유지보수 가이드)
@@ -251,6 +285,7 @@ node tests/hallucination.test.mjs
 node tests/calc.test.mjs
 node tests/prompt.test.mjs
 node tests/context.test.mjs
+node tests/multimodal.test.mjs
 ```
 
 모든 시나리오가 무한 루프 없이 끝나는지, 확률 합이 1인지, 온도 효과가 올바른지,
@@ -258,6 +293,7 @@ node tests/context.test.mjs
 환각 시나리오의 두 질문이 비슷한 확신도로 끝나는지, 계산 시나리오에서 쉬운
 계산은 정답이 압도적 1등이고 어려운 계산은 어떤 경로로도 정답이 나오지 않는지,
 프롬프트 앞글이 의도한 방향을 압도적 1등으로 밀어 올리는지, 대화 각본의 토큰
-수가 매 턴 늘어나 1만 토큰 경고선을 넘는지 검사합니다.
+수가 매 턴 늘어나 1만 토큰 경고선을 넘는지, 이미지·음성 데모의 조각 평균 색이
+공간을 보존하고 다시 그린 집이 지붕 말고도 여러 곳 달라지는지 검사합니다.
 
 ('모델의 비밀'·'사용 통계'는 아직 전용 테스트가 없습니다.)
