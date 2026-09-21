@@ -2,7 +2,7 @@
 // index.html처럼 '자동 재생 / 한 단계씩 / 처음부터' 버튼으로 데모를 단계별로 진행한다.
 //
 // 구조:
-//   player.js    : 단계 상태 기계 (화면을 모름, 이벤트만 발생)
+//   ../core/stepPlayer.js : 단계 상태 기계 (화면을 모름, 이벤트만 발생)
 //   scenarios.js : 데모 4개의 단계 설명과 세 패널 그리기
 //   draw.js      : 캔버스 그림 (집, 격자, 모자이크, 파형, 표 캡처)
 //   fx.js        : 타자 효과, 생성 연출
@@ -10,7 +10,7 @@
 
 import { $ } from '../utils.js';
 import { initConcepts } from '../ui/concepts.js';
-import { StepPlayer } from './player.js';
+import { StepPlayer } from '../core/stepPlayer.js';
 import { SCENARIOS, SIZE, COLUMNS } from './scenarios.js';
 import { computePatches, drawHouse, drawTable } from './draw.js';
 import { makeVoice, audioFeatures, SYLLABLE_SECONDS } from './model.js';

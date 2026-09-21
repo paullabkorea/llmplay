@@ -1,27 +1,9 @@
-// multimodal/fx.js — 화면 연출 (타자 효과, 흐린 그림이 또렷해지는 생성 연출).
-// 시작한 연출은 모두 등록해 두고, 다음 단계로 넘어가거나 처음부터 다시 할 때 한꺼번에 멈춘다.
+// multimodal/fx.js — '이미지·음성의 비밀' 페이지 전용 연출.
+// 타자 효과와 연출 취소는 여러 페이지가 함께 쓰므로 ui/typeFx.js에 있다.
 
-const active = new Set();
+import { register, unregister } from '../ui/typeFx.js';
 
-export function cancelAll() {
-  active.forEach((cancel) => cancel());
-  active.clear();
-}
-
-/** 글자를 한 자씩 찍는다. speed는 배속(1이 보통). */
-export function typeText(el, text, speed = 1) {
-  el.textContent = '';
-  let i = 0;
-  const step = 34 / speed;
-  const timer = setInterval(() => {
-    i++;
-    el.textContent = text.slice(0, i);
-    if (i >= text.length) finish();
-  }, step);
-  function finish() { clearInterval(timer); active.delete(finish); el.textContent = text; }
-  active.add(finish);
-  return finish;
-}
+export { cancelAll, typeText } from '../ui/typeFx.js';
 
 /**
  * 생성 모델 연출: 큰 블록으로 뭉개진 그림이 점점 또렷해진다.
@@ -60,12 +42,12 @@ export function pixelateReveal(canvas, drawFn, durationMs = 1600) {
   }
   function finish() {
     cancelAnimationFrame(frame);
-    active.delete(finish);
+    unregister(finish);
     ctx.imageSmoothingEnabled = true;
     ctx.clearRect(0, 0, size, size);
     ctx.drawImage(source, 0, 0);
   }
-  active.add(finish);
+  register(finish);
   frame = requestAnimationFrame(tick);
   return finish;
 }

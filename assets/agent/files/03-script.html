@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>[샘플] 제주 AX 대전환 인재양성 프로그램 운영(가칭) · 제안 발표 대본</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+
+/* ==========================================================================
+   슬라이드 엔진 — 1920×1080 고정 무대를 화면에 맞춰 축소한다. (식별 표식 제거판)
+   토큰(:root)과 컴포넌트 규격은 회사 표준이므로 임의로 바꾸지 않는다.
+   ========================================================================== */
+:root{
+  --blue:#2E6FF2;       /* 브랜드 메인 블루 */
+  --blue-deep:#1E4FD8;  /* 진한 블루 (2단계 강조) */
+  --blue-navy:#16389E;  /* 가장 진한 블루 */
+  --blue-soft:#97B7F8;  /* 연한 블루 (아이콘·보조) */
+  --blue-tint:#E9EFFE;  /* 아주 연한 블루 배경 */
+  --ink:#121314;        /* 제목·검정 카드 */
+  --body:#3A3F47;       /* 본문 */
+  --muted:#6B7280;      /* 보조 설명 */
+  --line:#E3E8F1;       /* 카드 테두리 */
+  --tint:#F3F5FA;       /* 연회색 패널 */
+  --paper:#ffffff;
+  --font:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,
+         "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#0B1220}
+body{font-family:var(--font);color:var(--body);-webkit-font-smoothing:antialiased}
+
+/* ---------- 무대 ---------- */
+#deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;
+       box-shadow:0 24px 90px rgba(0,0,0,.5)}
+.slide{position:absolute;inset:0;background:var(--paper);
+       padding:120px 128px 96px;display:none;flex-direction:column;overflow:hidden}
+.slide.active{display:flex;animation:fade .38s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- 타이포 ---------- */
+h1{font-size:96px;line-height:1.14;font-weight:800;letter-spacing:-.035em;color:var(--ink)}
+h2{font-size:56px;line-height:1.2;font-weight:800;letter-spacing:-.035em;color:var(--ink)}
+p{font-size:22px;line-height:1.6}
+.eyebrow{font-size:22px;font-weight:600;letter-spacing:.04em;color:var(--blue);
+         text-transform:uppercase;margin-bottom:14px}
+.sub{font-size:22px;color:var(--muted);line-height:1.5;font-weight:500}
+.sub-block{margin-top:18px;font-size:22px;color:var(--muted);line-height:1.6}
+.shead{margin-bottom:56px;flex:0 0 auto}
+.title-row{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap}
+.body-main{flex:1;min-height:0;display:flex;flex-direction:column;gap:26px}
+.center{justify-content:center}
+.fill{flex:1;min-height:0}
+.hl{color:var(--blue)}
+strong,b{color:var(--blue);font-weight:700}
+.note{font-size:18px;color:var(--muted)}
+
+/* 한 문장을 크게 (메시지형 슬라이드) */
+.message{font-size:60px;line-height:1.35;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+
+/* ---------- 번호 배지 제목 ---------- */
+.numhead{display:flex;align-items:center;gap:28px;margin-bottom:56px}
+.numbadge{width:74px;height:74px;border-radius:18px;background:var(--blue);color:#fff;
+          font-size:38px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.numhead h2{font-size:52px}
+.numhead .sub{font-size:21px}
+
+/* ---------- 그리드 / 카드 ---------- */
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+.card{background:#fff;border:1.5px solid var(--blue);border-radius:12px;padding:28px 30px;
+      display:flex;flex-direction:column}
+.card.plain{border-color:var(--line)}
+.card.tight{padding:20px 26px}
+.card.tight .t{font-size:24px;margin-bottom:8px}
+.card.tight .mlist li{padding:9px 0;font-size:19px}
+.card .no{font-size:19px;font-weight:600;color:var(--blue);margin-bottom:12px}
+.card .t{font-size:26px;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:12px}
+.card .d{font-size:20px;color:var(--muted);line-height:1.55}
+.card .chips{margin-top:auto;padding-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+.chips.top{margin:0 0 14px;padding:0}
+.chip{font-size:17px;font-weight:600;color:#fff;background:var(--blue);border-radius:7px;padding:6px 14px}
+.chip.mid{background:var(--blue-deep)}
+.chip.long{background:var(--ink)}
+
+
+/* 과제 카드 하단 '응답' 박스 */
+.card .answer{margin-top:auto;background:var(--blue-tint);border-radius:10px;padding:18px 22px;
+              color:var(--blue-navy);font-weight:700;font-size:19px;line-height:1.55}
+.card .answer .alabel{display:block;font-size:16px;letter-spacing:.03em;color:var(--blue);
+                      margin-bottom:8px;font-weight:700}
+.card .basis{margin-top:22px;padding:16px 20px;border-left:3px solid var(--blue);
+             background:rgba(46,111,242,.05);border-radius:0 8px 8px 0;
+             font-size:18px;color:var(--muted);line-height:1.6}
+.card .basis .blabel{display:block;font-size:15px;font-weight:700;letter-spacing:.03em;
+                     color:var(--blue);margin-bottom:7px}
+/* 내용이 짧은 설명 박스는 세로 중앙 정렬로 여백 분산 */
+.mbox.vcenter{display:flex;flex-direction:column;justify-content:center}
+
+/* 검정(또는 파랑) 헤더 셀 — 같은 grid 안 첫 줄에 둔다 */
+.colhead{background:var(--ink);color:#fff;border-radius:10px;padding:16px 26px;
+         font-size:23px;font-weight:700}
+.colhead.blue{background:var(--blue)}
+
+/* ---------- 수치 카드 ---------- */
+.statcard{background:var(--blue);color:#fff;border-radius:14px;padding:30px 34px}
+.statcard .k{font-size:21px;opacity:.9;margin-bottom:14px}
+.statcard .v{font-size:52px;font-weight:800;letter-spacing:-.03em}
+.metric{background:#fff;border:1.5px solid var(--blue);border-radius:12px;padding:28px 32px}
+.metric .k{font-size:20px;font-weight:700;color:var(--blue);margin-bottom:10px}
+.metric .v{font-size:56px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.05}
+.metric .u{font-size:19px;color:var(--muted);margin-top:8px}
+.bignums{display:grid;grid-template-columns:repeat(3,1fr);row-gap:52px;column-gap:40px}
+.bignum .v{font-size:78px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.bignum .k{font-size:20px;font-weight:600;margin-top:12px;color:var(--muted)}
+
+/* ---------- 프로세스 단계 ---------- */
+.steps{display:flex;align-items:flex-start;justify-content:space-between;position:relative}
+.steps::before{content:"";position:absolute;top:64px;left:11%;right:11%;
+               border-top:3px dotted #C7CFDC;z-index:0}
+.step{position:relative;z-index:1;width:19%;text-align:center}
+.step .dot{width:128px;height:128px;border-radius:50%;background:var(--blue);color:#fff;
+           font-size:44px;font-weight:800;display:flex;align-items:center;justify-content:center;
+           margin:0 auto;box-shadow:0 0 0 12px var(--blue-tint)}
+.step .t{font-size:28px;font-weight:700;color:var(--ink);margin-top:28px}
+.step .d{font-size:19px;color:var(--muted);line-height:1.5;margin-top:12px}
+
+/* ---------- 좌우 2단 + 설명 박스 ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;min-height:0}
+.stack{display:flex;flex-direction:column;gap:24px;min-height:0}
+.mbox{border:1.5px solid var(--line);border-radius:12px;padding:24px 28px}
+.mbox.hi{border-color:var(--blue)}
+.mbox .h{font-size:23px;font-weight:700;color:var(--blue);margin-bottom:14px}
+.mbox p{font-size:20px;color:var(--body)}
+.mlist{list-style:none}
+.mlist li{font-size:20px;color:var(--body);padding:13px 0;border-bottom:1px dashed #DDE3ED;
+          display:flex;gap:12px;align-items:flex-start}
+.mlist li:last-child{border-bottom:0}
+.mlist li::before{content:"●";color:var(--blue);font-size:12px;line-height:1.9;flex:0 0 auto}
+.mlist.check li::before{content:"✔";font-size:17px;line-height:1.35}
+
+/* ---------- 이미지 자리 ---------- */
+.shot{border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--tint);
+      display:flex;align-items:center;justify-content:center;min-height:0}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot .ph{font-size:20px;color:#9AA3B2}
+.fig{display:flex;flex-direction:column;gap:14px;min-height:0}
+.fig .shot{flex:1}
+.fig .cap{text-align:center}
+.fig .cap .t{font-size:24px;font-weight:700;color:var(--ink)}
+.fig .cap .d{font-size:19px;color:var(--muted);margin-top:6px}
+
+/* ---------- 항목 매트릭스 ---------- */
+.matrix{display:grid;gap:16px}
+.mlabel{background:var(--ink);color:#fff;border-radius:10px;display:flex;align-items:center;
+        justify-content:center;font-size:22px;font-weight:700}
+.mlabel.blue{background:var(--blue)}
+.mcell{border:1.5px solid var(--line);border-radius:10px;display:flex;align-items:center;
+       justify-content:center;text-align:center;font-size:20px;color:var(--ink);
+       line-height:1.45;padding:18px 14px}
+.mcell.ghost{color:#A9B0BC}
+
+/* ---------- 라벨/값 표 ---------- */
+.rows{border-top:3px solid var(--blue);border-bottom:3px solid var(--blue)}
+.rows .r{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:22px 4px;
+         border-bottom:1px solid var(--line)}
+.rows .r:last-child{border-bottom:0}
+.rows .k{font-size:22px;font-weight:700;color:var(--blue)}
+.rows .v{font-size:22px;color:var(--ink)}
+
+/* ---------- 인용·후기 ---------- */
+.quote{background:var(--tint);border-radius:12px;padding:28px 30px}
+.quote .stars{color:#F5B301;font-size:20px;text-align:center;letter-spacing:2px}
+.quote .t{font-size:24px;font-weight:700;color:var(--blue);text-align:center;margin:14px 0 18px}
+.quote p{font-size:19px;color:var(--body);line-height:1.65;margin-bottom:12px}
+
+/* ---------- 강조 바 / 패널 ---------- */
+.callout{background:var(--blue-tint);border-radius:12px;padding:24px;text-align:center;
+         font-size:24px;font-weight:700;color:var(--blue-navy)}
+.panel{background:var(--tint);border-radius:14px;padding:32px 36px}
+
+/* ---------- 파란 배경 슬라이드 ---------- */
+.blue-bg{background:var(--blue);color:#fff}
+.blue-bg h1,.blue-bg h2,.blue-bg .message{color:#fff}
+.blue-bg .eyebrow{color:rgba(255,255,255,.92)}
+.blue-bg .sub,.blue-bg .sub-block,.blue-bg p{color:rgba(255,255,255,.92)}
+.blue-bg .card{background:rgba(255,255,255,.14);border-color:transparent;color:#fff}
+.blue-bg .card .no{color:rgba(255,255,255,.75)}
+.blue-bg .card .t{color:#fff}
+.blue-bg .card .d{color:rgba(255,255,255,.88)}
+.blue-bg .chip{background:rgba(255,255,255,.92);color:var(--blue)}
+.blue-bg .bignum .v{color:#fff}
+.blue-bg .bignum .k{color:rgba(255,255,255,.85)}
+.blue-bg .rule{border-top:1px solid rgba(255,255,255,.35);margin:0 0 44px}
+
+/* 배경 그래픽 (미사용) */
+.smile{position:absolute;top:40px;right:-90px;width:800px;height:560px;pointer-events:none;
+       opacity:.13;color:#fff}
+.smile i{position:absolute;display:block;border-radius:50%;background:currentColor}
+.smile i.e1{width:115px;height:115px;left:173px;top:20px}
+.smile i.e2{width:115px;height:115px;left:526px;top:20px}
+.smile i.u{left:22px;top:219px;width:690px;height:300px;background:none;
+           border:108px solid currentColor;border-top:0;
+           border-radius:0 0 345px 345px/0 0 300px 300px}
+.smile.light{opacity:.06;color:var(--blue)}
+
+/* 로고 제거(식별 표식 금지판) */
+.logo.white{filter:brightness(0) invert(1)}
+.slide-logo{position:absolute;top:110px;left:128px}
+
+/* 표지 */
+.cover{justify-content:center}
+.cover h1{font-size:104px}
+.cover .lead{font-size:30px;font-weight:600;color:rgba(255,255,255,.95);margin-top:44px;line-height:1.55}
+.cover .footline{position:absolute;left:128px;right:128px;bottom:104px;display:flex;align-items:center;gap:28px}
+.cover .footline .bar{flex:1;height:1px;background:rgba(255,255,255,.45)}
+.cover .footline .org{font-size:26px;font-weight:700}
+.cover .footline .ver{font-size:19px;color:rgba(255,255,255,.75)}
+
+/* 챕터 간지 */
+.chapter{justify-content:center}
+.chapter .eyebrow{font-size:22px;font-weight:700;letter-spacing:.03em}
+.chapter h1{font-size:88px}
+
+/* 목차 */
+.toc h1{font-size:80px;letter-spacing:-.04em}
+.toc ol{list-style:none;counter-reset:t;margin-top:28px;max-width:1180px}
+.toc li{counter-increment:t;display:flex;align-items:baseline;gap:20px;
+        font-size:34px;font-weight:600;color:var(--ink);padding:18px 0}
+.toc li::before{content:counter(t) ".";font-weight:700;color:var(--ink)}
+.toc li .dots{flex:1;border-bottom:2px dotted #C9D2E0;transform:translateY(-8px)}
+.toc li .pg{font-size:22px;color:var(--blue);font-weight:600;width:44px;text-align:right}
+.toc li .score{font-size:18px;font-weight:700;color:var(--blue);background:var(--blue-tint);
+               border-radius:7px;padding:6px 14px;transform:translateY(-4px);white-space:nowrap}
+.toc li .score.etc{color:var(--muted);background:var(--tint)}
+
+/* 마무리 */
+.closing{justify-content:flex-end}
+.closing .contact{font-size:24px;line-height:2;color:rgba(255,255,255,.95)}
+.closing .org{font-size:30px;font-weight:700;margin-bottom:18px}
+
+/* 차트 (부차 요소) */
+.chart-wrap{flex:1;min-height:0;position:relative}
+.chart-wrap canvas{max-height:100%}
+
+/* ---------- SVG 다이어그램 ---------- */
+.diagram{display:block;width:100%;height:auto}
+.diagram text{font-family:var(--font)}
+.mbox .diagram{margin:2px 0}
+/* flex 컨테이너 직계 SVG는 압축되지 않게 고정 — 축소되면 도형이 작아져 판독성이 떨어진다 */
+.body-main>.diagram,.stack>.diagram{flex:0 0 auto}
+.svgcap{font-size:17px;color:var(--muted);margin-top:10px;line-height:1.5}
+/* 큰 다이어그램은 남는 세로 공간에 맞춰 축소되도록 감싼다 (슬라이드 넘침 방지) */
+.dgm{flex:1;min-height:0;display:flex}
+.dgm>svg{width:100%;height:100%}
+
+/* 꼬리말 / 하단 UI */
+.foot{position:absolute;right:128px;bottom:56px;font-size:17px;color:#9AA3B2;
+      display:flex;gap:16px;align-items:baseline}
+.foot .ch{color:var(--ink);font-weight:700}
+.foot .pg{color:var(--blue);font-weight:700}
+.blue-bg .foot{display:none}
+#progress{position:fixed;bottom:0;left:0;height:4px;background:var(--blue);width:0;
+          transition:width .3s ease;z-index:10}
+#hint{position:fixed;bottom:12px;left:18px;z-index:10;font-size:13px;color:rgba(255,255,255,.4)}
+
+/* ---------- 인쇄(PDF 내보내기): 모든 슬라이드를 1920×1080 페이지로 ---------- */
+
+
+
+/* ===== 인쇄 대본 레이아웃 ===== */
+html,body{width:auto;height:auto;overflow:visible;background:#EEF1F6}
+body{color:#121314}
+.page{width:210mm;height:297mm;margin:0 auto 10mm;padding:12mm 11mm 10mm;
+      background:#fff;box-shadow:0 6px 24px rgba(0,0,0,.14);overflow:hidden;
+      display:flex;flex-direction:column;break-inside:avoid;page-break-inside:avoid}
+/* 뒤(after)가 아니라 앞(before)에 페이지를 끊는다 → 마지막 뒤에 빈 페이지가 생기지 않음 */
+.page + .page{break-before:page;page-break-before:always}
+
+.phead{display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #2E6FF2;
+       padding-bottom:6px;margin-bottom:7mm;flex:0 0 auto}
+.phead .pno{font-size:19pt;font-weight:800;color:#2E6FF2;letter-spacing:-.02em}
+.phead .ptitle{font-size:16pt;font-weight:800;color:#121314;flex:1}
+.phead .ptime{font-size:14pt;font-weight:800;color:#121314;white-space:nowrap}
+.phead .ptime em{font-style:normal;font-weight:600;color:#6B7280;font-size:12pt;margin-left:6px}
+
+/* contain:strict 는 필수. 이게 없으면 썸네일 속 1920px 슬라이드의 폭이
+   overflow:hidden 을 뚫고 문서 폭으로 전파돼, 인쇄 시 브라우저가
+   "내용이 용지보다 넓다"고 판단하고 전체를 2/3 로 축소한다.
+   (증상: PDF 오른쪽·아래에 30% 여백) */
+.thumb{width:180mm;height:101.25mm;position:relative;overflow:hidden;margin:0 auto;
+       contain:strict;
+       border:1.5px solid #C7CFDC;border-radius:4px;flex:0 0 auto;background:#fff}
+.mini{position:absolute;top:0;left:0;width:1920px;height:1080px;
+      transform:scale(0.354297);transform-origin:top left}
+/* 썸네일 안의 슬라이드는 항상 펼쳐 보이게 (원본은 .active 만 표시) */
+.mini .slide{display:flex!important;position:absolute;inset:0;width:1920px;height:1080px;
+             animation:none!important;opacity:1!important;transform:none!important;
+             break-after:auto!important;page-break-after:auto!important;
+             break-inside:auto!important}
+
+.script{flex:1;margin-top:7mm;min-height:0}
+.cue{font-size:calc(var(--sfz,16.5pt) - 3.5pt);font-weight:800;color:#16389E;background:#E9EFFE;
+     border-left:5px solid #2E6FF2;border-radius:0 6px 6px 0;
+     padding:7px 12px;margin-bottom:var(--smb,4mm);overflow:hidden}
+.cue .skip{float:right;font-size:11pt;font-weight:700;color:#fff;background:#6B7280;
+           border-radius:5px;padding:2px 9px}
+/* --sfz/--slh/--smb: 페이지가 넘칠 때 auto-fit 이 순서대로 줄이는 값
+   (글자크기 → 행간 → 문단 아래 여백). 셋 다 줄여야 한 장에 확실히 들어간다. */
+.script p{font-size:var(--sfz,16.5pt);line-height:var(--slh,1.72);color:#1B1F26;
+          margin-bottom:var(--smb,4mm);font-weight:500;letter-spacing:-.02em}
+.script p b{color:#1E4FD8;font-weight:800}
+.script p.note{font-size:calc(var(--sfz,16.5pt) - 4.5pt);line-height:1.5;color:#6B7280;font-weight:600;
+               margin-top:-2mm;margin-bottom:3mm;padding-left:12px;
+               border-left:2px solid #C7CFDC}
+.script p.note::before{content:"※ "}
+
+/* 표지 */
+.cover-page{justify-content:flex-start}
+.ctitle{font-size:34pt;line-height:1.25;font-weight:800;letter-spacing:-.035em;color:#121314}
+.ctitle span{color:#2E6FF2}
+.csub{font-size:14pt;color:#3A3F47;margin:6mm 0 8mm;font-weight:600}
+.csub b{color:#2E6FF2;font-weight:800}
+.ttable{width:100%;border-collapse:collapse;font-size:var(--cfz,12.5pt)}
+.ttable th{background:#121314;color:#fff;padding:var(--cpad,5px) 10px;text-align:left;font-weight:700}
+.ttable td{border-bottom:1px solid #E3E8F1;padding:var(--cpad,5px) 10px;font-weight:600;color:#3A3F47}
+.ttable td:first-child,.ttable th:first-child{width:34px;text-align:center}
+.ttable td:nth-child(3),.ttable td:nth-child(4),
+.ttable th:nth-child(3),.ttable th:nth-child(4){width:64px;text-align:right}
+.cnote{margin-top:var(--cgap,8mm);background:#F3F5FA;border-radius:8px;padding:14px 18px;
+       font-size:var(--cfz,12.5pt)}
+.cnote b{color:#16389E}
+.cnote ul{margin:8px 0 0 18px}
+.cnote li{margin-bottom:5px;line-height:1.6;color:#3A3F47;font-weight:500}
+
+/* 부록 Q&A */
+.qawrap{display:flex;flex-direction:column;gap:var(--qgap,4mm)}
+.qa{border-left:4px solid #2E6FF2;padding-left:11px}
+.qa .q{font-size:calc(var(--qfz,12.5pt) + 1pt);font-weight:800;color:#121314;margin-bottom:3px}
+.qa .a{font-size:var(--qfz,12.5pt);line-height:1.6;color:#3A3F47;font-weight:500}
+.qa .a b{color:#1E4FD8;font-weight:800}
+
+/* PDF 저장 버튼 (화면 전용) */
+.pdfbar{position:fixed;right:20px;bottom:20px;z-index:9999;
+        display:flex;align-items:center;gap:12px;background:#fff;
+        border:1px solid #C7CFDC;border-radius:12px;padding:11px 14px;
+        box-shadow:0 8px 26px rgba(0,0,0,.20);font-size:12pt}
+.pdfbar button{font:inherit;font-weight:800;color:#fff;background:#2E6FF2;
+        border:0;border-radius:8px;padding:10px 18px;cursor:pointer;white-space:nowrap}
+.pdfbar button:hover{background:#1E4FD8}
+.pdfbar .tip{color:#6B7280;font-weight:600;line-height:1.5}
+.pdfbar .tip b{color:#16389E}
+
+@page{size:210mm 297mm;margin:0}
+@media print{
+  html,body{background:#fff}
+  .page{margin:0;box-shadow:none}
+  .thumb{border-color:#D5DCE7}
+  .pdfbar{display:none!important}
+}
+/* 인쇄에서도 배경색·헤더 블록이 그대로 나오게 강제 */
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+</style>
+</head>
+<body>
+<div class="page cover-page">
+  <h1 class="ctitle">제주 AX 대전환 인재양성 프로그램 운영 <span style="color:#D40000;font-weight:700">(가칭)</span><br><span>제안 발표 대본</span></h1>
+  <p class="csub">발표 19장 · 대본 총 <b>14:20</b> (배정 15:00 / 여유 0:40) · 질의응답 20:00</p>
+  <table class="ttable">
+    <tr><th>#</th><th>슬라이드</th><th>배분</th><th>누적</th></tr>
+<tr><td>01</td><td>표지 · 인사</td><td>0:20</td><td>0:20</td></tr><tr><td>02</td><td>목차</td><td>0:10</td><td>0:30</td></tr><tr><td>03</td><td>AT A GLANCE · 숫자</td><td>0:45</td><td>1:15</td></tr><tr><td>04</td><td>사업의 이해 · 네 가지 과제</td><td>1:25</td><td>2:40</td></tr><tr><td>05</td><td>선순환 고리 · 과업 ①~⑥</td><td>0:45</td><td>3:25</td></tr><tr><td>06</td><td>수행 전략 · 2트랙 추진 방향</td><td>0:45</td><td>4:10</td></tr><tr><td>07</td><td>① AI 강사 양성</td><td>1:05</td><td>5:15</td></tr><tr><td>08</td><td>② 학생 1,200명</td><td>1:05</td><td>6:20</td></tr><tr><td>09</td><td>② 학부모 240명</td><td>0:40</td><td>7:00</td></tr><tr><td>10</td><td>③ 바이브 코딩 챌린지 300명</td><td>0:45</td><td>7:45</td></tr><tr><td>11</td><td>④⑤⑥ 교재 · 플랫폼 · AI 계정</td><td>1:05</td><td>8:50</td></tr><tr><td>12</td><td>관리 계획 · 일정</td><td>0:35</td><td>9:25</td></tr><tr><td>13</td><td>관리 계획 · KPI 6종</td><td>0:45</td><td>10:10</td></tr><tr><td>14</td><td>관리 계획 · 위험 8종 · 보안</td><td>0:35</td><td>10:45</td></tr><tr><td>15</td><td>인력 운영 · 조직</td><td>0:50</td><td>11:35</td></tr><tr><td>16</td><td>인력 운영 · 강사 배치</td><td>0:40</td><td>12:15</td></tr><tr><td>17</td><td>차별화 5가지</td><td>0:55</td><td>13:10</td></tr><tr><td>18</td><td>무상 부가 제안 5종</td><td>0:40</td><td>13:50</td></tr><tr><td>19</td><td>마무리</td><td>0:30</td><td>14:20</td></tr>
+  </table>
+  <div class="cnote">
+    <b>진행 원칙</b>
+    <ul>
+      <li>누적 시간이 <b>8:00</b>을 넘긴 채 11번 슬라이드에 도달하면, 이후는 굵은 글씨만 읽고 넘어간다.</li>
+      <li>‘시간 부족 시 생략 가능’ 표시된 슬라이드는 한 문장으로 압축한다.</li>
+      <li>숫자(120 / 1,200 / 240 / 300 / VOD 30개 / 교재 12종 / 1,740 / 컨퍼런스 300)는 <b>반드시 소리 내어</b> 말한다.</li>
+      <li>식별 표식 금지 — 회사명·대표자명·제품명 대신 <b>“제안사”, “자체 LMS”</b>로 말한다.</li>
+    </ul>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">01 / 19</span>
+    <span class="ptitle">표지 · 인사</span>
+    <span class="ptime">0:20 <em>누적 0:20</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide cover blue-bg">
+  <h1>제주 AX 대전환 인재양성<br>프로그램 운영 <span style="color:#FF8A8A;font-weight:800">(가칭)</span></h1>
+  <p class="lead">"제주가 키우고, 제주가 가르치는 AI"<br>강사 120명 · 초등학생~성인 1,440명 · 챌린지 300명을 하나의 고리로 잇는 제안</p>
+  <div class="footline">
+    <div class="bar"></div>
+    <div class="org">제안사</div>
+    <div class="ver">제안 발표자료 · 2026. 8.</div>
+  </div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">제안 한 문장 + 오늘 발표 순서 </div>
+      <p>안녕하십니까. <b>제주 AX 대전환 인재양성 프로그램 운영 용역</b> 제안 발표를 맡은 이호준입니다.</p>
+      <p>저희 제안을 한 문장으로 말씀드리면 <b>“제주가 키우고, 제주가 가르치는 AI”</b>입니다. 강사 육성부터 학생과 학부모 교육과 챌린지까지 <b>하나의 고리</b>로 잇는 제안입니다.</p>
+      <p>정성평가 4개 항목 순서 그대로 말씀드리겠습니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">02 / 19</span>
+    <span class="ptitle">목차</span>
+    <span class="ptime">0:10 <em>누적 0:30</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide toc">
+  <div class="body-main center">
+    <h1>목차</h1>
+    <p class="sub-block" style="font-size:23px;margin-top:6px">제안요청서 정성평가 4개 항목의 순서 그대로 구성했습니다</p>
+    <ol>
+      <li>사업의 이해: 왜 '자립 구조'인가<span class="dots"></span><span class="score">사업의 이해도 15점</span><span class="pg">4</span></li>
+      <li>수행 전략: 과업 ①~⑥ 실행 방안<span class="dots"></span><span class="score">사업 수행 전략 15점</span><span class="pg">6</span></li>
+      <li>관리 계획: 일정·품질·위험·보안<span class="dots"></span><span class="score">사업 관리 계획 15점</span><span class="pg">12</span></li>
+      <li>인력 운영: 조직과 강사 배치<span class="dots"></span><span class="score">인력운영계획 15점</span><span class="pg">15</span></li>
+      <li>차별화 및 무상 부가 제안<span class="dots"></span><span class="score etc">기타 제안 사항</span><span class="pg">17</span></li>
+    </ol>
+  </div>
+  <div class="foot" data-chapter="목차"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">빠르게 넘긴다 <span class="skip">시간 부족 시 생략 가능</span></div>
+      <p>목차는 제안요청서 <b>정성평가 항목 순서 그대로</b>입니다. 사업의 이해, 수행 전략, 관리 계획, 인력 운영, 그리고 기타 제안입니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">03 / 19</span>
+    <span class="ptitle">AT A GLANCE · 숫자</span>
+    <span class="ptime">0:45 <em>누적 1:15</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide chapter blue-bg">
+  <div class="eyebrow">AT A GLANCE</div>
+  <h2 style="font-size:72px">숫자로 보는 본 제안</h2>
+  <p class="sub-block" style="margin-bottom:64px">기재한 모든 수치는 계약조건으로 이행을 확약하는 숫자입니다.</p>
+  <div class="rule"></div>
+  <div class="bignums" style="grid-template-columns:repeat(4,1fr);row-gap:44px">
+    <div class="bignum"><div class="v">120명</div><div class="k">AI 강사 양성 (초급 60 · 전문 60)</div></div>
+    <div class="bignum"><div class="v">1,200명</div><div class="k">학생 교육 (초 · 중 · 고 3트랙)</div></div>
+    <div class="bignum"><div class="v">240명</div><div class="k">성인 교육 (학부모 · 도민)</div></div>
+    <div class="bignum"><div class="v">300명</div><div class="k">제주 바이브 코딩 챌린지</div></div>
+    <div class="bignum"><div class="v">30개</div><div class="k">대상별 VOD 강의 (300여 개 영상)</div></div>
+    <div class="bignum"><div class="v">12종</div><div class="k">대상별 교재 (웹 교안 + PDF)</div></div>
+    <div class="bignum"><div class="v">1,740명</div><div class="k">1인 1계정 AI 샌드박스</div></div>
+    <div class="bignum"><div class="v">300명</div><div class="k">제주 AI 컨퍼런스 (연계 개최)</div></div>
+  </div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">숫자 = 목표치가 아니라 계약조건 </div>
+      <p>숫자로 말씀드리겠습니다. 강사 <b>120명</b>은 초급 60명·전문 60명입니다. 학생 <b>1,200명</b>, 학부모를 포함한 성인 <b>240명</b>, 그리고 바이브 코딩 챌린지 <b>300명</b>입니다.</p>
+      <p>여기에 대상별 온라인 VOD를 <b>강의 30개, 300여 개 영상</b>으로 제작합니다. 초등 5개, 중등 7개, 고등 8개, 지도교사와 전문강사 겸용 10개입니다. 초중고 학생과 선생님, 강사와 학부모 교재까지 <b>총 12종</b>, 계정은 1인 1계정 AI 샌드박스 <b>1,740명분</b>입니다. 여기에 <b>제주 AI 컨퍼런스 300명</b>을 연계 개최합니다.</p>
+      <p>이 숫자들은 희망 목표치가 아니라, <b>계약이 되면 계약조건으로 그대로 이행하겠다고 확약드리는 숫자</b>입니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">04 / 19</span>
+    <span class="ptitle">사업의 이해 · 네 가지 과제</span>
+    <span class="ptime">1:25 <em>누적 2:40</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 01 · 사업의 이해</div>
+    <div class="title-row"><h2>제주가 직면한 네 가지 과제에서 출발합니다</h2>
+      <span class="sub">발주처의 언어를 재해석한 문제 정의</span></div>
+  </div>
+  <div class="body-main">
+    <div class="grid g4 fill">
+      <div class="card"><div class="no">과제 1</div><div class="t">최신 AI 지식 격차</div>
+        <div class="d">산업 현장은 이미 Agent형 AI에게 업무를 맡기는 단계로 옮겨갔지만, 도내 교육은 도구 소개·기초 활용 수준에 머물러 시차가 누적되고 있습니다.</div><div class="basis"><span class="blabel">현장의 언어 · 산업 수요</span>대화형 질의응답을 넘어 "일을 대신 수행하는 AI"를 만들어 쓰는 역량이 요구되는 단계. 강사·교재·실습 환경이 동시에 갱신되어야 해소되는 구조적 과제</div>
+        <div class="answer"><span class="alabel">본 제안의 응답</span>전 과정에 Agent형 AI 업무 자동화(A트랙)를 편성하고 교재·VOD를 분기 단위로 갱신</div></div>
+      <div class="card"><div class="no">과제 2</div><div class="t">강사 부족</div>
+        <div class="d">도내 AI 교육 수요 대비 최신의 지식을 습득한 검증된 지역 강사 풀이 부족하여 교육 품질이 도외 강사 수급에 좌우됩니다.</div><div class="basis"><span class="blabel">발주처의 언어 · 제안요청서 「사업추진 필요성」</span>"글로벌·엔터프라이즈 표준 기준에 부합하는 초급 및 전문 강사를 체계적으로 훈련하여 제주 지역의 검증된 AI 전문 강사 풀(Pool)을 확보"</div>
+        <div class="answer"><span class="alabel">본 제안의 응답</span>인증 평가를 통과한 지역 강사 120명 양성 → 학생 교육에 최우선 배치</div></div>
+      <div class="card"><div class="no">과제 3</div><div class="t">도농 격차</div>
+        <div class="d">읍·면 소외지역과 동 지역 간 교육 접근성 차이가 학생과 학부모 모두에게 누적되고 있습니다.</div><div class="basis"><span class="blabel">발주처의 언어 · 제안요청서 「사업추진 필요성」</span>"소외지역 학부모 대상 교육을 병행하여 전 도민의 디지털 격차를 해소". 과업지시서도 도·농간 교육 격차 해소를 과업 목적으로 명시</div>
+        <div class="answer"><span class="alabel">본 제안의 응답</span>6개 권역(지역 4+핵심 2) 순회 '찾아가는 교육', 장비·격리망·클라우드를 직접 들고 이동</div></div>
+      <div class="card"><div class="no">과제 4</div><div class="t">성과 단절</div>
+        <div class="d">교육이 일회성으로 끝나 교재·강사·산출물이 지역 자산으로 축적되지 않습니다.</div><div class="basis"><span class="blabel">발주처의 언어 · 과업지시서 「과업의 목적」</span>"지역 내 AI 전문 강사를 양성 및 활용하여 지속 가능한 지역 기반 AI 에코시스템을 구축". 일회성 행사가 아닌 축적 구조를 요구</div>
+        <div class="answer"><span class="alabel">본 제안의 응답</span>교재 12종 · VOD 강의 30개 · 인력풀 DB · 산출물 아카이브를 발주처에 이관</div></div>
+    </div>
+    <div class="callout">본 과업의 본질은 개별 교육의 합이 아니라 "제주가 키우고, 제주가 가르치는" 자립 구조의 정착입니다</div>
+  </div>
+  <div class="foot" data-chapter="사업의 이해"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">제안요청서 + 산업 수요를 4개 과제로 재해석 → 각각에 답 </div>
+      <p>저희는 제안요청서를 <b>네 가지 과제</b>로 다시 읽었습니다.</p>
+      <p>첫째, <b>최신 AI 지식의 격차</b>입니다. 산업 현장은 이미 <b>Agent형 AI에게 업무 자체를 맡기는 단계</b>로 넘어갔습니다. 그런데 교육 현장에서 다뤄지는 내용은 아직 도구를 소개하고 기초 활용을 익히는 수준에 머물러 있습니다. 이 시차는 강사와 교재와 실습 환경이 <b>동시에</b> 갱신되어야 좁혀집니다. 그래서 저희는 전 과정에 <b>Agent형 AI 업무 자동화 트랙</b>을 넣고, 교재와 VOD를 <b>분기 단위로 갱신</b>합니다.</p>
+      <p>둘째, <b>검증된 강사 부족</b>입니다. 제안요청서는 “검증된 지역 AI 전문 강사 풀 확보”를 요구합니다. 저희 답은 <b>인증 평가를 통과한 지역 강사 120명</b>을 양성해, 그 강사를 <b>검증된 교안을 통해 학생 교육에 최우선 배치</b>하는 것입니다. 모두가 비슷한 품질의 강의를 진행할 수 있도록 강사용 교안이 별도 제작되기 때문에 &#x27;최신의 AI 기술을 검증된 교안을 통해 전파&#x27;하는 것이 가능합니다.</p>
+      <p>셋째, <b>도농 격차</b>입니다. 소외지역 학부모 교육이 명시돼 있습니다. 저희는 <b>6개 권역을 순회</b>하며 장비와 격리망을 직접 들고 찾아갑니다.</p>
+      <p>넷째, <b>성과 단절</b>입니다. 과업지시서는 “지속 가능한 지역 AI 에코시스템”을 요구합니다. 그래서 교재 12종·VOD 강의 30개·인력풀 DB·산출물 아카이브를 <b>발주처에 이관</b>합니다. 또한 제작된 모든 VOD와 책은 회사의 웹 교안 서비스와 LMS를 통해 지속 서비스 하겠습니다.</p>
+      <p>결국 이 과업의 본질은 개별 교육의 합이 아니라, <b>자립 구조를 남기는 것</b>이라고 봤습니다.</p>
+      <p class="note">격리망: 스타링크 위성 단말기</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">05 / 19</span>
+    <span class="ptitle">선순환 고리 · 과업 ①~⑥</span>
+    <span class="ptime">0:45 <em>누적 3:25</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 01 · 사업의 이해</div>
+    <div class="title-row"><h2>과업 ①~⑥을 하나의 선순환 고리로 운영합니다</h2>
+      <span class="sub">양성(Train) → 투입(Deploy) → 확산(Scale)</span></div>
+  </div>
+  <div class="body-main center">
+    <div class="dgm">
+    <svg class="diagram" viewBox="0 0 1664 466" role="img" aria-label="과업 ①②③ 선순환 고리와 ④⑤⑥ 기반 자산 구조도">
+      <defs>
+        <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 Z" fill="#2E6FF2"/>
+        </marker>
+      </defs>
+      <!-- 순환 화살표 (①→②→③→①) -->
+      <path d="M610 118 Q730 148 716 248" fill="none" stroke="#2E6FF2" stroke-width="4" marker-end="url(#arw)"/>
+      <path d="M578 392 Q460 448 344 392" fill="none" stroke="#2E6FF2" stroke-width="4" marker-end="url(#arw)"/>
+      <path d="M182 252 Q150 128 290 94" fill="none" stroke="#2E6FF2" stroke-width="4" marker-end="url(#arw)"/>
+      <text x="452" y="452" text-anchor="middle" font-size="17" fill="#6B7280">산출물과 수료 강사가 다음 단계의 투입 자원이 됩니다</text>
+      <text x="132" y="158" text-anchor="end" font-size="16" font-weight="700" fill="#16389E">수료 강사</text>
+      <text x="132" y="182" text-anchor="end" font-size="16" font-weight="700" fill="#16389E">차년도 주강 흡수</text>
+      <!-- 중앙 메시지 -->
+      <text x="452" y="186" text-anchor="middle" font-size="23" font-weight="800" fill="#16389E">제주가 키우고</text>
+      <text x="452" y="216" text-anchor="middle" font-size="23" font-weight="800" fill="#16389E">제주가 가르치는</text>
+      <text x="452" y="246" text-anchor="middle" font-size="23" font-weight="800" fill="#16389E">AI 자립 구조</text>
+      <!-- 노드 ① -->
+      <g>
+        <rect x="300" y="30" width="300" height="120" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <circle cx="352" cy="90" r="27" fill="#2E6FF2"/>
+        <text x="352" y="99" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">①</text>
+        <text x="398" y="80" font-size="25" font-weight="700" fill="#121314">강사 양성</text>
+        <text x="398" y="107" font-size="16" fill="#6B7280">초급 60 · 전문 60</text>
+        <text x="398" y="129" font-size="16" fill="#6B7280">인증 평가로 검증</text>
+      </g>
+      <!-- 노드 ② -->
+      <g>
+        <rect x="570" y="260" width="300" height="120" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <circle cx="622" cy="320" r="27" fill="#2E6FF2"/>
+        <text x="622" y="329" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">②</text>
+        <text x="668" y="310" font-size="25" font-weight="700" fill="#121314">교육 투입</text>
+        <text x="668" y="337" font-size="16" fill="#6B7280">학생 1,200 · 성인 240</text>
+        <text x="668" y="359" font-size="16" fill="#6B7280">양성 강사 최우선 배치</text>
+      </g>
+      <!-- 노드 ③ -->
+      <g>
+        <rect x="30" y="260" width="300" height="120" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <circle cx="82" cy="320" r="27" fill="#2E6FF2"/>
+        <text x="82" y="329" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">③</text>
+        <text x="128" y="310" font-size="25" font-weight="700" fill="#121314">챌린지 확산</text>
+        <text x="128" y="337" font-size="16" fill="#6B7280">산출물 출품 300명</text>
+        <text x="128" y="359" font-size="16" fill="#6B7280">축제형 성과 공유</text>
+      </g>
+      <!-- 우측: 기반 자산 -->
+      <line x1="940" y1="34" x2="940" y2="450" stroke="#E3E8F1" stroke-width="2"/>
+      <text x="975" y="64" font-size="22" font-weight="800" fill="#121314">④·⑤·⑥ 기반 자산</text>
+      <text x="975" y="92" font-size="17" fill="#6B7280">전 단계를 공통으로 떠받치는 자체 보유 자산</text>
+      <g>
+        <line x1="940" y1="164" x2="975" y2="164" stroke="#C7CFDC" stroke-width="2"/>
+        <rect x="975" y="122" width="660" height="84" rx="12" fill="#E9EFFE"/>
+        <text x="1005" y="160" font-size="21" font-weight="700" fill="#16389E">④ 교재 12종 · VOD 강의 30개</text>
+        <text x="1005" y="187" font-size="16" fill="#6B7280">자체 출판 17종 베이스라인 · 자체 스튜디오 제작</text>
+      </g>
+      <g>
+        <line x1="940" y1="280" x2="975" y2="280" stroke="#C7CFDC" stroke-width="2"/>
+        <rect x="975" y="238" width="660" height="84" rx="12" fill="#E9EFFE"/>
+        <text x="1005" y="276" font-size="21" font-weight="700" fill="#16389E">⑤ 자체 LMS 즉시 가동</text>
+        <text x="1005" y="303" font-size="16" fill="#6B7280">구축 기간 0일 · 모집부터 만족도까지 통합 관리</text>
+      </g>
+      <g>
+        <line x1="940" y1="396" x2="975" y2="396" stroke="#C7CFDC" stroke-width="2"/>
+        <rect x="975" y="354" width="660" height="84" rx="12" fill="#E9EFFE"/>
+        <text x="1005" y="392" font-size="21" font-weight="700" fill="#16389E">⑥ 1인 1계정 AI 샌드박스 1,740계정</text>
+        <text x="1005" y="419" font-size="16" fill="#6B7280">3대 요건 충족 서비스 · 종료 시 일괄 회수·파기</text>
+      </g>
+    </svg>
+    </div>
+    <div class="grid g2">
+      <div class="mbox hi"><div class="h">성과 연계 설계</div>
+        <p>전문강사 자격요건의 '전년도 수료자' 조항을 고려하여, 해당 수료자가 확인되면 금년 주강 후보로 우선 흡수하고, 금년 수료 체계는 차년도 자격요건에 그대로 연결되도록 표준화합니다.</p></div>
+      <div class="mbox hi"><div class="h">전 항목 대응</div>
+        <p>과업지시서 ①~⑥ · 일반지침 · 성과보고 · 성과품 전 항목을 요구사항 ↔ 대응 매트릭스로 매핑하고, 절차상 Check Point 9종을 사전 식별했습니다.</p></div>
+    </div>
+  </div>
+  <div class="foot" data-chapter="사업의 이해"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">양성 → 투입 → 확산, 그리고 차년도 연결 </div>
+      <p>그래서 과업 ①번부터 ⑥번까지를 따로 운영하지 않고 <b>하나의 고리</b>로 묶었습니다. 강사를 <b>양성</b>하고, 그 강사를 초등학생~성인 교육에 <b>투입</b>하고, 결과물을 챌린지에서 <b>확산</b>합니다. 모든 연결고리가 누구에게나 원활하게 파악할 수 있도록 개별 랜딩 페이지, 통합 랜딩 페이지를 별도 운영하겠습니다.</p>
+      <p>특히 전문강사 자격요건의 ‘전년도 수료자’ 조항을 고려해, <b>금년 수료 체계가 차년도 자격요건에 그대로 연결</b>되도록 표준화했습니다.</p>
+      <p>과업지시서 전 항목은 요구사항–대응 매트릭스로 매핑했고, 절차상 <b>체크포인트 9종</b>을 미리 식별해 두었습니다.</p>
+      <p class="note">체크포인트 9종: 착수 기한·모집 선행·전력 조회·실습 환경·AI 계정·중간보고·훈격·인력 변경·12월 분산</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">06 / 19</span>
+    <span class="ptitle">수행 전략 · 2트랙 추진 방향</span>
+    <span class="ptime">0:45 <em>누적 4:10</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 02 · 수행 전략</div>
+    <div class="title-row"><h2>목적이 다른 학습자를 두 개의 트랙으로 나눕니다</h2>
+      <span class="sub">A트랙 업무 자동화 · B트랙 앱 제작 — 산출물도 둘로 나뉩니다</span></div>
+  </div>
+  <div class="body-main">
+    <div class="mbox hi vcenter" style="margin-bottom:24px">
+      <div class="h">AI 활용은 두 개의 축으로 갈라졌습니다</div>
+      <p>① 대화형 질의응답에서 <b>Agent형 AI에게 업무 자체를 위임</b>하는 방향으로 활용이 깊어졌고, 그렇게 위임해서 받아 낸 결과물 중 하나가 <b>자연어로 만든 코드</b>입니다. 즉 앱을 만드는 일은 활용의 중간 단계가 아니라, <b>필요한 것을 직접 만들어 내는 별도의 축</b>입니다. 본 사업은 이 두 축을 그대로 두 개의 트랙으로 옮겼습니다.</p>
+    </div>
+    <div class="grid g2 fill">
+      <div class="card"><div class="no">A트랙</div><div class="t">Agent형 AI 업무 자동화</div>
+        <div class="d">반복 업무를 줄여 <b>업무 혁신</b>을 이루려는 그룹 — 재직자 · 교사 · 행정 실무자 · 성인학습자</div>
+        <ul class="mlist"><li>내 업무를 분해하고 위임 가능한 단위로 정의</li><li>Agent 설계 · 도구 연결 · 실행 결과 검증</li><li>절감 시간을 스스로 측정해 성과로 제출</li></ul>
+        <div class="answer"><span class="alabel">산출물</span>1인 1AI Agent · 업무 자동화 시나리오</div></div>
+      <div class="card"><div class="no">B트랙</div><div class="t">AI 활용 앱 제작 (바이브 코딩)</div>
+        <div class="d">원하는 <b>웹 · 앱을 직접 만들려는</b> 그룹 — 학생 · 예비 창업자 · 1인 서비스 기획자</div>
+        <ul class="mlist"><li>제주 생활 문제에서 출발하는 기획 · 요구사항 정의</li><li>바이브 코딩 5단계: 기획 → 초안 → 기능 → 디자인 → 완성</li><li>배포까지 완료해 실제 접속되는 URL 확보</li></ul>
+        <div class="answer"><span class="alabel">산출물</span>1인 1AI 앱 · 배포 URL</div></div>
+    </div>
+    <div class="callout" style="margin-top:24px">공통 기초를 이수한 뒤 목적에 맞는 트랙을 선택합니다 · 두 트랙 모두 동일한 LMS · 교재 체계 위에서 운영합니다</div>
+  </div>
+  <div class="foot" data-chapter="수행 전략"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">활용의 축과 제작의 축 → 2개 트랙 </div>
+      <p>수행 전략의 출발점은 <b>“누구를 위해 무엇을 만들게 할 것인가”</b>입니다.</p>
+      <p>생성형 AI 활용은 대화형 질의응답에서 시작해, 지금은 <b>Agent형 AI에게 업무 자체를 위임</b>하는 데까지 왔습니다. 그리고 그렇게 위임해서 <b>받아 낸 결과물</b> 중 하나가 자연어로 만든 코드, 즉 바이브 코딩입니다. 그래서 앱을 만드는 일은 활용의 중간 단계가 아니라, <b>필요한 것을 직접 만들어 내는 별도의 축</b>입니다.</p>
+      <p>저희는 이 두 축을 그대로 <b>두 개의 트랙</b>으로 옮겼습니다. <b>A트랙은 Agent형 AI 업무 자동화</b>입니다. 반복 업무를 줄여 업무 혁신을 이루려는 재직자·교사·행정 실무자를 위한 트랙이고, 산출물은 <b>1인 1AI Agent</b>입니다. <b>B트랙은 AI 활용 앱 제작</b>입니다. 원하는 웹과 앱을 직접 만들려는 학생·예비 창업자를 위한 트랙이고, 산출물은 <b>배포 URL까지 살아 있는 1인 1AI 앱</b>입니다.</p>
+      <p>공통 기초를 이수한 뒤 목적에 맞는 트랙을 선택하고, 두 트랙 모두 <b>동일한 LMS와 교재 체계</b> 위에서 운영합니다.</p>
+      <p class="note">과업 ①의 ‘초급·전문’은 수준의 축, A·B는 목적의 축 — 서로 교차 편성</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">07 / 19</span>
+    <span class="ptitle">① AI 강사 양성</span>
+    <span class="ptime">1:05 <em>누적 5:15</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="eyebrow">CHAPTER 02 · 수행 전략</div>
+  <div class="numhead">
+    <div class="numbadge">①</div>
+    <h2>AI 강사 양성: 엄격한 훈련과 인증 평가</h2>
+    <span class="sub">공통 128h + 심화 32h · 초급·전문 2트랙 120명</span>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <div class="mbox hi"><div class="h">초급·전문 2트랙 커리큘럼: 공통 128h + 전문 심화 32h</div>
+        <svg class="diagram" viewBox="0 0 800 342" role="img" aria-label="초급·전문 2트랙 커리큘럼 구조: 공통 128h 4개 모듈 이수 후 초급 트랙은 128h 수료, 전문 트랙은 심화 32h를 더해 160h 수료">
+          <defs>
+            <marker id="arw2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#97B7F8"/>
+            </marker>
+          </defs>
+          <text x="4" y="16" font-size="18" font-weight="700" fill="#16389E">공통 과정 128h · 초급·전문 합동 (16회차)</text>
+          <rect x="4" y="30" width="426" height="62" rx="10" fill="#E9EFFE"/>
+          <text x="22" y="56" font-size="17" font-weight="700" fill="#121314">1~4회차 · 생성형 AI 기초 + 엔지니어링</text>
+          <text x="22" y="79" font-size="15" fill="#6B7280">프롬프트 → 컨텍스트 → 하네스 → 루프</text>
+          <text x="414" y="68" text-anchor="end" font-size="18" font-weight="800" fill="#2E6FF2">32h</text>
+          <rect x="4" y="100" width="426" height="62" rx="10" fill="#E9EFFE"/>
+          <text x="22" y="126" font-size="17" font-weight="700" fill="#121314">5~8회차 · 바이브 코딩 기초 지식</text>
+          <text x="22" y="149" font-size="15" fill="#6B7280">마크다운 · HTML · 웹 구조 · GitHub</text>
+          <text x="414" y="138" text-anchor="end" font-size="18" font-weight="800" fill="#2E6FF2">32h</text>
+          <rect x="4" y="170" width="426" height="62" rx="10" fill="#E9EFFE"/>
+          <text x="22" y="196" font-size="17" font-weight="700" fill="#121314">9~12회차 · 바이브 코딩 + AI Agent 실전</text>
+          <text x="22" y="219" font-size="15" fill="#6B7280">웹 서비스 · 데이터 연동 · 업무 자동화 Agent 제작</text>
+          <text x="414" y="208" text-anchor="end" font-size="18" font-weight="800" fill="#2E6FF2">32h</text>
+          <rect x="4" y="240" width="426" height="62" rx="10" fill="#E9EFFE"/>
+          <text x="22" y="266" font-size="17" font-weight="700" fill="#121314">13~16회차 · 실전 교수 역량 검증</text>
+          <text x="22" y="289" font-size="15" fill="#6B7280">마이크로 티칭 모의수업 · 상호 피드백</text>
+          <text x="414" y="278" text-anchor="end" font-size="18" font-weight="800" fill="#2E6FF2">32h</text>
+          <path d="M436 166 L456 166" stroke="#97B7F8" stroke-width="2.5" fill="none"/>
+          <path d="M456 166 L456 78" stroke="#97B7F8" stroke-width="2.5" fill="none"/>
+          <path d="M456 166 L456 244" stroke="#97B7F8" stroke-width="2.5" fill="none"/>
+          <path d="M456 78 L474 78" stroke="#97B7F8" stroke-width="2.5" fill="none" marker-end="url(#arw2)"/>
+          <path d="M456 244 L474 244" stroke="#97B7F8" stroke-width="2.5" fill="none" marker-end="url(#arw2)"/>
+          <rect x="480" y="30" width="316" height="106" rx="12" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+          <text x="500" y="60" font-size="19" font-weight="800" fill="#2E6FF2">초급 트랙 60명</text>
+          <text x="776" y="60" text-anchor="end" font-size="21" font-weight="800" fill="#121314">128h</text>
+          <text x="500" y="88" font-size="15" fill="#6B7280">산출물: 교육용 프롬프트 템플릿 3종 이상</text>
+          <text x="500" y="110" font-size="15" fill="#6B7280">+ 단위 수업 지도안</text>
+          <rect x="480" y="196" width="316" height="146" rx="12" fill="#fff" stroke="#16389E" stroke-width="2"/>
+          <text x="500" y="226" font-size="19" font-weight="800" fill="#16389E">전문 트랙 60명</text>
+          <text x="776" y="226" text-anchor="end" font-size="21" font-weight="800" fill="#121314">160h</text>
+          <rect x="500" y="240" width="276" height="44" rx="8" fill="#16389E"/>
+          <text x="514" y="257" font-size="15" font-weight="700" fill="#fff">+ 심화 32h · 인프라 / 마스터 /</text>
+          <text x="514" y="276" font-size="15" font-weight="700" fill="#fff">실전 개발 / 12H+ 해커톤 멘토링</text>
+          <text x="500" y="306" font-size="15" fill="#6B7280">산출물: 프로토타입 App + AI Agent</text>
+          <text x="500" y="328" font-size="15" fill="#6B7280">+ 엔터프라이즈 AI 도입 심화 기획서</text>
+        </svg></div>
+      <div class="mbox vcenter" style="flex:1"><div class="h">사후 활용</div>
+        <ul class="mlist check"><li>수료 강사 인력풀 DB화 → 학생 교육 즉시 배치</li><li>자격증 응시 지원 + 지역 AI 교육 자격 공동개발 제안</li><li>사업 종료 시 인력풀·파견 절차서 발주처 이관</li></ul></div>
+    </div>
+    <div class="stack">
+      <div style="font-size:26px;font-weight:700;color:var(--ink)">인증 평가 기준(안): 총점 70점 이상 + 출석률 80% 이상 수료</div>
+      <svg class="diagram" viewBox="0 0 800 112" role="img" aria-label="인증 평가 배점 100점 구성: 마이크로 티칭 40점, 프로젝트 평가 40점, 과정 참여도 20점, 수료 커트라인 70점">
+        <text x="552" y="20" text-anchor="middle" font-size="17" font-weight="700" fill="#16389E">수료 커트라인 70점</text>
+        <path d="M20 44 Q20 40 24 40 L322 40 L322 96 L24 96 Q20 96 20 92 Z" fill="#2E6FF2"/>
+        <rect x="324" y="40" width="302" height="56" fill="#16389E"/>
+        <path d="M628 40 L776 40 Q780 40 780 44 L780 92 Q780 96 776 96 L628 96 Z" fill="#97B7F8" stroke="#2E6FF2" stroke-width="1.5"/>
+        <text x="171" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">마이크로 티칭</text>
+        <text x="171" y="88" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">40점</text>
+        <text x="475" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">프로젝트 평가</text>
+        <text x="475" y="88" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">40점</text>
+        <text x="704" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#16389E">참여도</text>
+        <text x="704" y="88" text-anchor="middle" font-size="18" font-weight="800" fill="#16389E">20점</text>
+        <line x1="552" y1="26" x2="552" y2="110" stroke="#fff" stroke-width="5"/>
+        <line x1="552" y1="26" x2="552" y2="110" stroke="#121314" stroke-width="3" stroke-dasharray="7 5"/>
+      </svg>
+      <div class="card plain tight" style="flex:1;justify-content:center"><div class="t">마이크로 티칭 40점</div>
+        <ul class="mlist"><li>개인별 실전 모의수업, 설계·전달력·상호작용·AI 윤리 지도를 체크리스트로 평가</li></ul></div>
+      <div class="card plain tight" style="flex:1;justify-content:center"><div class="t">프로젝트 평가 40점</div>
+        <ul class="mlist"><li>초급: 교육용 프롬프트 템플릿 3종 이상 + 단위 수업 지도안 심사</li><li>전문: 바이브 코딩 프로토타입 앱 + 업무 자동화 AI Agent 1종 이상 + 심화 프로젝트 기획서 심사</li></ul></div>
+      <div class="card plain tight" style="flex:1;justify-content:center"><div class="t">과정 참여도 20점</div>
+        <ul class="mlist"><li>출석률·과제 제출·동료 피드백, 미도달자는 보강 지도 후 재평가 1회</li></ul></div>
+    </div>
+  </div>
+  <div class="foot" data-chapter="수행 전략"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">수료증이 아니라 ‘인증’ — 70점 + 출석 80% </div>
+      <p>이제 과업별 실행 방안입니다. 첫 번째, <b>강사 양성</b>입니다. 공통 <b>128시간</b>에 전문 심화 <b>32시간</b>을 더한 <b>초급·전문 2트랙</b>으로 120명을 양성합니다.</p>
+      <p>핵심은 수료증이 아니라 <b>인증</b>입니다. 마이크로 티칭 40점, 프로젝트 40점, 참여도 20점으로 <b>총점 70점 이상·출석률 80% 이상</b>이어야 수료입니다. 미달자는 보강 지도 후 <b>재평가 1회</b>를 드립니다.</p>
+      <p>수료 강사는 <b>인력풀 DB</b>로 관리해 학생 교육에 즉시 배치하고, 자격증 응시도 지원합니다. 사업 종료 시 이 인력풀과 파견 절차서를 <b>발주처에 이관</b>합니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">08 / 19</span>
+    <span class="ptitle">② 학생 1,200명</span>
+    <span class="ptime">1:05 <em>누적 6:20</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="eyebrow">CHAPTER 02 · 수행 전략</div>
+  <div class="numhead">
+    <div class="numbadge">②</div>
+    <h2>학생 1,200명: 전원 '1인 1AI 앱' 완성</h2>
+    <span class="sub">반당 20명 · 강사 2인 1조 · 시니어 QA 순회</span>
+  </div>
+  <div class="body-main" style="justify-content:center;gap:22px">
+    <div class="grid g3">
+      <div class="card"><div class="no">초등 · 8h</div><div class="t">AI 체험형 웹 앱(웹 페이지형)</div>
+        <div class="d">안전한 AI 사용 규칙 → 프롬프트로 만들기 → 나만의 웹 페이지 완성·발표. 브라우저만으로 실습.</div></div>
+      <div class="card"><div class="no">중등 · 12h</div><div class="t">간단한 웹 서비스 제작·배포</div>
+        <div class="d">바이브 코딩(기획→초안→기능)으로 직접 만들고 자연어 디버깅을 거쳐 배포까지 경험.</div></div>
+      <div class="card"><div class="no">고등 · 16h</div><div class="t">데이터 연동 앱 + 업무 자동화 AI Agent</div>
+        <div class="d">5단계 전 과정 + 데이터 연동 → <b>내 일을 대신 하는 AI Agent 1종 제작</b> → 배포·발표, 우수작은 챌린지 출품.</div></div>
+    </div>
+    <svg class="diagram" viewBox="0 0 1664 112" role="img" aria-label="바이브 코딩 5단계 프로세스: 기획, 초안, 기능, 디자인, 완성">
+      <text x="0" y="15" font-size="19" font-weight="700" fill="#16389E">전 학년군 공통 · 제안사 자체 개발 바이브 코딩 5단계 프로세스로 '1인 1AI 앱'을 완성합니다</text>
+      <rect x="0" y="30" width="288" height="78" rx="12" fill="#2E6FF2"/>
+      <text x="144" y="63" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">① 기획</text>
+      <text x="144" y="91" text-anchor="middle" font-size="17" fill="#DCE7FE">문제 정의 · 요구사항</text>
+      <path d="M304 62 L326 69 L304 76 Z" fill="#97B7F8"/>
+      <rect x="344" y="30" width="288" height="78" rx="12" fill="#2E6FF2"/>
+      <text x="488" y="63" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">② 초안</text>
+      <text x="488" y="91" text-anchor="middle" font-size="17" fill="#DCE7FE">화면 설계 · 프로토타입</text>
+      <path d="M648 62 L670 69 L648 76 Z" fill="#97B7F8"/>
+      <rect x="688" y="30" width="288" height="78" rx="12" fill="#2E6FF2"/>
+      <text x="832" y="63" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">③ 기능</text>
+      <text x="832" y="91" text-anchor="middle" font-size="17" fill="#DCE7FE">자연어로 기능 구현·디버깅</text>
+      <path d="M992 62 L1014 69 L992 76 Z" fill="#97B7F8"/>
+      <rect x="1032" y="30" width="288" height="78" rx="12" fill="#2E6FF2"/>
+      <text x="1176" y="63" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">④ 디자인</text>
+      <text x="1176" y="91" text-anchor="middle" font-size="17" fill="#DCE7FE">UI 다듬기 · 사용성 개선</text>
+      <path d="M1336 62 L1358 69 L1336 76 Z" fill="#97B7F8"/>
+      <rect x="1376" y="30" width="288" height="78" rx="12" fill="#16389E"/>
+      <text x="1520" y="63" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">⑤ 완성</text>
+      <text x="1520" y="91" text-anchor="middle" font-size="17" fill="#C9D8FD">배포·발표 → 개인별 앱 1,200건</text>
+    </svg>
+    <div class="grid g2">
+      <div class="mbox hi"><div class="h">1,200명 달성 방법 — 월별 규모(안)</div>
+        <svg class="diagram" viewBox="0 0 760 140" role="img" aria-label="월별 학생 교육 규모 막대 차트: 9월 240명, 10월 360명, 11월 360명, 12월 240명, 누적 1,200명">
+          <text x="750" y="18" text-anchor="end" font-size="16" font-weight="700" fill="#16389E">누적 1,200명</text>
+          <path d="M30 112 L30 56 Q30 52 34 52 L166 52 Q170 52 170 56 L170 112 Z" fill="#2E6FF2"/>
+          <path d="M220 112 L220 26 Q220 22 224 22 L356 22 Q360 22 360 26 L360 112 Z" fill="#2E6FF2"/>
+          <path d="M410 112 L410 26 Q410 22 414 22 L546 22 Q550 22 550 26 L550 112 Z" fill="#2E6FF2"/>
+          <path d="M600 112 L600 56 Q600 52 604 52 L736 52 Q740 52 740 56 L740 112 Z" fill="#2E6FF2"/>
+          <text x="100" y="86" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">240명</text>
+          <text x="290" y="56" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">360명</text>
+          <text x="480" y="56" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">360명</text>
+          <text x="670" y="86" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">240명</text>
+          <line x1="20" y1="113" x2="750" y2="113" stroke="#E3E8F1" stroke-width="2"/>
+          <text x="100" y="136" text-anchor="middle" font-size="17" fill="#6B7280">9월</text>
+          <text x="290" y="136" text-anchor="middle" font-size="17" fill="#6B7280">10월</text>
+          <text x="480" y="136" text-anchor="middle" font-size="17" fill="#6B7280">11월</text>
+          <text x="670" y="136" text-anchor="middle" font-size="17" fill="#6B7280">12월</text>
+        </svg>
+        <ul class="mlist"><li>착수 즉시 도내 전 초·중·고 수요조사 공문 발송, 방문형 + 거점형 병행</li><li>지연 시 거점형 추가 개설·주말반 편성으로 즉시 만회</li></ul></div>
+      <div class="mbox hi"><div class="h">실습 환경: 학교에 의존하지 않습니다</div>
+        <ul class="mlist check"><li>고사양 자체 노트북 반입</li><li>위성 인터넷 포함 자체 회선 기반 격리망, 학교망과 완전 분리</li><li>중·고등 트랙 전용 클라우드 실습 환경 별도 구축·제공</li></ul></div>
+    </div>
+  </div>
+  <div class="foot" data-chapter="수행 전략"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">전원 1인 1AI 앱 · 1,200명 채우는 방법 · 학교망 비의존 </div>
+      <p>두 번째, <b>학생 1,200명</b>입니다. 목표는 <b>전원이 자기 AI 앱을 하나씩 완성해서 나가는 것</b>입니다. 초등 8시간은 브라우저만으로 웹 페이지형 앱, 중등 12시간은 웹 서비스 제작과 배포, 고등 16시간은 데이터 연동 앱까지 갑니다. 반당 20명, <b>강사 2인 1조</b>에 시니어가 순회 점검합니다.</p>
+      <p>1,200명을 어떻게 채우는지가 관건인데, 착수 즉시 도내 전 초·중·고에 <b>수요조사 공문</b>을 발송하고 방문형과 거점형을 병행합니다. 지연되면 거점형 추가 개설·주말반으로 즉시 만회합니다.</p>
+      <p>실습 환경은 <b>학교에 의존하지 않습니다.</b> 고사양 노트북을 저희가 반입하고, 위성 인터넷을 포함한 자체 회선으로 <b>학교망과 완전히 분리된 격리망</b>을 씁니다.</p>
+      <p class="note">위성인터넷: 스타링크</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">09 / 19</span>
+    <span class="ptitle">② 학부모 240명</span>
+    <span class="ptime">0:40 <em>누적 7:00</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="eyebrow">CHAPTER 02 · 수행 전략</div>
+  <div class="numhead">
+    <div class="numbadge">②</div>
+    <h2>학부모 240명: 소외지역으로 찾아갑니다</h2>
+    <span class="sub">6개 권역 순회 30회 내외 · 회당 2시간</span>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <div style="font-size:26px;font-weight:700;color:var(--ink)">학부모 교육 5단 구성</div>
+      <div class="mbox hi vcenter" style="flex:1">
+        <ul class="mlist">
+          <li>① AI 시대의 변화 이해: 직업·교육·일상의 변화 흐름</li>
+          <li>② 자녀의 바이브 코딩 결과물 체험·공유</li>
+          <li>③ 디지털 리터러시·윤리: 딥페이크·개인정보·환각 판별</li>
+          <li>④ 업무 생산성에서 업무 자동화로: 반복 업무를 대신 수행하는 AI Agent 직접 제작</li>
+          <li>⑤ 우리 자녀가 살아갈 미래 사회 준비</li>
+        </ul></div>
+      <div class="mbox hi"><div class="h">모집·운영 방식</div>
+        <ul class="mlist check" style="margin-top:-6px">
+          <li>자녀 교육과 연계한 모집으로 참여 동기 확보</li>
+          <li>야간·주말 회차 병행 편성</li>
+          <li>미달 지역 권역은 인접 권역 통합·핵심 권역 추가 회차로 만회</li>
+          <li>주간보고에 권역별 누적 인원 대비 달성률 명시</li>
+        </ul></div>
+    </div>
+    <div class="stack">
+      <div style="font-size:26px;font-weight:700;color:var(--ink)">권역 순회 설계(안)</div>
+      <div class="mbox hi" style="flex:1">
+        <svg class="diagram" viewBox="0 0 800 616" role="img" aria-label="제주 6개 권역 순회 교육 계획도. 실제 읍·면 행정경계 기준. 지역 권역 4개는 제주시 서부권 한림·한경·애월, 제주시 동부권 조천·구좌·우도, 서귀포 서부권 대정·안덕, 서귀포 동부권 남원·표선·성산. 핵심 권역 2개는 제주시 중앙권 제주시 동 지역과 서귀포시 중앙권 서귀포시 동 지역.">
+  <text x="0" y="19" font-size="18" font-weight="700" fill="#16389E">지역 권역 4 × 6회 + 핵심 권역 2 × 3회 = 총 30회 내외 · 학부모 240명</text>
+  <text x="800" y="19" text-anchor="end" font-size="14" fill="#6B7280">실제 읍·면 행정경계 기준</text>
+  <path d="M308 106 308 100 310 100 310 102 312 102 312 100 310 100 312 99 311 98 322 98 323 97 323 98 325 98 325 97 328 97 329 96 334 101 335 103 336 103 337 109 335 109 336 117 327 115 326 113 317 118 314 118 313 114 310 111 312 110 312 108 309 108 308 106ZM293 111 295 112 296 111 297 113 300 109 298 108 301 104 303 106 306 103 309 108 312 108 312 110 310 111 314 115 313 117 317 119 309 122 306 126 302 127 299 122 297 122 298 120 294 118 292 115 293 111ZM267 118 271 114 278 116 279 114 282 115 283 114 287 114 289 111 293 111 292 115 301 125 303 131 307 133 305 139 306 144 303 147 295 145 291 146 289 137 284 137 282 139 279 139 280 141 271 141 271 139 268 139 266 134 267 129 268 129 267 125 268 121 267 118ZM317 118 322 115 325 118 324 118 324 120 328 123 329 122 331 125 331 129 332 131 332 137 331 137 332 146 331 150 333 154 331 158 333 173 333 182 336 188 337 201 340 206 345 208 344 209 347 213 352 228 357 230 357 234 360 234 365 239 365 250 366 254 368 255 367 259 364 255 361 254 356 248 356 246 353 244 346 244 338 237 336 237 336 236 333 236 328 239 322 239 320 239 318 235 313 234 312 232 305 230 305 221 301 216 298 215 298 213 296 211 296 200 294 198 295 194 292 185 296 183 295 180 296 179 296 176 294 170 292 168 294 153 292 153 291 148 291 146 295 145 301 147 305 146 306 144 305 139 307 133 303 131 302 127 306 126 309 122 317 118ZM343 111 347 113 347 114 343 117 345 117 345 125 347 126 344 134 344 136 346 139 345 151 347 153 344 166 346 173 346 186 349 193 349 200 352 206 350 213 340 206 337 201 336 188 333 182 333 173 331 158 333 154 331 150 332 146 331 139 331 137 332 137 332 131 331 129 331 125 329 122 328 123 324 120 324 118 325 118 322 115 326 113 327 115 336 117 340 111 343 111ZM359 110 359 111 364 111 364 113 364 118 361 121 362 125 359 129 363 136 360 138 358 142 361 151 361 165 367 174 368 179 370 180 370 183 372 183 372 186 375 188 378 193 378 197 382 201 379 209 379 212 381 215 381 221 380 223 380 225 380 228 377 229 375 234 372 235 372 238 368 244 367 251 368 255 366 254 365 250 365 239 360 234 357 234 357 230 352 228 350 227 350 218 344 209 345 208 349 213 350 213 352 206 349 200 349 193 346 186 346 173 344 166 345 162 345 157 347 155 345 151 346 139 344 136 344 134 347 126 345 125 345 117 343 117 347 114 347 113 343 111 350 109 359 110ZM423 113 422 117 427 122 429 128 423 129 423 132 420 132 420 133 418 132 418 136 420 139 424 141 425 144 425 148 426 150 426 159 431 169 430 177 432 180 432 184 435 192 433 193 434 194 430 208 432 213 432 214 435 218 435 220 437 221 437 224 434 228 432 235 426 237 420 242 410 248 402 248 401 253 401 256 400 258 393 257 379 269 377 267 373 269 373 270 372 267 368 265 367 260 368 256 367 251 368 244 372 238 372 235 375 234 377 229 380 228 381 215 379 212 379 209 382 201 378 197 378 193 375 188 372 186 372 183 370 183 370 180 368 179 367 174 361 165 361 151 358 142 363 135 365 136 368 136 370 135 371 136 373 136 375 131 375 127 373 126 374 124 377 126 378 125 379 126 380 125 380 126 386 123 387 121 384 118 383 116 389 119 390 118 394 124 395 120 397 125 400 125 404 124 406 124 405 120 406 116 408 117 411 115 410 114 412 115 419 111 423 113ZM452 90 455 91 456 92 459 92 461 94 459 97 460 110 463 118 467 120 468 125 470 126 471 130 474 132 476 138 476 148 479 151 481 156 480 174 483 177 486 184 481 192 468 199 462 208 459 209 455 217 456 221 453 227 444 232 439 231 436 234 434 234 432 235 434 228 437 224 437 221 435 220 435 218 432 214 432 213 430 208 434 194 433 193 435 192 432 184 432 180 430 177 431 169 425 156 425 144 424 141 418 137 418 132 420 133 420 132 423 132 423 129 429 128 427 122 422 117 422 113 425 114 425 115 431 115 434 116 435 114 440 111 439 104 440 103 446 104 448 103 448 99 449 99 451 97 452 90ZM415 80 414 78 416 76 425 78 427 77 428 71 432 71 438 66 439 68 443 68 443 73 441 73 442 76 439 81 441 83 440 85 445 87 446 89 452 89 452 95 450 98 449 99 448 99 448 103 446 104 440 103 439 104 440 111 435 114 434 116 431 115 425 115 418 107 417 103 415 103 416 100 415 98 419 100 419 89 420 89 420 86 420 85 417 85 418 83 415 80ZM415 80 418 83 417 85 420 85 420 86 420 89 419 89 419 100 415 98 416 100 415 103 417 103 418 107 422 113 419 111 412 115 410 114 411 115 408 117 406 116 405 120 406 124 404 124 397 125 396 122 395 120 394 121 396 119 394 115 395 110 397 109 396 106 399 101 390 96 396 94 393 93 391 85 393 86 394 84 398 85 400 83 401 84 401 81 404 77 406 78 407 81 409 81 408 80 409 80 408 79 410 78 412 80 415 80ZM368 88 371 88 382 74 387 78 387 83 391 82 391 88 393 91 393 93 396 94 390 96 399 101 397 105 394 106 389 102 386 99 389 97 386 96 386 94 381 93 373 94 371 92 367 91 368 91 368 88ZM329 96 328 92 329 89 333 86 337 85 342 85 347 89 357 91 358 96 356 97 354 101 354 106 356 110 350 109 342 112 340 111 336 117 335 110 337 109 336 103 335 103 334 101 329 96ZM357 91 359 88 359 91 363 95 363 97 358 103 359 110 355 110 354 101 356 97 358 96 357 91ZM359 88 360 87 368 88 368 91 367 91 366 93 366 99 368 104 363 104 363 95 360 92 359 88ZM363 97 363 104 368 104 368 112 359 111 358 103 363 97ZM378 106 381 103 383 106 385 105 388 112 392 110 394 111 395 113 394 117 396 119 394 124 390 118 389 119 383 116 384 118 387 121 386 123 380 126 380 125 379 126 378 125 377 126 374 124 373 126 375 127 375 131 373 136 371 136 370 135 368 136 365 136 363 135 359 129 362 125 361 121 364 118 364 112 368 112 368 110 372 109 378 106ZM370 98 371 102 378 106 368 110 368 103 366 99 366 95 370 95 370 98ZM375 94 381 93 386 94 386 96 388 96 389 97 386 99 389 102 394 106 397 105 397 109 395 110 395 113 392 110 388 112 385 105 383 106 381 103 378 106 371 102 370 98 373 97 372 97 375 96 375 94ZM367 91 371 92 373 94 375 94 375 96 371 99 369 97 370 95 366 95 367 91Z" fill="#97B7F8" stroke="#fff" stroke-width="1.2"/>
+  <path d="M294 273 295 276 291 281 288 281 289 286 290 287 287 291 289 293 289 303 287 305 286 304 275 320 275 327 273 328 272 335 275 339 270 347 273 355 270 361 272 371 270 375 271 377 271 381 270 383 270 391 263 396 264 401 266 402 265 404 265 406 264 408 260 407 260 405 253 407 251 407 250 409 239 414 233 420 228 417 228 421 224 420 219 423 217 422 216 416 219 414 221 402 219 398 218 393 219 391 219 384 221 381 221 377 222 377 220 373 221 371 219 370 219 366 217 367 220 361 219 354 223 351 223 348 226 343 228 338 229 338 231 335 233 335 230 339 234 345 239 346 242 349 249 349 250 340 253 339 252 337 255 335 256 332 262 331 267 328 270 325 273 318 275 318 275 312 274 310 282 302 282 297 280 295 284 290 285 277 289 274 294 273ZM349 274 348 279 344 281 344 283 340 284 340 286 338 290 333 293 331 293 332 294 330 297 331 300 329 302 329 306 328 307 329 311 319 325 319 332 322 335 322 342 321 344 324 353 324 361 321 365 319 372 315 377 314 381 317 383 317 385 315 386 314 388 315 391 314 392 314 395 305 393 305 397 303 402 304 403 302 405 302 411 296 410 295 412 291 412 289 415 287 415 285 414 285 415 282 415 281 420 277 419 277 417 273 416 267 411 266 408 264 408 266 402 264 401 263 396 270 391 270 387 270 383 271 381 271 377 270 375 272 371 270 361 273 355 270 347 275 339 272 335 273 328 275 327 275 320 286 304 287 305 288 304 289 300 289 293 287 291 290 287 289 286 288 281 291 281 295 276 294 273 308 274 315 274 321 276 324 273 328 272 333 277 336 277 338 275 344 272 349 274ZM361 271 359 273 361 277 358 284 360 293 360 301 355 309 356 323 357 328 354 339 355 345 350 347 350 352 351 353 352 357 351 359 356 360 357 365 354 365 353 366 354 371 351 378 352 386 354 387 354 390 351 391 353 393 352 396 352 398 350 403 345 404 346 407 347 406 353 411 350 416 349 423 342 424 340 421 338 422 336 421 333 422 329 426 324 426 324 430 317 431 312 426 306 421 305 413 302 411 302 405 305 401 305 393 314 395 314 392 315 391 314 388 315 386 317 385 317 383 314 381 315 377 319 372 321 365 324 361 324 353 321 344 322 342 322 335 319 332 319 325 329 311 328 307 329 306 329 302 331 300 330 297 332 294 331 293 333 293 339 288 340 284 344 283 344 281 348 279 349 274 356 270 361 271ZM362 435 362 437 360 438 358 436 357 436 359 433 362 435ZM392 400 387 401 387 405 388 406 388 408 386 412 382 409 380 410 378 413 374 412 371 412 371 411 364 409 363 414 358 417 358 419 354 420 352 422 350 422 349 423 350 416 353 410 347 406 346 407 345 404 350 403 352 398 352 396 353 393 351 391 354 390 354 387 352 386 351 378 354 371 353 366 354 365 357 365 356 360 351 359 352 357 351 353 350 352 350 347 355 345 354 339 357 330 355 309 360 301 360 293 358 284 361 277 359 273 366 270 364 281 366 285 365 288 366 293 366 298 367 310 365 316 366 322 364 323 360 331 363 333 365 340 366 340 366 351 370 354 374 354 374 356 377 360 378 365 379 372 384 379 383 381 385 387 384 388 385 391 383 393 385 393 385 394 387 394 387 396 389 399 392 400ZM373 270 375 272 378 285 377 291 374 292 371 300 371 312 373 313 372 320 381 323 385 327 385 330 389 333 388 337 389 337 389 341 392 347 392 354 394 357 394 361 396 364 398 364 400 369 399 375 401 375 401 379 402 379 401 386 403 394 396 396 392 400 389 399 387 396 387 394 385 394 385 393 383 393 385 391 384 388 385 387 383 381 384 379 379 372 378 365 377 360 374 356 374 354 370 354 366 351 366 340 365 340 363 333 360 331 364 323 366 322 365 316 367 310 366 298 366 293 365 288 366 285 364 281 366 270 368 268 371 268 373 270ZM403 394 401 386 402 379 401 379 401 375 399 375 400 369 398 364 396 364 394 361 394 357 392 354 392 347 389 341 389 337 388 337 389 333 385 330 385 327 381 323 372 320 373 313 371 312 371 300 374 292 377 291 378 283 381 296 382 297 387 311 388 319 391 323 391 326 396 329 397 332 397 340 401 344 404 360 406 362 409 370 416 367 417 376 421 379 422 381 420 382 418 387 418 389 420 389 418 392 419 401 417 401 416 404 413 404 413 400 408 396 408 395 407 394 403 394ZM382 267 396 272 401 276 404 279 412 283 414 286 415 294 420 300 424 307 432 311 434 313 436 321 438 322 439 321 441 325 440 330 441 330 441 333 442 335 442 341 446 344 446 349 443 350 444 355 449 356 450 358 454 357 454 361 457 364 457 366 453 368 452 372 450 370 444 372 445 375 441 382 435 385 435 392 431 394 429 398 430 401 425 400 419 401 418 392 420 389 418 389 418 387 420 382 422 382 421 379 417 376 416 367 409 370 409 368 407 366 403 358 401 344 397 340 397 332 394 327 391 326 391 323 388 319 387 311 382 297 381 296 379 286 376 282 375 272 373 271 373 269 377 267 379 269 382 267ZM435 391 435 385 441 382 445 375 444 372 450 370 452 372 453 368 457 366 457 365 460 365 460 368 462 370 463 376 461 380 464 384 462 391 462 394 464 396 462 398 462 401 460 398 459 409 455 410 455 407 453 405 452 407 452 402 449 400 450 399 448 397 444 399 444 396 442 393 436 396 435 391ZM392 400 396 396 403 394 404 401 400 403 400 404 402 404 404 406 401 409 401 413 399 411 396 412 393 408 390 413 389 413 388 411 386 412 388 408 388 406 387 405 387 401 392 400ZM403 394 407 394 408 395 408 396 412 400 404 401 403 394ZM404 401 413 400 413 403 411 405 404 405 403 406 400 403 404 401ZM406 424 410 424 411 426 409 428 406 427 404 425 406 424ZM442 421 443 421 443 423 436 423 436 420 439 419 441 419 442 421ZM406 414 407 418 406 416 404 417 400 414 404 412 406 412 406 414ZM454 409 450 410 448 414 447 412 445 412 443 414 437 415 434 413 432 411 433 409 430 408 430 407 427 405 424 406 423 408 419 405 416 406 413 405 411 407 411 409 409 409 412 413 408 415 409 414 403 410 403 407 404 405 416 404 417 401 420 400 430 401 429 398 431 394 435 391 436 396 442 393 444 396 444 399 448 397 450 399 449 400 452 402 452 407 453 405 455 407 454 409Z" fill="#B9CFFB" stroke="#fff" stroke-width="1.2"/>
+  <path d="M80.6 210.7 82.7 210.7 82.7 211.3 84.1 211.3 85.5 212.6 85.5 216.4 84.8 218.3 84.1 218.3 84.8 219.6 83.4 220.2 82.7 219.6 79.9 219.6 79.9 220.2 77.1 219.6 75.7 218.3 75.7 216.4 75 216.4 75.7 214.5 76.4 214.5 75.7 214.5 75.7 213.2 77.1 212.6 76.4 212 80.6 210.7ZM147.8 170 150.6 172.5 149.9 179.5 152 182.7 151.3 183.3 151.3 187.8 152.7 191.6 154.8 193.5 154.1 194.2 154.1 201.1 152.7 205 153.4 206.9 154.1 206.9 154.1 210.1 156.9 212 156.9 215.8 157.6 216.4 159 215.8 159 217 159.7 217 160.4 226.6 161.8 227.2 163.2 230.4 166.7 234.2 166.7 235.5 171.6 237.4 173.7 239.9 173 244.4 173.7 245 173.7 250.1 175.1 252.7 178.6 255.8 180 259 183.5 263.5 184.9 264.7 186.3 264.7 191.9 270.5 194.7 272.4 197.5 273 203.2 278.1 216.5 284.5 216.5 285.1 223.5 286.4 219.3 288.9 217.2 292.7 208.1 292.1 205.3 293.4 201.1 293.4 200.4 292.7 198.2 293.4 198.2 292.7 194.7 290.8 191.9 290.8 186.3 294 184.9 297.8 177.2 304.8 173.7 310.5 171.6 311.2 170.9 309.9 167.4 309.3 167.4 309.9 163.2 311.8 152.7 315 151.3 317.5 146.4 316.9 137.3 308.6 135.2 308 135.2 307.3 131 306.7 131 305.4 129.6 304.2 129.6 302.3 126.1 299.1 123.3 297.8 119.8 294 118.4 294 115.6 292.1 116.3 292.1 116.3 289.5 114.9 289.5 114.9 290.2 112.8 289.5 112.8 288.9 110.7 288.9 109.3 290.8 106.5 291.4 104.4 294 103 292.7 100.9 292.7 101.6 288.9 100.2 286.4 100.2 284.5 99.5 284.5 95.3 288.9 93.2 289.5 92.5 290.8 91.1 290.8 91.1 288.3 90.4 287.6 90.4 285.7 89 284.5 88.3 279.4 86.9 276.8 86.2 276.8 86.2 274.9 85.5 274.9 84.8 273 80.6 271.7 80.6 269.8 77.8 265.4 77.8 266 75.7 266 74.3 264.7 70.1 263.5 70.1 260.3 70.8 259.7 70.1 259 70.1 256.5 69.4 256.5 69.4 254.6 67.3 255.2 68 253.9 66.5 252.7 66.5 250.7 68 249.5 68 250.1 69.4 249.5 69.4 248.8 66.5 248.2 65.8 246.9 66.5 245.7 68 246.3 69.4 244.4 68.7 243.8 70.1 242.5 72.2 242.5 72.9 240.6 73.6 241.2 75 239.3 74.3 238.7 75.7 235.5 77.1 234.9 78.5 236.1 80.6 236.1 79.2 234.9 80.6 232.9 82 234.2 82 232.3 83.4 232.3 85.5 234.9 85.5 236.8 86.9 236.8 87.6 236.1 86.9 235.5 87.6 232.3 89 232.3 89 230.4 89.7 229.8 93.2 230.4 92.5 229.8 93.2 229.1 93.9 230.4 93.9 227.2 94.6 227.2 93.2 225.3 93.9 223.4 95.3 223.4 95.3 222.8 96 223.4 97.4 222.1 99.5 222.8 99.5 224 102.3 223.4 102.3 221.5 103 220.9 101.6 220.2 101.6 218.3 103 217.7 103 214.5 105.8 212.6 106.5 213.9 107.9 212 108.6 213.2 109.3 212 106.5 210.7 105.8 206.9 106.5 206.9 105.8 207.5 106.5 209.4 108.6 210.1 110.7 208.1 110 207.5 111.4 207.5 112.1 205.6 113.5 206.2 114.2 205.6 114.9 206.9 113.5 200.5 112.1 198.6 110.7 200.5 110.7 201.1 111.4 200.5 111.4 201.8 110.7 201.8 111.4 205 110.7 205.6 105.1 205.6 105.1 205 109.3 205 108.6 199.9 110 198.6 110.7 196.7 110 196.1 111.4 194.2 114.2 195.4 114.9 194.2 114.2 192.2 112.8 191.6 112.8 190.3 114.2 189.1 112.8 187.2 113.5 186.5 112.8 185.3 114.2 182.1 116.3 180.8 117 181.4 119.8 181.4 119.8 180.2 121.9 179.5 124.7 180.2 125.4 182.1 125.4 180.8 126.1 180.8 126.8 178.9 126.1 177 128.2 177 129.6 173.8 131.7 175.1 133.8 174.4 134.5 175.1 134.5 172.5 137.3 171.9 137.3 172.5 138.7 172.5 140.8 174.4 140.8 171.9 142.2 170 143.6 170 142.9 171.9 143.6 173.8 145 172.5 144.3 171.3 146.4 170.6 147.1 171.3 147.8 170ZM7.7 330.9 9.1 330.2 9.1 332.1 7.7 332.1 7.7 331.5 7 332.1 7 330.2 7.7 330.9ZM4.9 329.6 5.6 329.6 4.9 330.9 3.5 330.9 4.9 329.6ZM17.5 327.1 18.2 326.4 18.9 327.1 18.2 328.3 17.5 327.7 16.8 329 15.4 328.3 16.1 327.7 15.4 327.7 15.4 326.4 17.5 326.4 17.5 327.1ZM8.4 325.1 9.1 325.1 9.8 327.7 7.7 327.7 7.7 327.1 6.3 330.2 5.6 330.2 6.3 329.6 5.6 329 4.9 329.6 3.5 329 1.4 329.6 1.4 328.3 0 327.7 0.7 326.4 2.1 326.4 2.1 327.1 4.2 325.1 5.6 325.1 5.6 325.8 7 324.5 8.4 325.1ZM150.6 317.5 148.5 319.4 142.9 321.3 135.9 325.8 134.5 329.6 126.8 335.3 123.3 339.1 122.6 343 121.2 343.6 121.2 344.9 119.1 344.9 116.3 346.1 115.6 345.5 115.6 346.1 113.5 346.1 112.1 347.4 107.9 348 105.1 350.6 100.2 353.1 96.7 356.9 96 360.1 96.7 369 97.4 369 98.1 371.6 96 370.9 83.4 358.9 82 358.9 70.1 351.9 55.3 344.9 46.9 342.3 46.9 344.2 46.2 344.2 46.9 344.2 46.2 344.9 46.9 344.9 46.9 346.1 46.2 346.8 37.1 348.7 37.1 349.3 34.3 348.7 34.3 347.4 32.9 348 30.1 350.6 29.4 353.1 26.6 353.8 25.9 355.7 28 357.6 23.8 362 21.7 360.1 21 360.8 18.9 360.1 16.8 357.6 17.5 353.1 16.1 351.9 15.4 347.4 16.8 346.8 16.8 344.9 18.9 344.2 21.7 341.7 19.6 337.2 19.6 335.3 18.2 334.1 18.9 328.3 20.3 328.3 20.3 324.5 21.7 323.2 21 322.6 21.7 321.3 21.7 317.5 21 315 17.5 313.1 16.8 309.9 18.2 304.2 16.1 302.3 16.8 299.1 16.8 298.4 15.4 298.4 16.1 296.5 17.5 295.3 20.3 295.9 21 294 20.3 293.4 20.3 292.1 21 292.1 20.3 290.8 22.4 290.2 23.1 287 30.1 285.1 31.5 287 32.9 287 32.9 285.7 35 285.1 32.9 284.5 33.6 282.5 34.3 282.5 34.3 280 35 279.4 35 278.1 34.3 278.1 35 276.2 33.6 274.9 35 271.7 37.1 271.7 38.5 269.2 39.9 267.9 40.6 268.6 42 266.6 46.2 266 48.3 264.7 49.7 265.4 51.8 263.5 54.6 264.1 56.7 260.9 58.8 259.7 59.5 255.8 65.8 252.7 68 253.9 67.3 255.2 69.4 254.6 70.1 259 70.8 259 70.1 263.5 74.3 264.7 75.7 266 77.8 266 77.8 265.4 80.6 269.8 80.6 271.7 84.8 273 85.5 274.9 86.2 274.9 86.2 276.8 86.9 276.8 88.3 279.4 89 284.5 90.4 285.7 91.1 290.8 92.5 290.8 93.2 289.5 95.3 288.9 99.5 284.5 100.2 284.5 100.2 286.4 101.6 288.9 100.9 292.7 103 292.7 104.4 294 106.5 291.4 109.3 290.8 110.7 288.9 112.8 288.9 112.8 289.5 114.9 290.2 114.9 289.5 116.3 289.5 116.3 292.1 115.6 292.1 118.4 294 119.8 294 123.3 297.8 126.1 299.1 129.6 302.3 129.6 304.2 131 305.4 131 306.7 135.2 307.3 144.3 315.6 146.4 316.9 150.6 317.5ZM291.4 145.8 291.4 148.4 290.7 149 292.1 150.3 292.1 152.8 293.5 152.8 293.5 159.2 292.8 159.2 292.1 161.1 292.1 168.1 294.2 170 294.2 171.9 294.9 171.9 296.3 175.7 296.3 178.9 294.9 180.2 295.6 180.8 294.9 181.4 295.6 182.7 294.9 182.7 294.9 184 292.1 184.6 292.1 185.9 293.5 186.5 294.2 193.5 294.9 194.2 294.2 198 294.9 198 294.9 199.9 295.6 199.9 294.9 200.5 295.6 210.7 297.7 212.6 297 213.2 297.7 215.1 299.1 216.4 300.5 216.4 301.2 218.3 302.6 218.3 302.6 219.6 304.7 221.5 304 222.8 304.7 229.8 306.1 229.8 307.5 231 308.9 230.4 309.6 231.7 311.7 231.7 313.1 234.2 314.5 234.2 315.9 235.5 318 235.5 320.1 238.7 322.2 238.7 322.2 239.3 322.9 238.7 323.6 239.3 324.3 238.7 325 239.3 327.8 238.7 327.8 239.3 328.5 238 330.6 238 330.6 237.4 332 237.4 333.5 236.1 334.9 236.1 334.9 236.8 334.9 236.1 336.3 236.1 336.3 237.4 338.4 237.4 346.1 244.4 353.1 244.4 354.5 246.3 355.9 246.3 355.9 248.2 360.8 252.7 360.8 253.9 365.7 256.5 367.8 260.3 368.5 264.7 372 266.6 372.7 269.8 370.6 267.9 367.8 267.9 366.4 269.8 361.5 271.1 355.9 269.8 352.4 273 348.9 274.3 348.2 273 344 272.4 344 271.7 337.7 274.9 335.6 277.5 333.5 277.5 327.8 272.4 324.3 273 320.8 276.2 319.4 276.2 314.5 273.6 308.2 273.6 307.5 274.3 291.4 273 287.9 274.3 284.4 278.1 284.4 289.5 280.9 292.1 280.2 294.6 278.1 296.5 276 297.2 264.8 297.2 257.1 292.7 252.9 292.1 247.3 289.5 245.2 289.5 245.2 288.9 239.6 290.2 236.1 288.3 230.5 287.6 229.1 286.4 226.3 287 216.5 285.1 216.5 284.5 203.2 278.1 197.5 273 194.7 272.4 191.9 270.5 186.3 264.7 184.9 264.7 173.7 250.1 173.7 245 173 244.4 173.7 239.9 171.6 237.4 166.7 235.5 166.7 234.2 163.2 230.4 161.8 227.2 160.4 226.6 159.7 217 159 217 159 215.8 157.6 216.4 156.9 215.8 156.9 212 154.1 210.1 154.1 206.9 153.4 206.9 152.7 205 154.1 201.1 154.1 194.2 154.8 193.5 152.7 191.6 151.3 187.8 151.3 183.3 152 182.7 149.9 179.5 150.6 172.5 147.8 170 150.6 170 150.6 168.7 153.4 167.4 152.7 166.8 153.4 166.2 156.2 165.5 156.9 164.3 156.2 162.4 158.3 161.1 159 159.8 158.3 157.9 161.1 155.4 161.1 153.5 159 152.8 159 151.5 159.7 151.5 159 150.9 159 148.4 161.1 147.7 160.4 147.7 160.4 146.5 163.2 145.8 163.9 144.6 166 145.2 167.4 144.6 168.1 146.5 170.9 147.1 172.3 145.8 176.5 145.2 177.2 143.9 179.3 146.5 181.4 144.6 182.8 147.1 184.9 147.7 187 147.1 187 145.8 188.4 146.5 189.8 143.3 195.4 141.4 196.1 140.7 196.1 138.8 198.2 140.7 199.6 139.5 201.1 139.5 202.5 135 206 133.1 208.8 132.5 211.6 133.7 216.5 133.7 216.5 134.4 217.9 133.7 218.6 132.5 224.9 128 224.2 127.4 224.9 126.1 226.3 127.4 228.4 127.4 229.8 126.1 230.5 122.9 233.3 121.7 238.9 121 239.6 121.7 239.6 124.2 241.7 125.5 241 125.5 241.7 127.4 243.8 128 244.5 127.4 246.6 128.7 248 128 248 128.7 248.7 128 248 126.1 250.8 126.1 251.5 125.5 251.5 126.1 253.6 126.7 254.3 126.1 253.6 124.8 254.3 124.2 255 124.8 255.7 124.2 255 123.6 258.5 121 261.3 120.4 265.5 121.7 266.9 117.8 266.9 119.8 268.3 121 268.3 123.6 266.9 124.8 268.3 128.7 266.9 128.7 266.2 134.4 266.9 134.4 266.9 136.3 267.6 136.3 268.3 139.5 271.1 138.8 271.1 140.7 271.8 140.1 279.5 140.7 278.8 139.5 282.3 138.8 284.4 136.9 289.3 136.9 289.3 138.8 290 138.8 290 140.7 291.4 143.3 291.4 145.8Z" fill="#2E6FF2" stroke="#fff" stroke-width="1.2"/>
+  <path d="M542.2 47.3 542.2 54.9 542.9 55.5 542.2 55.5 542.2 56.8 540.8 58.7 539.4 59.3 540.8 65.7 541.5 65.7 541.5 67 543.6 68.9 543.6 70.8 545 70.8 545 72.1 547.1 72.7 549.9 75.9 550.6 77.1 549.9 78.4 552 82.9 554.8 87.3 556.9 88.6 556.9 89.9 559 91.8 559 93 561.8 95 563.2 100.7 567.4 103.9 567.4 109.6 566.7 110.2 566.7 116.6 567.4 117.2 566.7 121.7 567.4 121.7 567.4 122.9 566.7 123.6 566.7 126.7 566 126.7 565.3 130.6 564.6 130.6 563.2 134.4 561.8 135 562.5 140.1 563.2 140.1 561.8 140.7 559.7 145.8 560.4 147.7 559.7 148.4 559.7 150.9 560.4 150.9 560.4 152.2 561.8 153.5 561.8 158.5 558.3 161.7 559 162.4 558.3 164.3 556.2 165.5 556.2 168.7 556.9 171.3 557.6 171.3 558.3 179.5 561.1 182.7 561.1 184.6 562.5 185.9 562.5 187.2 566 190.3 568.1 196.1 568.1 195.4 565.3 196.7 562.5 196.7 554.1 199.9 551.3 199.2 543.6 199.9 536.6 204.3 532.4 205.6 530.3 208.1 524.7 211.3 525.4 220.2 524 222.8 524.7 224.7 523.3 225.3 517 225.3 516.3 226.6 514.2 226.6 514.2 225.9 507.9 226.6 504.4 222.8 503 222.1 501.6 222.8 500.9 222.1 499.5 223.4 498.8 222.8 498.8 223.4 497.4 223.4 494.6 225.9 493.2 225.3 491.1 228.5 491.8 230.4 490.4 231.7 489.7 231 489 231.7 489 231 487.6 231 487.6 231.7 481.3 231.7 478.5 232.9 474.3 232.9 472.9 231.7 467.3 234.9 464.4 238 463.7 239.3 463.7 243.1 460.9 243.8 460.2 242.5 458.8 242.5 458.8 243.1 456.7 243.1 455.3 244.4 453.9 244.4 453.9 245 446.9 245.7 443.4 246.9 441.3 248.2 441.3 250.1 440.6 250.7 435 252.7 431.5 255.8 423.1 258.4 415.4 258.4 415.4 257.7 400 258.4 401.4 256.5 400.7 252.7 402.1 250.7 402.1 248.2 409.8 247.6 419.6 242.5 425.9 237.4 432.9 234.9 433.6 233.6 435 234.2 436.4 233.6 438.5 231 440.6 231.7 440.6 232.3 444.1 232.3 447.6 229.1 448.3 229.8 451.1 227.9 456 220.9 455.3 220.9 455.3 217 456 217 456.7 214.5 457.4 214.5 457.4 212.6 458.1 212.6 458.8 209.4 461.6 207.5 468 198.6 477.8 194.8 481.3 192.2 486.2 184 484.1 180.8 483.4 177 479.9 173.8 479.9 167.4 480.6 166.2 480.6 158.5 479.9 157.9 480.6 156 479.2 150.9 477.1 149.6 476.4 147.7 476.4 138.2 475.7 138.2 475.7 136.3 475 134.4 474.3 134.4 474.3 132.5 471.5 129.9 470.1 126.1 468 125.5 468 122.9 467.3 122.9 466.5 120.4 463 117.8 460.9 111.5 459.5 109.6 459.5 102.6 458.8 102.6 459.5 99.4 458.8 97.5 459.5 95 460.9 93.7 458.8 91.8 456 92.4 455.3 90.5 453.9 90.5 453.9 89.9 453.2 90.5 451.8 89.2 450.4 89.9 450.4 89.2 446.9 88 446.2 88.6 444.8 86.7 442.7 86.7 439.9 85.4 440.6 85.4 440.6 82.9 439.2 81 440.6 77.1 442 75.9 440.6 73.3 443.4 72.7 443.4 68.9 444.1 67.6 444.8 67 445.5 67.6 446.2 67 449 67 449 67.6 452.5 64.4 454.6 65.1 459.5 64.4 460.9 65.1 461.6 63.2 463.7 64.4 466.5 63.8 467.3 61.9 468.7 63.2 468.7 64.4 468 64.4 468.7 65.7 470.8 65.7 472.2 67 472.9 66.3 472.2 64.4 472.9 63.8 473.6 64.4 472.9 63.8 472.9 62.5 473.6 62.5 471.5 61.3 472.9 60 472.9 57.4 475.7 56.2 477.8 56.2 477.8 54.9 476.4 54.3 476.4 51.7 478.5 51.7 482.7 44.1 486.2 44.7 486.2 46 489 46 489.7 49.2 488.3 49.8 488.3 51.7 487.6 52.3 489.7 51.7 490.4 47.9 491.8 47.3 493.9 49.8 496.7 49.2 496.7 53.6 498.1 54.9 499.5 54.9 500.2 53.6 501.6 55.5 502.3 58.7 504.4 60 505.1 59.3 503.7 58.1 505.8 56.2 506.5 56.2 507.2 58.1 511.4 56.2 512.8 48.5 518.4 47.9 520.5 51.1 524.7 50.4 524.7 51.7 525.4 51.7 526.1 51.1 525.4 49.2 527.5 47.9 528.9 49.2 531.7 49.8 533.8 48.5 533.8 47.3 542.2 47.3ZM533.8 44.1 534.5 44.1 534.5 46 532.4 46.6 529.6 43.4 531.7 44.1 531.7 42.2 531 41.5 533.1 40.3 533.8 44.1ZM738.4 86.7 737 86.7 737 86.1 739.1 85.4 738.4 86.7ZM711 73.3 711.7 73.3 711 74.6 710.3 74.6 708.9 72.7 710.3 72.1 710.3 73.3 711 73.3ZM732.7 128.7 729.9 128 725.7 128.7 715.2 132.5 706.1 138.8 699.1 142.6 696.3 145.2 693.5 145.2 690 147.1 685.8 152.2 678.1 153.5 669 157.9 661.3 163 656.4 163.6 657.1 169.4 654.3 171.3 649.4 169.4 648.7 171.3 643.8 172.5 631.2 178.3 629.1 178.3 627 177 622.1 177 617.2 185.3 613.7 186.5 610.2 191 607.4 192.9 606 192.9 596.8 201.1 591.9 204.3 591.2 203.7 587.7 203.7 586.3 205 586.3 204.3 585.6 205 579.3 204.3 577.2 201.8 569.5 198 568.1 196.1 568.1 194.8 566.7 193.5 566 190.3 562.5 187.2 562.5 185.9 561.1 184.6 561.1 182.7 559 180.8 557.6 177 557.6 171.3 556.9 171.3 556.2 168.7 556.2 165.5 558.3 164.3 559 162.4 558.3 161.7 561.8 158.5 561.8 153.5 561.1 153.5 560.4 150.9 559.7 150.9 559.7 148.4 560.4 147.7 559.7 145.8 561.8 140.7 563.2 140.1 562.5 140.1 561.8 135 563.2 134.4 564.6 130.6 565.3 130.6 566 126.7 566.7 126.7 566.7 123.6 567.4 122.9 567.4 121.7 566.7 121.7 566.7 119.1 567.4 119.1 567.4 117.2 566.7 116.6 567.4 103.9 563.2 100.7 561.8 95 559 93 559 91.8 557.6 91.1 556.9 88.6 554.8 87.3 552 82.9 549.9 78.4 550.6 77.8 549.9 75.9 547.1 72.7 545 72.1 545 70.8 543.6 70.8 543.6 68.9 541.5 67 541.5 65.7 540.8 65.7 539.4 59.3 540.8 58.7 542.2 56.8 542.2 55.5 542.9 55.5 542.2 54.9 542.2 46.6 550.6 44.7 552 46 552.7 44.7 554.1 44.7 554.1 41.5 556.9 42.2 561.8 39 564.6 39 565.3 38.4 564.6 38.4 565.3 35.8 566.7 36.5 566 38.4 570.9 40.9 572.3 40.9 573 39.6 575.1 39 572.3 41.5 574.4 42.8 573.7 44.1 574.4 45.4 577.2 43.4 575.1 43.4 575.8 40.9 577.9 40.3 582.1 40.3 582.1 40.9 582.8 39 584.2 39 584.9 40.9 589.8 40.3 590.5 41.5 593.3 41.5 593.3 40.9 596.1 39.6 595.4 39 595.4 36.5 596.8 33.9 600.4 32 603.9 33.3 608.1 32 608.8 32.6 608.1 33.3 609.5 33.3 610.2 34.5 611.6 34.5 612.3 32.6 613.7 32.6 613.7 32 618.6 33.3 619.3 35.2 620.7 35.8 620.7 37.1 629.1 40.9 629.8 44.1 633.3 44.1 634.7 40.3 639.6 40.3 641.7 42.2 644.5 40.3 645.2 37.7 647.3 37.1 648.7 38.4 650.1 37.7 650.8 39 650.8 38.4 654.3 38.4 654.3 39.6 659.9 40.3 660.6 42.2 659.9 43.4 660.6 47.9 662.7 49.8 662 49.8 662.7 50.4 662.7 53 661.3 53.6 661.3 55.5 662.7 54.9 663.4 56.2 662.7 58.1 664.8 57.4 665.5 58.7 664.8 62.5 666.9 60.6 671.1 63.8 671.8 65.1 671.1 65.7 673.9 64.4 674.6 67 673.2 67.6 673.2 69.5 674.6 68.2 676.7 70.2 678.8 70.2 678.8 70.8 683.7 70.2 683.7 71.4 684.4 71.4 683.7 74.6 685.1 72.7 687.2 74.6 690 74 689.3 74.6 690.7 75.2 688.6 78.4 690 79.7 692.8 79.1 695.6 79.7 696.3 77.1 697 77.1 695.6 77.1 695.6 75.9 697.7 74 699.1 74.6 701.2 73.3 703.3 73.3 704 75.2 704.7 74 706.8 75.2 707.5 74 708.9 74 708.9 75.2 710.3 74.6 711 75.2 712.4 74 713.1 74.6 712.4 74.6 713.8 74.6 713.1 76.5 714.5 77.1 715.9 77.1 716.6 75.9 718 77.1 722.2 75.9 725.7 80.3 727.1 81 728.5 80.3 729.9 81 731.3 79.1 732.7 79.7 732 80.3 733.5 81 733.5 82.9 732.7 83.5 735.6 85.4 737 85.4 737 86.7 735.6 88.6 732.7 88 731.3 89.2 732 91.1 733.5 91.1 733.5 92.4 732.7 92.4 732.7 93.7 729.2 94.3 729.2 96.2 729.9 96.9 737 96.2 743.3 100 744 105.8 745.4 107.7 743.3 108.9 744 114 741.2 114.7 741.9 115.9 741.2 118.5 742.6 120.4 741.9 121 744 121.7 746.1 121 746.8 122.3 746.1 123.6 746.8 124.8 745.4 126.7 743.3 126.1 743.3 125.5 740.5 125.5 739.8 124.8 739.1 126.1 737 125.5 736.3 126.1 734.2 124.8 732.7 128.7ZM783.2 79.7 783.9 80.3 783.9 82.2 786.7 82.9 786 84.1 786.7 86.1 790.2 87.3 790.2 88.6 788.1 90.5 786.7 90.5 785.3 93 786.7 95 793.7 92.4 794.4 90.5 796.5 90.5 800 92.4 800 96.2 798.6 96.9 794.4 95.6 793.7 96.9 795.8 99.4 795.8 101.9 796.5 101.9 795.8 105.1 798.6 107 797.9 108.3 798.6 111.5 796.5 114 795.1 114 795.1 112.8 794.4 113.4 795.8 117.8 795.1 119.8 795.8 119.8 793 122.3 791.6 122.3 789.5 120.4 788.1 120.4 787.4 118.5 786 118.5 784.6 120.4 779.7 118.5 777.6 119.8 778.3 117.2 775.5 117.8 774.1 116.6 771.3 115.9 771.3 114.7 772.7 112.8 771.3 109.6 771.3 107.7 769.2 104.5 769.2 103.2 769.9 103.2 769.2 103.2 769.2 101.3 770.6 101.3 771.3 98.8 769.2 99.4 769.2 98.8 771.3 98.1 770.6 96.9 772 95.6 772 94.3 773.4 94.3 775.5 91.8 776.2 92.4 776.9 91.8 776.2 90.5 776.9 88 775.5 87.3 775.5 85.4 776.2 84.8 774.8 83.5 776.2 82.2 777.6 82.2 778.3 80.3 783.2 79.7Z" fill="#16389E" stroke="#fff" stroke-width="1.2"/>
+  <path d="M146.4 433.9 148.5 433.9 147.8 436.4 146.4 436.4 147.1 437.1 147.1 441.5 145 442.8 144.3 447.9 142.2 450.4 145.7 453 145.7 456.8 147.1 458.1 147.1 459.3 144.3 461.9 140.8 462.5 137.3 460 137.3 456.1 135.2 456.8 134.5 456.1 131 458.1 129.6 456.1 129.6 457.4 128.2 457.4 128.2 461.2 125.4 461.9 124.7 461.2 124 463.1 123.3 462.5 121.2 463.1 119.1 460.6 117.7 461.2 112.8 456.8 113.5 450.4 116.3 449.8 114.9 446.6 114.9 444.7 112.8 444.1 112.8 445.3 111.4 445.3 110 444.1 108.6 445.3 109.3 447.9 107.2 442.8 106.5 442.8 105.1 440.2 101.6 440.9 101.6 438.3 99.5 436.4 100.2 435.2 98.8 435.8 99.5 433.9 98.8 432 97.4 432.6 94.6 430.1 93.2 430.1 93.2 426.3 88.3 423.7 88.3 421.8 89 421.2 87.6 419.9 86.2 416.1 82.7 415.4 80.6 413.5 80.6 411 79.2 411.6 77.8 410.4 76.4 410.4 76.4 409.7 72.9 407.8 73.6 407.2 70.8 407.8 69.4 407.8 69.4 407.2 69.4 407.8 66.5 409.1 63 405.9 59.5 405.3 55.3 402.7 54.6 403.4 53.9 401.5 51.8 399.5 49.7 398.9 48.3 397.6 49 397 46.2 395.7 46.9 393.8 44.1 393.2 44.1 391.9 41.3 391.3 37.1 388.1 35 384.9 35 381.7 32.9 379.2 33.6 377.9 25.9 371.6 25.9 370.3 25.2 370.3 23.8 367.1 24.5 366.5 23.8 362 28 357.6 25.9 355.7 26.6 353.8 29.4 353.1 30.1 350.6 34.3 347.4 34.3 348.7 37.1 349.3 37.1 348.7 46.2 346.8 46.9 346.1 46.9 344.9 46.2 344.9 46.9 344.2 46.2 344.2 46.9 344.2 46.9 342.3 55.3 344.9 70.1 351.9 82 358.9 83.4 358.9 96 370.9 98.1 371.6 97.4 369 96.7 369 96 360.1 96.7 356.9 100.2 353.1 105.1 350.6 107.9 348 112.1 347.4 113.5 346.1 115.6 346.1 115.6 345.5 116.3 346.1 119.1 344.9 121.2 344.9 121.2 343.6 122.6 343 123.3 339.1 126.8 335.3 133.1 330.9 135.2 332.8 138.7 333.4 144.3 339.1 145 343 144.3 346.1 144.3 355.7 147.8 360.1 149.2 360.1 149.9 361.4 153.4 363.3 153.4 365.2 154.8 367.8 154.8 370.3 152 372.2 148.5 377.9 146.4 379.8 147.8 388.7 147.1 388.7 147.1 393.2 145.7 393.8 145.7 397 145 397.6 145.7 399.5 145 399.5 145 402.1 144.3 402.1 143.6 405.9 138.7 407.2 137.3 409.1 137.3 410.4 136.6 410.4 137.3 414.8 136.6 414.8 135.9 419.9 137.3 420.5 138 422.4 139.4 423.1 140.8 425 140.8 426.3 141.5 426.3 141.5 428.8 142.2 428.8 142.2 430.7 141.5 431.3 142.9 431.3 143.6 432.6 146.4 433.9ZM161.8 447.2 162.5 448.5 160.4 447.2 160.4 449.1 159.7 449.8 159 449.1 159.7 448.5 159 448.5 158.3 446.6 158.3 444.7 161.8 446 161.8 447.2ZM279.5 294.6 281.6 297.2 281.6 302.3 278.8 304.2 278.1 306.1 276.7 306.1 275.3 307.3 275.3 308.6 273.9 309.9 274.6 311.8 275.3 311.8 274.6 313.1 274.6 317.5 272.5 317.5 270.4 324.5 266.9 327.7 265.5 327.7 262 330.9 255.7 332.1 254.3 334.1 255 334.7 252.2 337.2 252.9 338.5 250.8 339.1 250.8 340.4 250.1 340.4 250.1 342.3 249.4 342.3 249.4 348.7 241.7 349.3 238.9 346.1 236.8 346.1 236.8 345.5 234 344.9 231.9 342.3 231.2 338.5 230.5 338.5 231.2 336 232.6 335.3 231.2 334.7 229.8 336 229.8 337.2 227.7 337.9 227 340.4 226.3 340.4 226.3 343 225.6 343 225.6 344.2 224.2 345.5 223.5 348 222.8 348 222.8 350.6 219.3 353.8 219.3 355 220 355 220 361.4 219.3 361.4 218.6 363.9 217.2 365.2 217.2 367.1 218.6 366.5 218.6 369.7 220.7 370.9 220.7 372.8 220 372.8 222.1 376.7 220.7 377.3 220.7 381.1 220 381.1 219.3 384.3 218.6 384.3 219.3 384.9 218.6 386.2 219.3 390.6 218.6 392.6 217.9 392.6 217.9 393.8 218.6 393.8 218.6 398.3 220.7 402.1 220.7 405.9 218.6 410.4 218.6 413.5 217.2 414.8 217.2 416.1 216.5 416.1 217.2 416.7 217.2 418 216.5 418 217.2 420.5 216.5 419.9 215.8 421.2 213 420.5 211.6 418 210.9 418 210.9 414.8 210.2 414.2 209.5 414.2 209.5 415.4 210.2 415.4 209.5 416.7 206.7 416.1 207.4 414.2 205.3 414.2 204.6 415.4 202.5 415.4 200.4 416.7 199.6 416.1 198.9 416.7 196.8 414.8 196.8 415.4 194.7 414.2 194 414.8 191.2 414.8 191.2 415.4 189.8 415.4 189.1 414.2 186.3 416.1 183.5 416.7 183.5 416.1 186.3 414.8 185.6 413.5 182.8 414.2 182.8 413.5 184.9 412.9 184.2 411 182.8 409.7 177.9 409.7 177.9 410.4 175.8 410.4 175.8 411.6 175.1 411 175.1 411.6 172.3 411 168.1 413.5 166 415.4 166.7 416.1 166 416.1 166 418 165.3 418 166 419.9 164.6 419.9 164.6 418.6 161.8 419.3 161.8 420.5 160.4 421.2 161.1 421.2 160.4 421.2 160.4 423.1 159.7 423.7 160.4 425 159.7 425.6 159 425 156.9 425.6 159 423.7 156.2 423.7 156.9 425.6 156.2 424.3 154.8 424.3 155.5 425.6 154.8 425 154.8 425.6 153.4 425.6 153.4 425 151.3 427.5 152 428.2 150.6 428.2 148.5 430.1 148.5 432 147.1 432 146.4 433.9 143.6 432.6 142.9 431.3 141.5 431.3 142.2 430.7 141.5 426.3 140.8 426.3 140.8 425 139.4 423.1 138 422.4 137.3 420.5 135.9 419.9 136.6 414.8 137.3 414.8 136.6 410.4 137.3 410.4 137.3 409.1 138.7 407.2 143.6 405.9 144.3 402.1 145 402.1 145 399.5 145.7 399.5 145 397.6 145.7 397 145.7 393.8 147.1 393.2 147.1 388.7 147.8 388.7 146.4 379.8 148.5 377.9 152 372.2 154.8 370.3 154.8 367.8 153.4 365.2 153.4 363.3 149.9 361.4 149.2 360.1 147.8 360.1 144.3 355.7 144.3 346.1 145 344.2 144.3 339.1 138.7 333.4 135.2 332.8 133.1 330.9 134.5 329.6 134.5 328.3 135.2 328.3 135.9 325.8 142.9 321.3 148.5 319.4 152 316.9 152.7 315 163.2 311.8 167.4 309.9 167.4 309.3 170.9 309.9 171.6 311.2 173.7 310.5 177.2 304.8 184.9 297.8 186.3 294 191.9 290.8 194.7 290.8 198.2 292.7 198.2 293.4 198.9 292.7 205.3 293.4 208.1 292.1 217.2 292.7 219.3 288.9 222.1 287.6 222.1 287 223.5 286.4 226.3 287 229.1 286.4 230.5 287.6 236.1 288.3 239.6 290.2 243.8 289.5 243.8 288.9 247.3 289.5 252.9 292.1 257.1 292.7 264.8 297.2 276 297.2 278.1 296.5 279.5 294.6Z" fill="#16389E" stroke="#fff" stroke-width="1.2"/>
+  <path d="M490.4 231.7 493.2 239.3 497.4 243.1 498.8 243.1 500.2 241.8 503 242.5 505.8 246.3 511.4 247.6 511.4 249.5 512.8 248.8 513.5 248.8 512.8 250.1 514.9 249.5 519.1 253.3 521.2 253.3 522.6 251.4 524.7 251.4 524.7 252 525.4 251.4 527.5 253.3 528.9 252.7 531.7 255.2 533.1 254.6 534.5 252 535.9 252 535.9 252.7 538 252 542.2 253.9 542.2 254.6 543.6 254.6 543.6 255.2 549.9 255.8 549.9 257.1 553.4 257.7 553.4 258.4 558.3 258.4 559.7 257.1 566.7 265.4 567.4 264.7 568.1 265.4 570.9 264.7 571.6 267.9 573 268.6 573 271.7 576.5 274.3 576.5 275.5 575.8 275.5 577.2 276.2 577.2 277.5 576.5 277.5 577.2 279.4 580.7 282.5 582.1 281.9 582.8 282.5 582.8 283.8 584.9 285.1 585.6 289.5 587 292.7 588.4 294 591.2 294.6 591.2 297.8 592.6 298.4 593.3 304.2 594.7 305.4 594 306.1 594 308.6 592.6 309.3 593.3 313.7 595.4 313.1 596.1 319.4 598.9 320.1 600.4 321.3 599.6 321.3 600.4 323.2 604.6 328.3 606 329 606 328.3 608.1 328.3 610.2 332.1 610.2 335.3 606.7 340.4 603.2 341 601.1 342.3 601.1 343 602.5 343 601.8 344.9 599.6 346.8 600.4 346.8 599.6 348.7 600.4 351.2 596.1 350.6 593.3 353.1 591.9 355 591.9 356.3 590.5 356.3 589.1 357.6 586.3 356.9 586.3 358.2 584.9 358.9 585.6 360.8 583.5 362.7 584.2 363.3 582.8 364.6 581.4 363.9 580.7 365.8 573.7 367.8 573 365.2 571.6 365.2 568.8 362.7 567.4 365.8 561.8 365.2 559 366.5 559.7 367.1 559 368.4 556.9 368.4 556.2 366.5 555.5 367.1 556.2 368.4 554.8 368.4 554.1 369.7 549.9 369 547.8 370.9 546.4 370.3 545 371.6 544.3 370.9 542.2 371.6 540.8 372.8 539.4 372.8 535.9 374.7 530.3 374.7 529.6 376 529.6 375.4 529.6 376 527.5 375.4 526.8 376 520.5 376 520.5 376.7 519.8 376.7 519.8 374.7 516.3 374.7 515.6 375.4 516.3 377.3 515.6 377.3 514.9 379.2 514.2 377.9 512.1 377.9 511.4 376 510 376 509.3 374.7 503 375.4 501.6 377.3 498.8 378.6 502.3 375.4 500.9 374.7 500.9 372.8 500.2 373.5 500.9 372.2 500.2 371.6 500.9 370.9 500.2 370.3 497.4 370.3 496.7 370.9 498.1 374.7 497.4 375.4 499.5 377.3 496.7 376 496.7 375.4 496.7 377.3 496 377.9 494.6 377.3 494.6 376 493.2 377.3 491.8 377.3 491.8 375.4 490.4 376 490.4 377.9 489.7 378.6 488.3 377.3 486.9 377.3 486.2 378.6 484.8 377.9 484.8 378.6 482.7 378.6 482.7 380.5 481.3 379.8 480.6 381.1 481.3 384.9 479.9 384.3 479.9 385.6 479.2 384.9 478.5 385.6 478.5 387.5 479.9 388.7 479.2 389.4 479.9 390 475 390.6 472.9 392.6 472.2 394.5 470.8 394.5 470.1 393.2 468 393.2 467.3 393.8 468.7 394.5 468 396.4 465.1 397.6 462.3 394.5 462.3 391.3 463 391.3 463.7 389.4 464.4 383 461.6 381.7 460.9 379.8 460.9 378.6 463 377.3 463 376 462.3 375.4 461.6 369.7 459.5 367.8 460.2 365.2 458.8 364.6 457.4 365.2 454.6 362.7 454.6 361.4 453.9 361.4 453.9 360.1 454.6 360.1 453.9 356.9 452.5 356.3 449.7 357.6 449 356.3 444.1 355 443.4 349.9 445.5 348.7 445.5 344.2 442 341 442 337.9 441.3 337.2 442 335.3 441.3 335.3 440.6 333.4 441.3 333.4 441.3 330.2 439.9 329.6 439.9 325.8 440.6 324.5 439.9 324.5 439.2 321.3 437.8 322 435.7 320.7 434.3 313.1 432.9 312.4 430.8 309.3 426.6 308.6 423.8 306.7 420.3 299.7 419.6 299.7 415.4 294 414 286.4 411.9 282.5 409.1 280.6 404.2 279.4 401.4 275.5 395.8 271.7 390.9 270.5 390.9 269.8 388.1 269.2 386.7 267.9 382.5 266.6 382.5 266 387.4 260.9 393 257.1 397.2 258.4 407 258.4 407 257.7 407 258.4 408.4 258.4 408.4 257.7 410.5 258.4 410.5 257.7 423.1 258.4 431.5 255.8 435 252.7 440.6 250.7 441.3 250.1 441.3 248.2 443.4 246.9 446.9 245.7 453.9 245 453.9 244.4 455.3 244.4 456.7 243.1 458.8 243.1 458.8 242.5 460.2 242.5 460.9 243.8 463.7 243.1 463.7 239.3 464.4 238 467.3 234.9 472.9 231.7 474.3 232.9 478.5 232.9 481.3 231.7 487.6 231.7 487.6 231 490.4 231.7ZM638.2 175.1 638.2 177 641.7 178.3 645.2 178.3 647.3 180.8 647.3 182.1 648.7 184 648 192.2 649.4 193.5 652.9 194.2 652.9 197.3 651.5 198 650.1 209.4 649.4 211.3 647.3 213.2 646.6 220.9 645.2 224 645.2 225.9 643.1 229.1 643.8 230.4 641 232.9 641 235.5 640.3 235.5 641 236.1 641 238.7 639.6 238.7 638.9 242.5 634.7 243.8 634 246.3 635.4 248.2 636.1 251.4 638.2 252 641 257.1 645.2 258.4 647.3 257.1 649.4 259 649.4 260.3 652.2 262.2 657.1 267.9 659.2 267.9 662 270.5 665.5 271.7 669.7 274.9 671.8 278.1 671.8 280 674.6 283.8 676 287 676 288.9 678.1 292.1 680.2 293.4 680.9 297.8 681.6 298.4 680.2 299.7 679.5 299.1 678.8 301 678.1 301 678.8 302.3 678.1 301.6 676 302.3 676 303.5 674.6 304.8 674.6 308 677.4 308.6 678.1 311.2 678.1 308.6 678.8 310.5 680.9 311.2 680.9 313.1 679.5 313.7 679.5 315 680.2 315 679.5 318.2 677.4 317.5 677.4 318.8 676 318.2 675.3 318.8 675.3 321.3 673.9 322.6 672.5 322.6 672.5 324.5 670.4 325.1 669.7 327.7 666.9 328.3 668.3 329 668.3 330.2 666.9 331.5 666.2 330.9 664.1 331.5 663.4 332.8 662 332.8 660.6 334.1 658.5 333.4 657.1 334.7 653.6 334.7 653.6 334.1 652.9 334.7 652.9 332.8 652.2 332.1 650.8 333.4 649.4 332.1 649.4 333.4 648 332.8 648 334.1 645.9 334.7 644.5 334.1 645.2 336.6 645.9 336.6 641.7 339.1 639.6 337.2 638.2 337.2 637.5 335.3 636.8 335.3 636.1 337.2 634.7 336.6 634.7 337.2 633.3 337.2 631.9 338.5 630.5 336.6 628.4 336.6 627.7 335.3 627 335.3 627 336.6 625.6 337.9 624.2 337.9 624.2 336.6 623.5 337.2 622.1 336.6 622.8 336 620.7 336 620.7 334.1 620 333.4 618.6 334.7 617.2 334.7 615.8 332.8 615.8 333.4 615.1 332.8 611.6 332.8 609.5 336 610.2 335.3 610.2 332.1 608.1 328.3 606 328.3 606 329 604.6 328.3 600.4 323.2 599.6 322 600.4 321.3 598.9 320.1 596.1 319.4 595.4 313.1 593.3 313.7 592.6 309.3 594 308.6 594 306.1 594.7 305.4 593.3 304.2 592.6 298.4 591.2 297.8 591.2 294.6 588.4 294 587 292.7 585.6 289.5 584.9 285.1 582.8 283.8 582.8 282.5 582.1 281.9 580.7 282.5 577.2 279.4 576.5 277.5 577.2 277.5 577.2 276.2 575.8 275.5 576.5 275.5 576.5 274.3 573 271.7 573 268.6 571.6 267.9 570.9 264.7 569.5 265.4 567.4 264.7 566.7 265.4 559.7 257.1 558.3 258.4 553.4 258.4 553.4 257.7 549.9 257.1 549.9 255.8 543.6 255.2 543.6 254.6 542.2 254.6 542.2 253.9 538 252 537.3 252.7 534.5 252 533.1 254.6 531.7 255.2 528.9 252.7 527.5 253.3 525.4 251.4 525.4 252 522.6 251.4 521.2 253.3 519.1 253.3 514.9 249.5 514.2 250.1 512.8 250.1 513.5 248.8 511.4 249.5 511.4 247.6 505.8 246.3 503 242.5 500.2 241.8 500.2 242.5 497.4 243.1 493.2 239.3 490.4 232.3 491.8 230.4 491.1 228.5 493.2 225.3 494.6 225.9 497.4 223.4 498.8 223.4 498.8 222.8 499.5 223.4 500.9 222.1 501.6 222.8 502.3 222.1 504.4 222.8 507.9 226.6 512.8 225.9 516.3 226.6 517 225.3 523.3 225.3 524.7 224.7 524 223.4 525.4 220.2 524.7 211.3 530.3 208.1 532.4 205.6 536.6 204.3 543.6 199.9 547.8 199.2 554.1 199.9 556.2 198.6 558.3 198.6 560.4 197.3 565.3 196.7 568.1 195.4 569.5 198 577.2 201.8 579.3 204.3 582.8 205 585.6 205 586.3 204.3 586.3 205 587.7 203.7 591.2 203.7 591.9 204.3 596.8 201.1 606 192.9 607.4 192.9 610.2 191 613.7 186.5 617.2 185.3 622.1 177 627 177 629.1 178.3 631.2 178.3 638.2 175.1ZM744.7 136.3 744.7 137.6 746.8 137.6 746.1 138.8 744.7 137.6 744 138.2 744 136.3 742.6 135.7 743.3 135 744.7 136.3ZM753.1 135.7 753.1 136.3 751.7 135.7 750.3 136.3 750.3 135 753.1 135.7ZM742.6 131.8 743.3 132.5 743.3 135 741.9 135 740.5 136.3 741.2 133.1 742.6 133.1 741.9 133.1 741.9 131.8 740.5 132.5 740.5 131.2 742.6 131.8ZM681.6 298.4 680.9 297.8 680.2 293.4 678.1 292.1 676 288.9 676 287 674.6 283.8 671.8 280 671.8 278.1 669.7 274.9 665.5 271.7 662 270.5 659.2 267.9 657.1 267.9 652.2 262.2 649.4 260.3 649.4 259 647.3 257.1 645.2 258.4 641 257.1 638.2 252 636.1 251.4 635.4 248.2 634 246.3 634.7 243.8 638.9 242.5 639.6 238.7 641 238.7 641 236.1 640.3 235.5 641 235.5 641 232.9 643.8 230.4 643.1 229.1 645.2 225.9 645.2 224 646.6 220.9 647.3 213.2 649.4 211.3 650.1 209.4 651.5 198 652.9 197.3 652.9 194.2 649.4 193.5 648 192.2 648.7 184 647.3 182.1 647.3 180.8 645.2 178.3 641.7 178.3 638.2 177 638.2 175.1 648.7 171.3 649.4 169.4 654.3 171.3 657.1 169.4 656.4 163.6 661.3 163 669 157.9 678.1 153.5 685.8 152.2 690 147.1 693.5 145.2 696.3 145.2 699.1 142.6 706.1 138.8 715.2 132.5 725.7 128.7 729.9 128 732.7 128.7 732 131.2 732.7 130.6 732.7 131.8 734.2 131.8 732.7 133.1 734.2 133.1 734.2 134.4 734.9 133.7 735.6 135 737 135 739.1 133.1 739.8 136.9 741.9 138.8 741.9 140.7 742.6 141.4 744 141.4 743.3 140.7 744 138.8 742.6 138.8 742.6 137.6 746.8 138.8 745.4 140.1 744.7 138.8 745.4 140.1 744.7 140.7 747.5 140.7 746.8 140.1 747.5 138.8 748.2 139.5 748.9 138.8 748.9 140.1 750.3 139.5 749.6 141.4 750.3 141.4 750.3 143.3 748.9 143.3 749.6 144.6 753.1 142 752.4 141.4 753.8 140.1 755.9 139.5 755.9 137.6 756.6 137.6 756.6 140.1 753.1 143.3 756.6 145.2 758 142.6 756.6 140.7 757.3 140.1 764.3 139.5 764.3 135.7 765 140.1 764.3 143.9 765.7 144.6 766.4 149.6 768.5 151.5 768.5 153.5 772.7 154.1 774.1 156 774.1 157.9 774.8 158.5 775.5 157.9 776.2 159.2 775.5 161.1 772 162.4 769.2 162.4 767.1 161.1 762.9 156 759.4 157.9 758.7 158.5 759.4 159.2 758.7 162.4 757.3 164.3 755.2 164.3 753.8 168.1 752.4 169.4 754.5 170 754.5 172.5 751.7 172.5 751 173.8 751 175.1 753.1 174.4 754.5 175.1 753.8 179.5 753.1 180.2 753.1 183.3 754.5 184.6 755.2 184 758 184 758.7 185.9 760.1 186.5 760.8 185.9 760.8 187.2 763.6 187.8 763.6 189.7 765.7 189.7 765.7 191.6 763.6 192.9 764.3 194.8 762.2 195.4 760.8 199.2 759.4 199.9 757.3 199.2 753.1 196.7 751 194.2 751.7 191.6 753.8 191 752.4 188.4 752.4 186.5 751 185.3 746.8 185.3 746.1 185.9 746.8 187.8 746.1 190.3 748.2 191.6 746.8 192.9 748.2 193.5 744.7 197.3 744 201.8 742.6 201.8 741.2 203.1 741.9 203.7 741.2 204.3 741.2 210.7 739.8 210.7 739.8 212 739.1 211.3 738.4 212 739.1 213.9 737.7 218.3 732.7 221.5 734.2 222.8 735.6 222.1 734.2 224 737 227.2 737 232.3 736.3 233.6 737 235.5 733.5 237.4 732 236.8 730.6 238 729.2 238 728.5 239.3 725.7 238.7 722.9 239.3 720.1 241.2 719.4 243.1 717.3 243.1 717.3 243.8 715.2 243.1 713.1 245 711 245 711 245.7 712.4 245.7 711.7 246.3 712.4 246.3 712.4 249.5 710.3 250.7 710.3 252.7 708.9 252.7 706.1 255.2 706.1 256.5 704 257.7 704.7 259.7 704.7 262.2 703.3 263.5 704 263.5 704 264.7 703.3 265.4 701.2 264.7 699.1 267.3 700.5 268.6 700.5 270.5 699.1 270.5 701.2 277.5 699.8 277.5 699.1 280 697 281.3 694.9 285.7 694.2 286.4 691.4 286.4 690.7 290.8 688.6 291.4 687.9 293.4 687.2 293.4 687.2 294 689.3 293.4 687.9 295.3 688.6 296.5 687.9 297.2 684.4 296.5 683 300.3 682.3 300.3 681.6 298.4Z" fill="#2E6FF2" stroke="#fff" stroke-width="1.2"/>
+  <rect x="4" y="42" width="112" height="92" rx="9" fill="#F7F9FC" stroke="#C7CFDC" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <path d="M47.9 91.6 47.9 91.9 50.5 92.2 50.8 92.9 50.1 93.6 49.0 93.6 47.9 94.2 49.0 95.2 50.5 95.6 50.8 96.3 50.5 96.3 50.5 97.9 49.0 98.6 46.4 98.3 46.1 98.9 46.4 99.6 44.6 99.3 44.6 98.9 43.5 99.3 43.5 98.9 42.4 99.9 42.0 101.0 41.3 101.3 41.3 103.0 41.7 103.0 41.3 103.3 42.0 103.6 41.3 104.0 41.7 105.0 43.1 104.6 44.2 106.3 43.9 107.3 44.6 107.3 44.2 107.7 39.8 108.0 39.5 107.7 39.5 106.7 39.1 106.7 39.5 105.7 39.1 105.7 38.7 104.6 38.0 104.6 38.4 104.3 38.0 103.3 37.3 103.0 37.6 102.6 37.3 102.3 37.3 101.3 35.8 100.3 35.8 99.6 35.1 99.6 34.3 98.9 34.3 98.6 35.1 98.9 34.7 97.9 32.1 96.9 31.7 97.3 30.6 96.3 30.6 95.2 31.0 95.2 30.6 94.6 31.0 94.2 30.6 94.2 31.4 93.6 32.1 93.6 32.9 94.2 34.3 94.2 34.7 93.6 35.8 93.6 35.4 92.9 37.3 92.9 37.6 93.6 38.4 93.6 39.8 94.6 40.2 94.2 41.7 94.6 41.7 94.9 43.1 94.2 43.1 93.9 44.6 93.6 45.0 92.2 47.9 91.6ZM21.8 84.8 24.4 85.5 24.4 85.9 26.6 85.9 29.2 88.2 29.2 88.5 27.7 88.5 27.3 87.5 27.0 88.2 26.2 88.2 26.2 88.9 27.3 89.5 28.4 89.2 28.4 89.5 29.9 90.2 29.9 91.2 29.2 91.9 30.3 93.2 29.2 94.6 28.8 94.2 28.8 94.6 27.7 94.6 25.9 92.9 24.8 92.6 24.4 92.2 24.8 91.9 23.3 90.9 22.6 89.5 21.8 89.5 21.8 89.2 20.7 89.5 20.0 88.9 20.4 88.2 21.5 88.5 21.5 88.9 22.2 88.2 23.3 88.2 22.2 86.9 21.1 87.2 20.4 86.5 20.7 84.8 21.8 84.8ZM46.8 58.3 47.9 59.3 51.2 59.3 53.0 61.0 54.1 61.4 54.1 62.0 52.3 63.4 52.3 62.7 50.5 62.0 49.7 61.4 48.6 61.4 47.9 60.7 47.5 61.0 45.7 61.0 44.2 59.7 42.8 59.3 43.9 59.0 45.3 59.3 46.1 58.0 46.8 58.3Z" fill="#2E6FF2"/>
+  <text x="60" y="127" text-anchor="middle" font-size="13" fill="#6B7280">추자면(도서)</text>
+  <text x="180" y="250" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">제주시 서부권</text>
+  <text x="180" y="271" text-anchor="middle" font-size="14" fill="#DCE7FE">한림·한경·애월</text>
+  <text x="579" y="128" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">제주시 동부권</text>
+  <text x="579" y="149" text-anchor="middle" font-size="14" fill="#C9D8FD">조천·구좌·우도</text>
+  <text x="158" y="381" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">서귀포 서부권</text>
+  <text x="158" y="402" text-anchor="middle" font-size="14" fill="#C9D8FD">대정·안덕</text>
+  <text x="585" y="275" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">서귀포 동부권</text>
+  <text x="585" y="296" text-anchor="middle" font-size="14" fill="#DCE7FE">남원·표선·성산</text>
+  <text x="400" y="186" text-anchor="middle" font-size="16" font-weight="800" fill="#16389E">제주시 중앙권</text>
+  <text x="400" y="205" text-anchor="middle" font-size="13" fill="#3A3F47">제주시 동 지역</text>
+  <text x="330" y="358" text-anchor="middle" font-size="16" font-weight="800" fill="#16389E">서귀포시 중앙권</text>
+  <text x="330" y="377" text-anchor="middle" font-size="13" fill="#3A3F47">서귀포시 동 지역</text>
+  <rect x="0" y="474" width="17" height="13" rx="3" fill="#2E6FF2"/>
+  <rect x="23" y="474" width="17" height="13" rx="3" fill="#16389E"/>
+  <text x="48" y="486" font-size="15" fill="#6B7280">지역 권역 4개 (읍·면 순회 · 주력)</text>
+  <rect x="300" y="474" width="17" height="13" rx="3" fill="#97B7F8"/>
+  <rect x="323" y="474" width="17" height="13" rx="3" fill="#B9CFFB"/>
+  <text x="348" y="486" font-size="15" fill="#6B7280">핵심 권역 2개 (동 지역 거점 · 보완)</text>
+  <rect x="0" y="502" width="800" height="64" rx="12" fill="#16389E"/>
+  <text x="26" y="530" font-size="19" font-weight="700" fill="#fff">이동형 실습 교실을 직접 들고 이동합니다</text>
+  <text x="26" y="554" font-size="16" fill="#C9D8FD">자체 노트북 60대(+임차) · 자체 회선 격리망 · 학교망과 완전 분리</text>
+  <text x="0" y="590" font-size="15" fill="#6B7280">※ 핵심 권역은 인근 읍·면 주민과 미달 권역 수요를 흡수하는 야간·주말 보완 회차이며, 회차 배분은 발주처 협의로 확정합니다</text>
+  <text x="0" y="612" font-size="13" fill="#9AA3B2">경계 출처: 통계청 통계지리정보 읍·면·동 행정경계</text>
+</svg>
+      </div>
+    </div>
+  </div>
+  <div class="foot" data-chapter="수행 전략"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">6개 권역 순회 · 미달 시 만회안까지 </div>
+      <p><b>학부모 240명</b>은 소외지역으로 찾아갑니다. 6개 권역을 <b>30회 내외, 회당 2시간</b>으로 순회합니다.</p>
+      <p>내용은 AI 시대 변화 이해, 자녀 결과물 체험, 디지털 리터러시·윤리, 생산성 도구 실습, 미래 준비 다섯 단계입니다.</p>
+      <p><b>자녀 교육과 연계해 모집</b>하고 야간·주말 회차를 병행합니다. 미달 권역은 인접 권역 통합·핵심 권역 추가 회차로 만회하고, 권역별 달성률은 <b>주간보고에 그대로 명시</b>합니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">10 / 19</span>
+    <span class="ptitle">③ 바이브 코딩 챌린지 300명</span>
+    <span class="ptime">0:45 <em>누적 7:45</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="eyebrow">CHAPTER 02 · 수행 전략</div>
+  <div class="numhead">
+    <div class="numbadge">③</div>
+    <h2>제주 바이브 코딩 챌린지 300명: 축제형 4부 구성</h2>
+    <span class="sub">2026년 12월 초 본행사 1일 · 도내 ICT 행사 운영 전담팀이 직접 수행</span>
+  </div>
+  <div class="body-main">
+    <div class="grid g4">
+      <div class="card"><div class="chips top"><span class="chip">학생·강사 팀</span></div>
+        <div class="t">① 바이브 코딩 배틀</div>
+        <div class="d">현장에서 제시되는 제주 지역 문제(환경·관광 등)를 즉석 AI 프롬프팅으로 해결하는 해커톤 형식. 대형 스크린 실시간 중계.</div></div>
+      <div class="card"><div class="chips top"><span class="chip">수료생 전원</span></div>
+        <div class="t">② 산출물 전시·발표</div>
+        <div class="d">교육 기간 중 제작한 학생·강사 AI 앱 부스 전시 및 무대 발표, QR 기반 관람객 체험 투표.</div></div>
+      <div class="card"><div class="chips top"><span class="chip mid">학부모·도민</span></div>
+        <div class="t">③ 체험존</div>
+        <div class="d">학부모·일반 도민 대상 바이브 코딩 체험 부스를 운영하여 도민 참여형 행사로 확장.</div></div>
+      <div class="card"><div class="chips top"><span class="chip mid">참가자·도민</span></div>
+        <div class="t">④ 바이브 코딩 컨퍼런스</div>
+        <div class="d">학생·강사·개발자가 경험한 바이브 코딩 사례를 공유하는 발표 세션. 룸당 2~3개 프로그램 병행.</div></div>
+    </div>
+    <svg class="diagram" viewBox="0 0 1664 158" role="img" aria-label="챌린지 당일 운영안 타임라인: 개회 30분, 배틀 예선 90분, 전시·체험·컨퍼런스 90분, 배틀 결선·무대 발표 90분, 심사·시상·폐회 60분, 총 6시간">
+      <text x="0" y="16" font-size="19" font-weight="700" fill="#16389E">당일 운영(안) · 총 6시간</text>
+      <text x="1664" y="16" text-anchor="end" font-size="17" fill="#6B7280">세부 시간표는 발주처 협의로 확정</text>
+      <rect x="0" y="32" width="137" height="76" rx="10" fill="#97B7F8"/>
+      <text x="68" y="62" text-anchor="middle" font-size="17" font-weight="700" fill="#16389E">개회·규정</text>
+      <text x="68" y="88" text-anchor="middle" font-size="20" font-weight="800" fill="#16389E">30분</text>
+      <rect x="141" y="32" width="412" height="76" rx="10" fill="#2E6FF2"/>
+      <text x="347" y="62" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">바이브 코딩 배틀 예선</text>
+      <text x="347" y="88" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">90분</text>
+      <rect x="557" y="32" width="412" height="76" rx="10" fill="#E9EFFE" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="763" y="62" text-anchor="middle" font-size="19" font-weight="700" fill="#16389E">전시·체험존 관람 + 컨퍼런스</text>
+      <text x="763" y="88" text-anchor="middle" font-size="20" font-weight="800" fill="#16389E">90분</text>
+      <rect x="973" y="32" width="412" height="76" rx="10" fill="#2E6FF2"/>
+      <text x="1179" y="62" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">배틀 결선 · 무대 발표</text>
+      <text x="1179" y="88" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">90분</text>
+      <rect x="1389" y="32" width="275" height="76" rx="10" fill="#16389E"/>
+      <text x="1526" y="62" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">심사·시상·폐회</text>
+      <text x="1526" y="88" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">60분</text>
+      <line x1="0" y1="126" x2="1664" y2="126" stroke="#E3E8F1" stroke-width="2"/>
+      <text x="0" y="150" font-size="17" fill="#6B7280">개최 장소는 접근성·수용 인원(300명 내외)·전원·네트워크 요건으로 도내 후보지를 사전 답사한 후 발주처 협의로 확정</text>
+    </svg>
+    <div class="grid g3">
+      <div class="mbox hi"><div class="h">훈격 확보</div>
+        <p>도지사상·기관장상 등 시상 훈격 확보 절차를 착수 단계부터 개시하여 공문 협의·심사 규정 정비를 사전 완료</p></div>
+      <div class="mbox hi"><div class="h">공정성</div>
+        <p>외부 전문가 + 교육 강사단으로 심사위원회 구성, 규정집·심사표 사전 공개</p></div>
+      <div class="mbox hi"><div class="h">안전·성과품</div>
+        <p>안전관리 담당자 지정·행사보험 가입·보호자 동의 징구, 규정집·심사자료·홍보물·사진/영상을 'AI 교육 행사 자료 1식'으로 제출</p></div>
+    </div>
+  </div>
+  <div class="foot" data-chapter="수행 전략"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">축제형 4부 + 훈격·공정성·안전 </div>
+      <p>세 번째, <b>제주 바이브 코딩 챌린지 300명</b>입니다. 12월 초 하루, <b>축제형 4부</b>로 구성했습니다. 제주 지역 문제를 즉석에서 푸는 <b>바이브 코딩 배틀</b>, 산출물 <b>전시·발표</b>, 학부모·도민 <b>체험존</b>, 그리고 <b>컨퍼런스</b>입니다. 도내 ICT 행사 운영 전담팀이 직접 수행합니다.</p>
+      <p><b>시상 훈격</b>은 착수 단계부터 협의를 개시하고, 심사는 외부 전문가와 강사단으로 위원회를 구성해 규정집·심사표를 <b>사전 공개</b>합니다. 안전관리자 지정·행사보험·보호자 동의까지 포함해 <b>행사 자료 1식</b>으로 제출합니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">11 / 19</span>
+    <span class="ptitle">④⑤⑥ 교재 · 플랫폼 · AI 계정</span>
+    <span class="ptime">1:05 <em>누적 8:50</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="eyebrow">CHAPTER 02 · 수행 전략</div>
+  <div class="numhead">
+    <div class="numbadge" style="width:auto;padding:0 20px">④·⑤·⑥</div>
+    <h2>교재 12종 · 플랫폼 즉시 가동 · AI 계정 1,740명</h2>
+    <span class="sub">전부 자체 보유 자산 · 플랫폼 구축 기간 0일로 지연 리스크 원천 제거</span>
+  </div>
+  <div class="body-main">
+    <div class="grid g3 fill">
+      <div class="card"><div class="no">④ 교육과정·교재</div><div class="t">자체 출판 도서 17종이 베이스라인</div>
+        <ul class="mlist"><li>전문강사 2 · 학습자(초·중·고·성인) 4 · 지도교사 4 · 학부모·도민 2</li><li>웹 교안 + PDF 병행, 현장 피드백 24시간 내 반영</li><li>VOD 강의 30개·300여 개 영상(초5·중7·고8·지도교사10)을 외주 없이 자체 제작</li></ul></div>
+      <div class="card"><div class="no">⑤ 온라인 플랫폼</div><div class="t">자체 개발 LMS: 계약 직후 전용 클래스 개설</div>
+        <ul class="mlist"><li>VOD·과제·진도·Q&amp;A 요구 기능 전부 기보유</li><li>모집·출결·산출물·만족도까지 단일 플랫폼 통합 관리</li><li>자체 개발팀 직접 운영, 장애 즉시 대응, 실시간 대시보드 제공</li></ul></div>
+      <div class="card"><div class="no">⑥ AI 계정</div><div class="t">3대 요건 충족 서비스로 한정</div>
+        <ul class="mlist"><li>미성년자 이용 가능 · Pro급 이상 · 엔터프라이즈급 보안 인증</li><li>자체 랩핑 없이 정식 계정 직접 발급, LMS 계정과 1:1 매핑 대장 관리</li><li>유해 프롬프트 필터링 · 종료 시 일괄 회수·파기 보고</li></ul></div>
+    </div>
+    <div class="grid g2">
+      <div class="mbox hi"><div class="h">④ 맞춤형 교재 12종 구성 (웹 교안 + PDF 병행)</div>
+        <svg class="diagram" viewBox="0 0 800 218" role="img" aria-label="맞춤형 교재 12종 구성: 전문강사용 2종, 학습자용 4종, 지도교사용 4종, 학부모·도민용 2종">
+          <rect x="0" y="0" width="188" height="42" rx="9" fill="#16389E"/>
+          <text x="94" y="27" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">전문강사용 2종</text>
+          <rect x="204" y="0" width="188" height="42" rx="9" fill="#2E6FF2"/>
+          <text x="298" y="27" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">학습자용 4종</text>
+          <rect x="408" y="0" width="188" height="42" rx="9" fill="#2E6FF2"/>
+          <text x="502" y="27" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">지도교사용 4종</text>
+          <rect x="612" y="0" width="188" height="42" rx="9" fill="#16389E"/>
+          <text x="706" y="27" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">학부모·도민 2종</text>
+          <rect x="0" y="54" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="94" y="76" text-anchor="middle" font-size="16" fill="#16389E">강사 양성 과정</text>
+          <rect x="204" y="54" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="298" y="76" text-anchor="middle" font-size="16" fill="#16389E">초등</text>
+          <rect x="204" y="94" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="298" y="116" text-anchor="middle" font-size="16" fill="#16389E">중등</text>
+          <rect x="204" y="134" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="298" y="156" text-anchor="middle" font-size="16" fill="#16389E">고등·성인</text>
+          <rect x="408" y="54" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="502" y="76" text-anchor="middle" font-size="16" fill="#16389E">초등</text>
+          <rect x="408" y="94" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="502" y="116" text-anchor="middle" font-size="16" fill="#16389E">중등</text>
+          <rect x="408" y="134" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="502" y="156" text-anchor="middle" font-size="16" fill="#16389E">고등·성인</text>
+          <rect x="612" y="54" width="188" height="34" rx="7" fill="#E9EFFE"/>
+          <text x="706" y="76" text-anchor="middle" font-size="16" fill="#16389E">학부모·도민</text>
+          <text x="612" y="112" font-size="15" fill="#6B7280">AI 윤리·환각</text>
+          <text x="612" y="132" font-size="15" fill="#6B7280">검증 단원은</text>
+          <text x="612" y="152" font-size="15" fill="#6B7280">전 교재 필수 포함</text>
+          <rect x="0" y="180" width="800" height="38" rx="8" fill="#2E6FF2"/>
+          <text x="18" y="205" font-size="16" font-weight="700" fill="#fff">+ 교육과정 설계서 1종 · 대상별 온라인 VOD 강의 30개 · 300여 개 영상 (외주 없이 자체 스튜디오 제작)</text>
+        </svg></div>
+      <div class="mbox hi"><div class="h">⑥ AI 계정 1,740개 생애주기 관리</div>
+        <svg class="diagram" viewBox="0 0 800 218" role="img" aria-label="AI 계정 생애주기 5단계: 서비스 선정과 발주처 승인, 정식 계정 직접 발급, 1대1 매핑 대장 관리, 상시 유지와 현황 보고, 종료 시 회수와 파기">
+          <line x1="19" y1="20" x2="19" y2="196" stroke="#C7CFDC" stroke-width="2.5"/>
+          <circle cx="19" cy="20" r="15" fill="#2E6FF2"/>
+          <text x="19" y="26" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">1</text>
+          <text x="48" y="16" font-size="17" font-weight="700" fill="#121314">3대 요건 충족 서비스 선정</text>
+          <text x="48" y="37" font-size="15" fill="#6B7280">미성년 이용 가능 · Pro급 이상 · 엔터프라이즈 보안 인증 → 착수보고 시 근거 제출·발주처 승인</text>
+          <circle cx="19" cy="64" r="15" fill="#2E6FF2"/>
+          <text x="19" y="70" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">2</text>
+          <text x="48" y="60" font-size="17" font-weight="700" fill="#121314">정식 계정 직접 발급 · 1,740계정</text>
+          <text x="48" y="81" font-size="15" fill="#6B7280">자체 랩핑 없이 정식 발급, 교육용 워크스페이스를 격리 구성</text>
+          <circle cx="19" cy="108" r="15" fill="#2E6FF2"/>
+          <text x="19" y="114" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">3</text>
+          <text x="48" y="104" font-size="17" font-weight="700" fill="#121314">LMS 계정과 1:1 매핑 단일 대장 관리</text>
+          <text x="48" y="125" font-size="15" fill="#6B7280">발급·회수·이용 현황 통합 관리 · 유해 프롬프트 필터링 · 안전 사용 오리엔테이션</text>
+          <circle cx="19" cy="152" r="15" fill="#2E6FF2"/>
+          <text x="19" y="158" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">4</text>
+          <text x="48" y="148" font-size="17" font-weight="700" fill="#121314">사업 기간 내 상시 유지</text>
+          <text x="48" y="169" font-size="15" fill="#6B7280">사용량 제한 없이 실습 보장 · 이용 현황 정기 보고</text>
+          <circle cx="19" cy="196" r="15" fill="#16389E"/>
+          <text x="19" y="202" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">5</text>
+          <text x="48" y="192" font-size="17" font-weight="700" fill="#16389E">종료 시 일괄 회수 · 권한 말소 · 데이터 파기</text>
+          <text x="48" y="213" font-size="15" fill="#6B7280">파기 결과를 최종보고서에 첨부하여 확인 가능하게 함</text>
+        </svg></div>
+    </div>
+  </div>
+  <div class="foot" data-chapter="수행 전략"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">전부 자체 보유 자산 → 구축 기간 0일 </div>
+      <p>네 번째부터 여섯 번째는 한 장에 모았습니다. 공통점은 <b>전부 이미 보유한 자체 자산이라 플랫폼 구축 기간이 0일</b>이라는 점입니다.</p>
+      <p><b>교재</b>는 자체 출판 도서 17종을 베이스라인으로 <b>12종</b>을 맞춤 제작합니다. 웹 교안과 PDF를 병행하고 현장 피드백은 <b>24시간 내 반영</b>합니다. VOD도 <b>강의 30개·300여 개 영상</b>을 외주 없이 자체 제작합니다.</p>
+      <p><b>플랫폼</b>은 자체 개발 LMS라 계약 직후 전용 클래스를 엽니다. 요구 기능은 전부 기보유이고, 모집·출결·산출물·만족도까지 한 곳에서 관리합니다. 개발팀이 직접 운영해 장애도 즉시 대응합니다.</p>
+      <p><b>AI 계정</b>은 미성년자 이용 가능·Pro급 이상·엔터프라이즈 보안 인증, <b>세 가지를 모두 충족하는 서비스</b>로만 <b>1,740개</b>를 정식 발급합니다. 요구 기준인 1,560명에 더해, 챌린지에만 참여하는 도민 180명분을 <b>저희 부담으로 추가 제공</b>하는 숫자입니다. 자체 랩핑은 하지 않고 계정 대장을 1:1로 관리해 <b>종료 시 일괄 회수·파기 보고</b>합니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">12 / 19</span>
+    <span class="ptitle">관리 계획 · 일정</span>
+    <span class="ptime">0:35 <em>누적 9:25</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 03 · 관리 계획</div>
+    <div class="title-row"><h2>계약일부터 12. 18.까지 월 단위 공정 관리</h2>
+      <span class="sub">착수 10일 내 · 중간 3개월 내 · 최종 만료 10일 전 보고</span></div>
+  </div>
+  <div class="body-main center">
+    <div class="dgm">
+    <svg class="diagram" viewBox="0 0 1664 512" role="img" aria-label="월별 공정표: 과업별 수행 기간과 착수·중간·최종 보고 시점">
+      <!-- 월 헤더 · 그리드 -->
+      <text x="391" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#121314">8월 · 계약</text>
+      <text x="673" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#121314">9월</text>
+      <text x="955" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#121314">10월</text>
+      <text x="1237" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#121314">11월</text>
+      <text x="1519" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#121314">12월 · ~12. 18.</text>
+      <line x1="250" y1="48" x2="1660" y2="48" stroke="#C7CFDC" stroke-width="2"/>
+      <line x1="250" y1="48" x2="250" y2="500" stroke="#E3E8F1" stroke-width="1.5"/>
+      <line x1="532" y1="48" x2="532" y2="500" stroke="#E3E8F1" stroke-width="1.5"/>
+      <line x1="814" y1="48" x2="814" y2="500" stroke="#E3E8F1" stroke-width="1.5"/>
+      <line x1="1096" y1="48" x2="1096" y2="500" stroke="#E3E8F1" stroke-width="1.5"/>
+      <line x1="1378" y1="48" x2="1378" y2="500" stroke="#E3E8F1" stroke-width="1.5"/>
+      <line x1="1660" y1="48" x2="1660" y2="500" stroke="#E3E8F1" stroke-width="1.5"/>
+      <!-- ④ 교재·VOD -->
+      <text x="235" y="86" text-anchor="end" font-size="19" font-weight="700" fill="#121314">④ 교재·VOD</text>
+      <rect x="250" y="62" width="564" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="532" y="86" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">집중 개발·제작</text>
+      <rect x="818" y="62" width="842" height="36" rx="6" fill="#E9EFFE" stroke="#97B7F8" stroke-width="2"/>
+      <text x="1239" y="86" text-anchor="middle" font-size="17" font-weight="700" fill="#16389E">현장 피드백 24시간 내 반영</text>
+      <!-- ⑤⑥ 플랫폼·계정 -->
+      <text x="235" y="150" text-anchor="end" font-size="19" font-weight="700" fill="#121314">⑤·⑥ 플랫폼·AI 계정</text>
+      <rect x="250" y="126" width="1126" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="813" y="150" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">계약 직후 즉시 가동 · 1,740계정 운영</text>
+      <rect x="1380" y="126" width="280" height="36" rx="6" fill="#16389E"/>
+      <text x="1520" y="150" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">회수·이관·파기</text>
+      <!-- ① 강사 양성 -->
+      <text x="235" y="214" text-anchor="end" font-size="19" font-weight="700" fill="#121314">① 강사 양성 120명</text>
+      <rect x="532" y="190" width="562" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="813" y="214" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">공통과정 128h</text>
+      <rect x="1098" y="190" width="280" height="36" rx="6" fill="#16389E"/>
+      <text x="1238" y="214" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">심화 32h · 인증 평가</text>
+      <!-- ② 학생 교육 -->
+      <text x="235" y="278" text-anchor="end" font-size="19" font-weight="700" fill="#121314">② 학생 교육 1,200명</text>
+      <rect x="532" y="254" width="280" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="672" y="278" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">240명</text>
+      <rect x="816" y="254" width="278" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="955" y="278" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">360명</text>
+      <rect x="1098" y="254" width="278" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="1237" y="278" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">360명</text>
+      <rect x="1380" y="254" width="280" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="1520" y="278" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">240명</text>
+      <!-- ② 학부모 교육 -->
+      <text x="235" y="342" text-anchor="end" font-size="19" font-weight="700" fill="#121314">② 학부모 교육 240명</text>
+      <rect x="1098" y="318" width="562" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="1379" y="342" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">6개 권역 순회 30회 내외</text>
+      <!-- ③ 챌린지 -->
+      <text x="235" y="406" text-anchor="end" font-size="19" font-weight="700" fill="#121314">③ 챌린지 300명</text>
+      <rect x="814" y="382" width="280" height="36" rx="6" fill="#E9EFFE" stroke="#97B7F8" stroke-width="2"/>
+      <text x="954" y="406" text-anchor="middle" font-size="16" font-weight="700" fill="#16389E">준비 · 훈격 협의</text>
+      <rect x="1098" y="382" width="278" height="36" rx="6" fill="#2E6FF2"/>
+      <text x="1237" y="406" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">홍보 · 접수</text>
+      <rect x="1380" y="382" width="280" height="36" rx="6" fill="#16389E"/>
+      <text x="1520" y="406" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">본행사 · 시상</text>
+      <!-- 보고 체계 -->
+      <text x="235" y="470" text-anchor="end" font-size="19" font-weight="700" fill="#121314">보고 체계</text>
+      <line x1="250" y1="464" x2="1660" y2="464" stroke="#C7CFDC" stroke-width="2" stroke-dasharray="2 7"/>
+      <path d="M289 464 L300 453 L311 464 L300 475 Z" fill="#16389E"/>
+      <path d="M579 464 L590 453 L601 464 L590 475 Z" fill="#16389E"/>
+      <path d="M1589 464 L1600 453 L1611 464 L1600 475 Z" fill="#16389E"/>
+      <text x="300" y="500" text-anchor="middle" font-size="16" font-weight="700" fill="#16389E">착수보고 · 10일 내</text>
+      <text x="590" y="500" text-anchor="middle" font-size="16" font-weight="700" fill="#16389E">중간보고</text>
+      <text x="1656" y="500" text-anchor="end" font-size="16" font-weight="700" fill="#16389E">최종보고 · 만료 10일 전</text>
+    </svg>
+    </div>
+    <div class="callout" style="margin-top:36px">매주 수요일 17시 주간 공정보고 + 실시간 대시보드 링크 첨부, 발주처가 언제든 진척을 확인합니다</div>
+  </div>
+  <div class="foot" data-chapter="관리 계획"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">3대 보고 + 매주 수요일 17시 주간보고 </div>
+      <p>관리 계획입니다. 계약일부터 <b>12월 18일</b>까지 월 단위 공정으로 짰습니다. 착수보고 10일 이내, 중간보고 3개월 이내, 최종보고 만료 10일 전을 지킵니다.</p>
+      <p>여기에 더해 <b>매주 수요일 17시 주간 공정보고</b>를 드리고 실시간 대시보드 링크를 함께 보내드립니다. 발주처가 언제든 진척을 직접 확인하실 수 있습니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">13 / 19</span>
+    <span class="ptitle">관리 계획 · KPI 6종</span>
+    <span class="ptime">0:45 <em>누적 10:10</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 03 · 관리 계획</div>
+    <div class="title-row"><h2>KPI 6종을 주간 대시보드로 목표 대비 관리합니다</h2>
+      <span class="sub">전 항목 100% 달성 · 만족도 4.5 이상</span></div>
+  </div>
+  <div class="body-main">
+    <svg class="diagram" viewBox="0 0 1664 210" role="img" aria-label="KPI 6종 목표: 강사 양성 120명, 학생 교육 1,200명, 학부모 교육 240명, 챌린지 300명, 대상별 온라인 VOD 강의 30개, AI 계정 1,740개">
+      <text x="0" y="16" font-size="19" font-weight="700" fill="#16389E">주간 대시보드 관리 지표 6종 · 발주처에 실시간 대시보드 링크 상시 공개</text>
+      <g>
+        <rect x="0" y="30" width="264" height="180" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <text x="132" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#2E6FF2">① 강사 양성</text>
+        <text x="132" y="122" text-anchor="middle" font-size="52" font-weight="800" fill="#121314" letter-spacing="-2">120명</text>
+        <line x1="30" y1="146" x2="234" y2="146" stroke="#E3E8F1" stroke-width="2"/>
+        <text x="132" y="172" text-anchor="middle" font-size="16" fill="#6B7280">초급 60 · 전문 60</text>
+        <text x="132" y="194" text-anchor="middle" font-size="16" fill="#6B7280">수료율 · 인증 통과율</text>
+      </g>
+      <g>
+        <rect x="280" y="30" width="264" height="180" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <text x="412" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#2E6FF2">② 학생 교육</text>
+        <text x="412" y="122" text-anchor="middle" font-size="52" font-weight="800" fill="#121314" letter-spacing="-2">1,200명</text>
+        <line x1="310" y1="146" x2="514" y2="146" stroke="#E3E8F1" stroke-width="2"/>
+        <text x="412" y="172" text-anchor="middle" font-size="16" fill="#6B7280">1인 1AI 앱 1,200건</text>
+        <text x="412" y="194" text-anchor="middle" font-size="16" fill="#6B7280">월별 누적 대비 달성률</text>
+      </g>
+      <g>
+        <rect x="560" y="30" width="264" height="180" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <text x="692" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#2E6FF2">③ 학부모 교육</text>
+        <text x="692" y="122" text-anchor="middle" font-size="52" font-weight="800" fill="#121314" letter-spacing="-2">240명</text>
+        <line x1="590" y1="146" x2="794" y2="146" stroke="#E3E8F1" stroke-width="2"/>
+        <text x="692" y="172" text-anchor="middle" font-size="16" fill="#6B7280">6개 권역 30회 내외</text>
+        <text x="692" y="194" text-anchor="middle" font-size="16" fill="#6B7280">권역별 달성률</text>
+      </g>
+      <g>
+        <rect x="840" y="30" width="264" height="180" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <text x="972" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#2E6FF2">④ 챌린지</text>
+        <text x="972" y="122" text-anchor="middle" font-size="52" font-weight="800" fill="#121314" letter-spacing="-2">300명</text>
+        <line x1="870" y1="146" x2="1074" y2="146" stroke="#E3E8F1" stroke-width="2"/>
+        <text x="972" y="172" text-anchor="middle" font-size="16" fill="#6B7280">접수·참가 인원</text>
+        <text x="972" y="194" text-anchor="middle" font-size="16" fill="#6B7280">훈격 확보 진척</text>
+      </g>
+      <g>
+        <rect x="1120" y="30" width="264" height="180" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+        <text x="1252" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#2E6FF2">⑤ 대상별 VOD</text>
+        <text x="1252" y="122" text-anchor="middle" font-size="52" font-weight="800" fill="#121314" letter-spacing="-2">30개</text>
+        <line x1="1150" y1="146" x2="1354" y2="146" stroke="#E3E8F1" stroke-width="2"/>
+        <text x="1252" y="172" text-anchor="middle" font-size="16" fill="#6B7280">차시별 제작·검수 완료율</text>
+        <text x="1252" y="194" text-anchor="middle" font-size="16" fill="#6B7280">수강 진도율</text>
+      </g>
+      <g>
+        <rect x="1400" y="30" width="264" height="180" rx="14" fill="#fff" stroke="#16389E" stroke-width="2"/>
+        <text x="1532" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#16389E">⑥ AI 계정</text>
+        <text x="1532" y="122" text-anchor="middle" font-size="52" font-weight="800" fill="#121314" letter-spacing="-2">1,740계정</text>
+        <line x1="1430" y1="146" x2="1634" y2="146" stroke="#E3E8F1" stroke-width="2"/>
+        <text x="1532" y="172" text-anchor="middle" font-size="16" fill="#6B7280">발급·활성·회수 현황</text>
+        <text x="1532" y="194" text-anchor="middle" font-size="16" fill="#6B7280">1:1 매핑 대장 일치율</text>
+      </g>
+    </svg>
+    <div class="grid g2">
+      <div class="mbox hi"><div class="h">모집 리스크: 정원을 못 채우는 상황을 만들지 않습니다</div>
+        <svg class="diagram" viewBox="0 0 800 210" role="img" aria-label="모집 파이프라인: 지원자 200퍼센트 확보, 선발 150퍼센트, 수료 정원 100퍼센트">
+          <path d="M40 8 L760 8 L690 66 L110 66 Z" fill="#2E6FF2"/>
+          <text x="400" y="45" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">지원자 확보 — 목표 대비 200%</text>
+          <path d="M112 74 L688 74 L620 132 L180 132 Z" fill="#1E4FD8"/>
+          <text x="400" y="111" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">선발 — 목표 대비 150%</text>
+          <path d="M182 140 L618 140 L556 198 L244 198 Z" fill="#16389E"/>
+          <text x="400" y="177" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">수료 — 정원 100% 충족</text>
+          <text x="0" y="45" font-size="15" fill="#6B7280">다채널</text>
+          <text x="0" y="64" font-size="15" fill="#6B7280">홍보</text>
+          <text x="800" y="45" text-anchor="end" font-size="15" fill="#6B7280">중도 이탈</text>
+          <text x="800" y="64" text-anchor="end" font-size="15" fill="#6B7280">감안</text>
+          <text x="800" y="177" text-anchor="end" font-size="15" fill="#6B7280">미달 시</text>
+          <text x="800" y="196" text-anchor="end" font-size="15" fill="#6B7280">2차 모집</text>
+        </svg>
+        <div class="svgcap">도내 대학·교원단체·청년센터·수료생 커뮤니티 다채널 홍보, 권역별 예비 수요처 사전 확보</div></div>
+      <div class="mbox hi"><div class="h">수업 품질: 만족도 4.5 이상을 관리 루프로 지킵니다</div>
+        <svg class="diagram" viewBox="0 0 800 210" role="img" aria-label="품질 관리 루프 4단계: 회차별 만족도 조사, 4.0 미만 원인 분석, 즉시 개선 조치, 발주처 보고 후 반복">
+          <defs>
+            <marker id="arw3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#2E6FF2"/>
+            </marker>
+          </defs>
+          <rect x="0" y="10" width="182" height="84" rx="12" fill="#E9EFFE"/>
+          <text x="91" y="44" text-anchor="middle" font-size="17" font-weight="700" fill="#16389E">① 회차별 조사</text>
+          <text x="91" y="70" text-anchor="middle" font-size="15" fill="#6B7280">5점 척도 · 플랫폼 자동</text>
+          <path d="M188 52 L200 52" stroke="#2E6FF2" stroke-width="2.5" marker-end="url(#arw3)"/>
+          <rect x="206" y="10" width="182" height="84" rx="12" fill="#E9EFFE"/>
+          <text x="297" y="44" text-anchor="middle" font-size="17" font-weight="700" fill="#16389E">② 원인 분석</text>
+          <text x="297" y="70" text-anchor="middle" font-size="15" fill="#6B7280">4.0 미만 회차 대상</text>
+          <path d="M394 52 L406 52" stroke="#2E6FF2" stroke-width="2.5" marker-end="url(#arw3)"/>
+          <rect x="412" y="10" width="182" height="84" rx="12" fill="#E9EFFE"/>
+          <text x="503" y="44" text-anchor="middle" font-size="17" font-weight="700" fill="#16389E">③ 즉시 개선</text>
+          <text x="503" y="70" text-anchor="middle" font-size="15" fill="#6B7280">교재·진행·강사 조정</text>
+          <path d="M600 52 L612 52" stroke="#2E6FF2" stroke-width="2.5" marker-end="url(#arw3)"/>
+          <rect x="618" y="10" width="182" height="84" rx="12" fill="#2E6FF2"/>
+          <text x="709" y="44" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">④ 발주처 보고</text>
+          <text x="709" y="70" text-anchor="middle" font-size="15" fill="#DCE7FE">주간 공정보고에 포함</text>
+          <path d="M709 100 L709 126 L91 126 L91 102" fill="none" stroke="#97B7F8" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#arw3)"/>
+          <text x="400" y="150" text-anchor="middle" font-size="16" fill="#6B7280">전 회차 반복 · 시니어 강사가 QA 순회 점검을 병행</text>
+          <rect x="0" y="164" width="800" height="46" rx="10" fill="#16389E"/>
+          <text x="20" y="193" font-size="17" font-weight="700" fill="#fff">강사 역량 체크리스트 도달도 평가 → 미도달자 보충 지도 후 재평가 (수료 기준 100% 충족)</text>
+        </svg></div>
+    </div>
+    <div class="callout">성과물 7종(보고서 3 + 교육·운영·행사·만족도 자료 각 1식)을 체크리스트로 관리해 기한 내 제출합니다</div>
+  </div>
+  <div class="foot" data-chapter="관리 계획"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">100% 달성 · 만족도 4.5 · 모집 리스크 대응 </div>
+      <p>관리 지표는 <b>6종</b>입니다. 인원은 <b>전 항목 100% 달성</b>, 만족도는 <b>4.5 이상</b>이 목표입니다.</p>
+      <p>모집은 <b>정원을 못 채우는 상황을 만들지 않는 것</b>이 원칙이라, 도내 대학·교원단체·청년센터·회사가 이미 기 보유하고 있는 제주 내 수료생 커뮤니티로 다채널 홍보하고 권역별 예비 수요처를 사전 확보합니다.</p>
+      <p>수업 품질은 만족도 결과를 다음 회차에 반영하는 <b>관리 루프</b>로 지킵니다. 성과물 7종은 체크리스트로 관리해 기한 내 제출합니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">14 / 19</span>
+    <span class="ptitle">관리 계획 · 위험 8종 · 보안</span>
+    <span class="ptime">0:35 <em>누적 10:45</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 03 · 관리 계획</div>
+    <div class="title-row"><h2>위험 8종과 보안 3단계는 이미 정해 두었습니다</h2>
+      <span class="sub">등급별 대응 방안 사전 수립 · 미성년자 보호 체계 포함</span></div>
+  </div>
+  <div class="body-main">
+    <svg class="diagram" viewBox="0 0 1664 344" role="img" aria-label="위험 8종 등급별 대응: 상 1종, 중 5종, 하 2종">
+      <rect x="0" y="0" width="380" height="44" rx="9" fill="#16389E"/>
+      <text x="190" y="29" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">등급 상 · 1종</text>
+      <rect x="404" y="0" width="800" height="44" rx="9" fill="#2E6FF2"/>
+      <text x="804" y="29" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">등급 중 · 5종</text>
+      <rect x="1228" y="0" width="436" height="44" rx="9" fill="#97B7F8"/>
+      <text x="1446" y="29" text-anchor="middle" font-size="18" font-weight="800" fill="#16389E">등급 하 · 2종</text>
+
+      <rect x="0" y="56" width="380" height="282" rx="12" fill="#fff" stroke="#16389E" stroke-width="2"/>
+      <text x="20" y="88" font-size="19" font-weight="700" fill="#121314">학교 실습 환경 제약</text>
+      <text x="20" y="112" font-size="16" fill="#6B7280">네트워크 속도 · PC 사양 · 설치 제한</text>
+      <line x1="20" y1="132" x2="360" y2="132" stroke="#E3E8F1" stroke-width="2"/>
+      <text x="20" y="160" font-size="16" font-weight="700" fill="#2E6FF2">대응</text>
+      <text x="20" y="188" font-size="17" fill="#3A3F47">고사양 자체 노트북 60대 반입</text>
+      <text x="20" y="216" font-size="17" fill="#3A3F47">자체 라우터·위성 회선 격리망 구성</text>
+      <text x="20" y="244" font-size="17" fill="#3A3F47">중·고 트랙 전용 클라우드 실습 환경</text>
+      <text x="20" y="272" font-size="17" fill="#3A3F47">학교망과 완전 분리</text>
+      <rect x="20" y="292" width="340" height="34" rx="8" fill="#E9EFFE"/>
+      <text x="190" y="315" text-anchor="middle" font-size="16" font-weight="700" fill="#16389E">학교 환경에 의존하지 않음</text>
+
+      <rect x="404" y="56" width="800" height="50" rx="10" fill="#fff" stroke="#E3E8F1" stroke-width="1.5"/>
+      <text x="422" y="79" font-size="17" font-weight="700" fill="#121314">강사 양성 과정 모집 미달</text>
+      <text x="422" y="99" font-size="15" fill="#6B7280">다채널 홍보로 200% 지원자·150% 선발 파이프라인 확보, 미달 시 2차 모집 즉시 개시</text>
+      <rect x="404" y="114" width="800" height="50" rx="10" fill="#fff" stroke="#E3E8F1" stroke-width="1.5"/>
+      <text x="422" y="137" font-size="17" font-weight="700" fill="#121314">학생 1,200명 목표 미달</text>
+      <text x="422" y="157" font-size="15" fill="#6B7280">착수 즉시 학교 방문형 수요조사, 거점형 과정 병행 편성·주말반으로 결원 흡수</text>
+      <rect x="404" y="172" width="800" height="50" rx="10" fill="#fff" stroke="#E3E8F1" stroke-width="1.5"/>
+      <text x="422" y="195" font-size="17" font-weight="700" fill="#121314">AI 서비스 정책 변경 (요금·연령)</text>
+      <text x="422" y="215" font-size="15" fill="#6B7280">3대 요건 충족 대체 서비스 후보군을 사전 확보, 변경 시 발주처 승인 후 전환</text>
+      <rect x="404" y="230" width="800" height="50" rx="10" fill="#fff" stroke="#E3E8F1" stroke-width="1.5"/>
+      <text x="422" y="253" font-size="17" font-weight="700" fill="#121314">챌린지 훈격 확보 지연</text>
+      <text x="422" y="273" font-size="15" fill="#6B7280">착수 단계에서 협의 개시, 지연 시 기관장상 우선 확정 후 상위 훈격 병행 추진</text>
+      <rect x="404" y="288" width="800" height="50" rx="10" fill="#fff" stroke="#E3E8F1" stroke-width="1.5"/>
+      <text x="422" y="311" font-size="17" font-weight="700" fill="#121314">태풍 등 기상 악화 (방문형 중단)</text>
+      <text x="422" y="331" font-size="15" fill="#6B7280">권역별 예비일 사전 편성, 기상특보 시 실시간 온라인 전환 후 오프라인 보강으로 시수 보전</text>
+
+      <rect x="1228" y="56" width="436" height="136" rx="12" fill="#fff" stroke="#97B7F8" stroke-width="2"/>
+      <text x="1248" y="88" font-size="18" font-weight="700" fill="#121314">참여인력 유고</text>
+      <text x="1248" y="118" font-size="16" fill="#6B7280">동등 이상 자격의 예비 인력을</text>
+      <text x="1248" y="142" font-size="16" fill="#6B7280">상시 확보하고, 교체 시 사유를</text>
+      <text x="1248" y="166" font-size="16" fill="#6B7280">명기하여 발주기관 사전승인</text>
+      <rect x="1228" y="202" width="436" height="136" rx="12" fill="#fff" stroke="#97B7F8" stroke-width="2"/>
+      <text x="1248" y="234" font-size="18" font-weight="700" fill="#121314">감염병 등 대면 교육 제한</text>
+      <text x="1248" y="264" font-size="16" fill="#6B7280">전 과정을 LMS 기반 온라인</text>
+      <text x="1248" y="288" font-size="16" fill="#6B7280">전환이 가능하도록 설계하여</text>
+      <text x="1248" y="312" font-size="16" fill="#6B7280">교육 중단 없이 진행</text>
+    </svg>
+    <svg class="diagram" viewBox="0 0 1664 186" role="img" aria-label="보안 3단계 체계: 착수 전, 수행 중, 종료 후">
+      <text x="0" y="16" font-size="19" font-weight="700" fill="#16389E">사업기간 전·중·후 3단계 보안 체계</text>
+      <rect x="0" y="30" width="520" height="156" rx="12" fill="#E9EFFE"/>
+      <text x="24" y="62" font-size="20" font-weight="800" fill="#16389E">착수 전</text>
+      <text x="24" y="96" font-size="17" fill="#3A3F47">· 수급인 + 용역참여자 전원 보안각서(자필 서명)</text>
+      <text x="24" y="124" font-size="17" fill="#3A3F47">· 성범죄·아동학대 전력 조회 동의서 모집 단계 징구</text>
+      <text x="24" y="152" font-size="17" fill="#3A3F47">· 보안대책을 과업수행계획서에 포함하여 제출</text>
+      <path d="M540 100 L568 108 L540 116 Z" fill="#97B7F8"/>
+      <rect x="572" y="30" width="520" height="156" rx="12" fill="#2E6FF2"/>
+      <text x="596" y="62" font-size="20" font-weight="800" fill="#fff">수행 중</text>
+      <text x="596" y="96" font-size="17" fill="#DCE7FE">· 전력 조회 완료 강사만 학생 교육에 배치</text>
+      <text x="596" y="124" font-size="17" fill="#DCE7FE">· 개인정보 최소수집·암호화 저장·접근 권한 분리</text>
+      <text x="596" y="152" font-size="17" fill="#DCE7FE">· 유해 프롬프트 필터링 · 보호자 동의 · 안전 사용 교육</text>
+      <path d="M1112 100 L1140 108 L1112 116 Z" fill="#97B7F8"/>
+      <rect x="1144" y="30" width="520" height="156" rx="12" fill="#16389E"/>
+      <text x="1168" y="62" font-size="20" font-weight="800" fill="#fff">종료 후</text>
+      <text x="1168" y="96" font-size="17" fill="#C9D8FD">· AI 계정 일괄 회수 · 권한 말소</text>
+      <text x="1168" y="124" font-size="17" fill="#C9D8FD">· 학습 데이터·산출물 일체 발주처 이관</text>
+      <text x="1168" y="152" font-size="17" fill="#C9D8FD">· 보유분 파기 후 결과를 최종보고서에 첨부</text>
+    </svg>
+    <div class="callout">위험은 발생 후 보고하는 것이 아니라, 등급·대응·책임자를 미리 정해 두고 주간 공정보고에 상태를 함께 보고합니다</div>
+  </div>
+  <div class="foot" data-chapter="관리 계획"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">사후 보고가 아니라 사전 확정 <span class="skip">시간 부족 시 생략 가능</span></div>
+      <p>위험은 <b>20종</b>을 미리 정해 두었습니다. 발생 후에 보고드리는 것이 아니라, <b>등급·대응 방안·책임자를 사전에 정해 놓고</b> 주간 공정보고에 상태를 함께 보고합니다.</p>
+      <p>보안은 <b>3단계</b>로 구성했고 <b>미성년자 보호 체계</b>를 포함합니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">15 / 19</span>
+    <span class="ptitle">인력 운영 · 조직</span>
+    <span class="ptime">0:50 <em>누적 11:35</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 04 · 인력 운영</div>
+    <div class="title-row"><h2>대표이사 직접 총괄, 전 과업 자체 인력 직접 수행</h2>
+      <span class="sub">공동수급·하도급 없이 전 과업 직접 수행</span></div>
+  </div>
+  <div class="body-main">
+    <div class="dgm">
+    <svg class="diagram" viewBox="0 0 1664 356" role="img" aria-label="수행 조직도: 사업책임자 대표이사, 품질감리 QA, PM 사업기획, 그 아래 교육팀 운영팀 플랫폼팀 콘텐츠팀">
+      <!-- 총괄 -->
+      <rect x="622" y="4" width="420" height="84" rx="12" fill="#121314"/>
+      <text x="832" y="40" text-anchor="middle" font-size="25" font-weight="800" fill="#fff">사업책임자 · 대표이사</text>
+      <text x="832" y="69" text-anchor="middle" font-size="16" fill="#ffffff" opacity="0.8">발주처 협의·보고회 직접 수행 · 총괄 지휘</text>
+      <!-- 품질감리 (스태프) -->
+      <line x1="1042" y1="46" x2="1250" y2="46" stroke="#C7CFDC" stroke-width="2.5" stroke-dasharray="7 6"/>
+      <rect x="1250" y="12" width="330" height="68" rx="12" fill="#fff" stroke="#16389E" stroke-width="2"/>
+      <text x="1415" y="42" text-anchor="middle" font-size="20" font-weight="800" fill="#16389E">품질감리 (QA)</text>
+      <text x="1415" y="66" text-anchor="middle" font-size="16" fill="#6B7280">시니어 강사 회차별 순회 점검</text>
+      <!-- PM -->
+      <line x1="832" y1="88" x2="832" y2="112" stroke="#C7CFDC" stroke-width="2.5"/>
+      <rect x="662" y="112" width="340" height="70" rx="12" fill="#2E6FF2"/>
+      <text x="832" y="143" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">PM · 사업기획</text>
+      <text x="832" y="168" text-anchor="middle" font-size="16" fill="#DCE7FE">일정·품질·산출물 총괄 · WBS 관리</text>
+      <!-- 연결선 -->
+      <line x1="832" y1="182" x2="832" y2="212" stroke="#C7CFDC" stroke-width="2.5"/>
+      <line x1="212" y1="212" x2="1452" y2="212" stroke="#C7CFDC" stroke-width="2.5"/>
+      <line x1="212" y1="212" x2="212" y2="238" stroke="#C7CFDC" stroke-width="2.5"/>
+      <line x1="626" y1="212" x2="626" y2="238" stroke="#C7CFDC" stroke-width="2.5"/>
+      <line x1="1038" y1="212" x2="1038" y2="238" stroke="#C7CFDC" stroke-width="2.5"/>
+      <line x1="1452" y1="212" x2="1452" y2="238" stroke="#C7CFDC" stroke-width="2.5"/>
+      <!-- 4개 팀 -->
+      <rect x="30" y="238" width="365" height="112" rx="12" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="212" y="283" text-anchor="middle" font-size="24" font-weight="800" fill="#2E6FF2">교육팀</text>
+      <text x="212" y="313" text-anchor="middle" font-size="18" fill="#6B7280">커리큘럼 · 강의 · 마이크로 티칭</text>
+      <text x="212" y="337" text-anchor="middle" font-size="17" fill="#16389E">4~5명</text>
+      <rect x="443" y="238" width="365" height="112" rx="12" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="626" y="283" text-anchor="middle" font-size="24" font-weight="800" fill="#2E6FF2">운영팀</text>
+      <text x="626" y="313" text-anchor="middle" font-size="18" fill="#6B7280">모집 · 학교 섭외 · 챌린지</text>
+      <text x="626" y="337" text-anchor="middle" font-size="17" fill="#16389E">2~3명</text>
+      <rect x="856" y="238" width="365" height="112" rx="12" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="1038" y="283" text-anchor="middle" font-size="24" font-weight="800" fill="#2E6FF2">플랫폼팀</text>
+      <text x="1038" y="313" text-anchor="middle" font-size="18" fill="#6B7280">LMS · AI 계정 · 실습 격리망</text>
+      <text x="1038" y="337" text-anchor="middle" font-size="17" fill="#16389E">플랫폼·콘텐츠 2~3명</text>
+      <rect x="1269" y="238" width="365" height="112" rx="12" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="1452" y="283" text-anchor="middle" font-size="24" font-weight="800" fill="#2E6FF2">콘텐츠팀</text>
+      <text x="1452" y="313" text-anchor="middle" font-size="18" fill="#6B7280">교재 12종 · VOD 강의 30개 제작</text>
+      <text x="1452" y="337" text-anchor="middle" font-size="17" fill="#16389E">자체 영상 스튜디오</text>
+    </svg>
+    </div>
+    <div class="matrix" style="grid-template-columns:220px repeat(5,1fr);grid-auto-rows:1fr">
+      <div class="mlabel">역할 · 인원</div>
+      <div class="mcell">사업책임자<br>1명</div>
+      <div class="mcell">PM(사업기획)<br>1명</div>
+      <div class="mcell">교육팀<br>4~5명</div>
+      <div class="mcell">운영팀<br>2~3명</div>
+      <div class="mcell">플랫폼·콘텐츠팀<br>2~3명</div>
+      <div class="mlabel blue">주요 업무</div>
+      <div class="mcell">총괄 · 발주처 협의<br>보고회 직접 수행</div>
+      <div class="mcell">일정·품질 총괄<br>보고서 작성·검수</div>
+      <div class="mcell">양성·심화 과정 운영<br>초등학생~성인 교육 주강</div>
+      <div class="mcell">모집 · 수요조사<br>챌린지 기획·운영</div>
+      <div class="mcell">LMS 운영 · 계정 관리<br>교재·VOD 제작</div>
+    </div>
+    <div class="callout">투입률은 서식7로 갈음 · 전문인력 인정 기준 충족 10명 보유 · 낙찰 후 참여인력은 임의 변경하지 않습니다</div>
+  </div>
+  <div class="foot" data-chapter="인력 운영"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">대표이사 직접 총괄 · 하도급 없음 </div>
+      <p>인력 운영입니다. <b>대표이사가 직접 총괄</b>하고 보고회도 직접 수행합니다. <b>공동수급·하도급 없이 전 과업을 자체 인력으로 직접 수행</b>합니다.</p>
+      <p>사업책임자 1명, PM 1명, 교육팀 4~5명, 운영팀 2~3명, 플랫폼·콘텐츠팀 2~3명 구조입니다.</p>
+      <p><b>전문인력 인정 기준 충족 인력 10명</b>을 보유하고 있고, 낙찰 후 참여인력은 임의로 변경하지 않습니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">16 / 19</span>
+    <span class="ptitle">인력 운영 · 강사 배치</span>
+    <span class="ptime">0:40 <em>누적 12:15</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 04 · 인력 운영</div>
+    <div class="title-row"><h2>양성 일정과 교육 일정을 선후행으로 맞춥니다</h2>
+      <span class="sub">후반부로 갈수록 지역 양성 강사 투입 비중을 확대</span></div>
+  </div>
+  <div class="body-main">
+    <svg class="diagram" viewBox="0 0 1664 226" role="img" aria-label="단계적 강사 투입 로드맵: 9~10월 검증 강사진 개시, 11월 초급 수료자 보조 페어링, 11~12월 전문 수료자 주강 확대, 종료 후 인력풀 이관">
+      <path d="M0 190 L1664 152 L1664 206 L0 206 Z" fill="#E9EFFE"/>
+      <text x="0" y="16" font-size="19" font-weight="700" fill="#16389E">단계적 강사 투입 로드맵 · 지역 양성 강사 비중 확대</text>
+      <rect x="0" y="30" width="395" height="132" rx="12" fill="#fff" stroke="#97B7F8" stroke-width="2"/>
+      <text x="20" y="60" font-size="19" font-weight="800" fill="#2E6FF2">9~10월</text>
+      <text x="20" y="92" font-size="17" fill="#3A3F47">제안사 전문 강사진 +</text>
+      <text x="20" y="116" font-size="17" fill="#3A3F47">전년도 수료 강사(확인 시) 주강 투입</text>
+      <text x="20" y="146" font-size="16" fill="#6B7280">초기 품질 담보</text>
+      <path d="M405 96 L427 104 L405 112 Z" fill="#97B7F8"/>
+      <rect x="423" y="30" width="395" height="132" rx="12" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="443" y="60" font-size="19" font-weight="800" fill="#2E6FF2">11월</text>
+      <text x="443" y="92" font-size="17" fill="#3A3F47">금년 초급 트랙 수료 강사를</text>
+      <text x="443" y="116" font-size="17" fill="#3A3F47">보조강사로 페어링 투입</text>
+      <text x="443" y="146" font-size="16" fill="#6B7280">주강 + 보조 2인 1조로 현장 경험 축적</text>
+      <path d="M828 96 L850 104 L828 112 Z" fill="#97B7F8"/>
+      <rect x="846" y="30" width="395" height="132" rx="12" fill="#fff" stroke="#1E4FD8" stroke-width="2.5"/>
+      <text x="866" y="60" font-size="19" font-weight="800" fill="#1E4FD8">11~12월</text>
+      <text x="866" y="92" font-size="17" fill="#3A3F47">금년 전문 심화 수료 강사를</text>
+      <text x="866" y="116" font-size="17" fill="#3A3F47">주강으로 확대 배치</text>
+      <text x="866" y="146" font-size="16" fill="#6B7280">챌린지 멘토·심사 보조로도 참여</text>
+      <path d="M1251 96 L1273 104 L1251 112 Z" fill="#97B7F8"/>
+      <rect x="1269" y="30" width="395" height="132" rx="12" fill="#16389E"/>
+      <text x="1289" y="60" font-size="19" font-weight="800" fill="#fff">사업 종료 후</text>
+      <text x="1289" y="92" font-size="17" fill="#C9D8FD">인력풀 DB + 파견 요청·배정·</text>
+      <text x="1289" y="116" font-size="17" fill="#C9D8FD">정산 표준 절차서 발주처 이관</text>
+      <text x="1289" y="146" font-size="16" fill="#97B7F8">도내 학교·기관 상시 활용 기반</text>
+      <text x="0" y="184" font-size="17" font-weight="700" fill="#6B7280">제안사 강사 중심</text>
+      <text x="1664" y="184" text-anchor="end" font-size="17" font-weight="700" fill="#16389E">지역 양성 강사 중심</text>
+    </svg>
+    <div class="grid g2">
+      <div class="mbox hi"><div class="h">배치 절차 6단계</div>
+        <svg class="diagram" viewBox="0 0 800 248" role="img" aria-label="강사 배치 절차 6단계: 수료·인증 평가, 인력풀 DB 등록, 권역·학교 매칭, 교안 리허설, 투입, 평가·피드백">
+          <defs>
+            <marker id="arw4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#97B7F8"/>
+            </marker>
+          </defs>
+          <line x1="21" y1="18" x2="21" y2="208" stroke="#C7CFDC" stroke-width="2.5"/>
+          <circle cx="21" cy="18" r="16" fill="#2E6FF2"/><text x="21" y="24" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">1</text>
+          <text x="52" y="24" font-size="19" font-weight="700" fill="#121314">수료 · 인증 평가 (70점 이상)</text>
+          <circle cx="21" cy="56" r="16" fill="#2E6FF2"/><text x="21" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">2</text>
+          <text x="52" y="62" font-size="19" font-weight="700" fill="#121314">인력풀 DB 등록</text>
+          <text x="300" y="62" font-size="14" fill="#6B7280">전문분야·가용시간·거주 권역·조회 완료 여부</text>
+          <circle cx="21" cy="94" r="16" fill="#2E6FF2"/><text x="21" y="100" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">3</text>
+          <text x="52" y="100" font-size="19" font-weight="700" fill="#121314">권역 · 학교 매칭</text>
+          <text x="270" y="100" font-size="14" fill="#6B7280">거주 권역과 가까운 학교·거점 우선 배치</text>
+          <circle cx="21" cy="132" r="16" fill="#2E6FF2"/><text x="21" y="138" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">4</text>
+          <text x="52" y="138" font-size="19" font-weight="700" fill="#121314">교안 리허설</text>
+          <circle cx="21" cy="170" r="16" fill="#2E6FF2"/><text x="21" y="176" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">5</text>
+          <text x="52" y="176" font-size="19" font-weight="700" fill="#121314">투입 (주강 + 보조 2인 1조)</text>
+          <circle cx="21" cy="208" r="16" fill="#16389E"/><text x="21" y="214" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">6</text>
+          <text x="52" y="214" font-size="19" font-weight="700" fill="#16389E">평가 · 피드백</text>
+          <path d="M560 208 L660 208 L660 56 L580 56" fill="none" stroke="#97B7F8" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#arw4)"/>
+          <text x="676" y="126" font-size="14" fill="#6B7280">역량 보완 후</text>
+          <text x="676" y="146" font-size="14" fill="#6B7280">재배치</text>
+          <text x="0" y="244" font-size="16" fill="#6B7280">※ 성범죄·아동학대 전력 조회 완료 강사만 학생 교육에 배치합니다</text>
+        </svg></div>
+      <div class="mbox hi vcenter"><div class="h">배치 역할과 운영 원칙</div>
+        <ul class="mlist">
+          <li><b>주강사</b> — 전문 트랙 수료 강사 / 정규과정 수업·실습 지도</li>
+          <li><b>보조강사</b> — 초급 트랙 수료 강사 / 실습 보조·페어링</li>
+          <li><b>품질감리(QA)</b> — 수석·책임강사 / 회차별 순회 점검</li>
+          <li><b>대체 투입</b> — 배정 불가 일정은 임직원이 직접 강의</li>
+          <li><b>직접 수행·변경 통제</b> — 하도급 없이 자체 수행, 교체 시 사전승인</li>
+        </ul></div>
+    </div>
+    <div class="callout">전 회차에 주강–보조–임직원 3중 배치안을 사전 확정하여, 강사 수급 사유의 결강이 발생하지 않습니다</div>
+  </div>
+  <div class="foot" data-chapter="인력 운영"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">3중 배치안 → 결강 없음 <span class="skip">시간 부족 시 생략 가능</span></div>
+      <p>양성 일정과 교육 일정은 <b>선후행으로</b> 맞췄습니다. 후반부로 갈수록 <b>지역 양성 강사 투입 비중</b>이 올라갑니다.</p>
+      <p>전문 트랙 수료자는 주강사, 초급 트랙 수료자는 보조강사, 수석·책임강사가 회차별 순회 QA를 맡습니다. 배정이 어려운 일정은 <b>임직원이 직접 강의</b>합니다.</p>
+      <p>전 회차에 <b>주강–보조–임직원 3중 배치안</b>을 사전 확정해, 강사 수급 사유로 결강이 발생하지 않습니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">17 / 19</span>
+    <span class="ptitle">차별화 5가지</span>
+    <span class="ptime">0:55 <em>누적 13:10</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 05 · 차별화</div>
+    <div class="title-row"><h2>이미 해본 곳이, 자체 자산으로, 제주에서</h2>
+      <span class="sub">외주 없는 품질과 즉시 대응의 근거</span></div>
+  </div>
+  <div class="body-main">
+    <div class="grid g5 fill">
+      <div class="card"><div class="no">01</div><div class="t">검증된 바이브 코딩 방법론</div>
+        <div class="d">온라인 부트캠프·제주 런케이션 상설 운영. 5단계 자체 개발 프로세스 보유.</div>
+        <div class="chips"><span class="chip">부트캠프</span><span class="chip mid">5단계 프로세스</span></div></div>
+      <div class="card"><div class="no">02</div><div class="t">자체 에듀테크 플랫폼 4종</div>
+        <div class="d">LMS·웹 교안·메타버스 교실·실습 환경 자체 개발. 과업 ⑤ 요구 기능 전부 기보유.</div>
+        <div class="chips"><span class="chip">LMS</span><span class="chip">웹 교안</span><span class="chip mid">메타버스</span></div></div>
+      <div class="card"><div class="no">03</div><div class="t">제주 상주 전담 조직</div>
+        <div class="d">제주 본사 상근 30명, 강의실·스튜디오·노트북 60대 보유. <b>2026년 「청년동행 일자리 우수기업」 선정</b>.</div>
+        <div class="chips"><span class="chip">상근 30명</span><span class="chip long">청년동행 우수기업</span></div></div>
+      <div class="card"><div class="no">04</div><div class="t">공공 인력양성 실적 15건</div>
+        <div class="d">도내 해커톤·컨퍼런스 다수 직접 운영. 공공 인력양성 15건 전건 정상 완료, 수료 1,695명.</div>
+        <div class="chips"><span class="chip">해커톤</span><span class="chip long">수료 1,695명</span></div></div>
+      <div class="card"><div class="no">05</div><div class="t">Agent형 AI 업무 자동화 실전</div>
+        <div class="d">CAIO 선임, <b>AI Agent 업무 자동화가 사내 표준</b>. 써 본 조직이 가르치는 자동화.</div>
+        <div class="chips"><span class="chip">CAIO</span><span class="chip long">일하는 AI 제작</span></div></div>
+    </div>
+    <svg class="diagram" viewBox="0 0 1664 210" role="img" aria-label="최근 3년 정부·공공 인력양성사업 수행실적 15건의 사업비 분포 막대 그래프. 15건 전건을 계약 기간 내 정상 완료함.">
+      <text x="0" y="16" font-size="19" font-weight="700" fill="#16389E">정부·공공 인력양성사업 최근 3년 15건 · 총 사업비 49억원 이상 · 수료 1,695명 · 전건 중도해지·감액·제재 없이 계약 기간 내 정상 완료</text>
+      <line x1="0" y1="182" x2="1664" y2="182" stroke="#C7CFDC" stroke-width="2"/>
+      <rect x="0" y="72" width="86" height="110" rx="6" fill="#16389E"/>
+      <text x="43" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#16389E">9.8억</text>
+      <rect x="106" y="110" width="86" height="72" rx="6" fill="#16389E"/>
+      <text x="149" y="100" text-anchor="middle" font-size="16" font-weight="800" fill="#16389E">6.4억</text>
+      <rect x="212" y="124" width="86" height="58" rx="6" fill="#16389E"/>
+      <text x="255" y="114" text-anchor="middle" font-size="16" font-weight="800" fill="#16389E">5.2억</text>
+      <rect x="318" y="136" width="86" height="46" rx="6" fill="#16389E"/>
+      <text x="361" y="126" text-anchor="middle" font-size="16" font-weight="800" fill="#16389E">4.1억</text>
+      <rect x="424" y="143" width="86" height="39" rx="6" fill="#97B7F8"/>
+      <rect x="530" y="146" width="86" height="36" rx="6" fill="#97B7F8"/>
+      <rect x="636" y="149" width="86" height="33" rx="6" fill="#97B7F8"/>
+      <rect x="742" y="153" width="86" height="29" rx="6" fill="#97B7F8"/>
+      <rect x="848" y="155" width="86" height="27" rx="6" fill="#97B7F8"/>
+      <rect x="954" y="158" width="86" height="24" rx="6" fill="#97B7F8"/>
+      <rect x="1060" y="162" width="86" height="20" rx="6" fill="#97B7F8"/>
+      <rect x="1166" y="164" width="86" height="18" rx="6" fill="#97B7F8"/>
+      <rect x="1272" y="166" width="86" height="16" rx="6" fill="#97B7F8"/>
+      <rect x="1378" y="169" width="86" height="13" rx="6" fill="#97B7F8"/>
+      <rect x="1484" y="171" width="86" height="11" rx="6" fill="#97B7F8"/>
+      <text x="0" y="204" font-size="16" font-weight="700" fill="#16389E">정량평가 인정 실적 15건 전건 (AI 관련 교육 · 최근 3년) · 사업기간 최근 순 정렬</text>
+      <text x="1664" y="204" text-anchor="end" font-size="16" fill="#6B7280">발주기관: 교육부·과기정통부·고용노동부 (실적증명서·세금계산서로 증빙)</text>
+    </svg>
+  </div>
+  <div class="foot" data-chapter="차별화"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">이미 해본 곳이 · 자체 자산으로 · 제주에서 </div>
+      <p>마지막으로 <b>왜 저희여야 하는지</b> 네 가지로 말씀드리겠습니다.</p>
+      <p>첫째, <b>바이브 코딩 방법론을 이미 검증</b>했습니다. 온라인 바이브 코딩 부트캠프와 제주 바이브 코딩 런케이션을 상설 운영하며 기획–초안–기능–디자인–완성 <b>5단계 프로세스</b>를 만들었습니다. 바이브 코딩 관련된 책은 10권 넘게 집필하였습니다.</p>
+      <p>둘째, <b>에듀테크 플랫폼 4종</b>을 자체 개발·운영 중입니다. 과업 ⑤의 요구 기능은 전부 이미 갖고 있습니다.</p>
+      <p>셋째, <b>제주 상주 전담 조직</b>입니다. 제주 본사 <b>상근 30명</b>, 강의실·영상 스튜디오·노트북 60대를 직접 보유해 소외지역 순회가 바로 가능합니다. 2026년 제주도 <b>「청년동행 일자리 우수기업」</b>에 도내 3개사 중 하나로 선정됐습니다.</p>
+      <p>넷째, <b>공공 인력양성사업 15건을 전건 정상 완료</b>했습니다. 제주에서 검증된 기업이고, 다양한 학교와 MOU가 이미 체결된 상태입니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">18 / 19</span>
+    <span class="ptitle">무상 부가 제안 5종</span>
+    <span class="ptime">0:40 <em>누적 13:50</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide">
+  <div class="shead">
+    <div class="eyebrow">CHAPTER 05 · 차별화</div>
+    <div class="title-row"><h2>추가 비용 없이 5종을 더 드리고, 자산을 남깁니다</h2>
+      <span class="sub">제안 예산과 무관하게 제공 · 차년도 사업이 바로 이어받는 구조</span></div>
+  </div>
+  <div class="body-main">
+    <div class="grid g5">
+      <div class="card tight"><div class="no">무상 ①</div><div class="t">전자책 17종 · VOD 강의 30개 무상 제공</div>
+        <ul class="mlist"><li>자체 출판 도서 17종과 자체 제작 대상별 VOD 강의 30개(300여 개 영상)를 참여자 1,740명 전원에게 제공, 자기주도 학습 지원</li></ul></div>
+      <div class="card tight"><div class="no">무상 ②</div><div class="t">웹 실습 환경 무상 제공</div>
+        <ul class="mlist"><li>초등 트랙용 웹 기반 코딩 실습 환경 제공, 저사양 PC에서도 실습 가능</li></ul></div>
+      <div class="card tight"><div class="no">무상 ③</div><div class="t">제주 AI 컨퍼런스(300명) 연계 개최</div>
+        <ul class="mlist"><li>제안사가 직접 운영해 온 제주 AI 컨퍼런스(300명 규모)를 챌린지와 연계 개최, 수료생 발표 무대·도내 네트워킹 기회 제공</li></ul></div>
+      <div class="card tight"><div class="no">무상 ④</div><div class="t">수료 후 커뮤니티 상시 운영</div>
+        <ul class="mlist"><li>수료생 온라인 커뮤니티를 사업 종료 후에도 유지하여 관계를 이어감</li></ul></div>
+      <div class="card tight"><div class="no">무상 ⑤</div><div class="t">교재 도민 공개</div>
+        <ul class="mlist"><li>발주처 협의 하에 청소년용·학부모용 교재 일부를 웹에 공개, 일반 도민 학습 지원</li></ul></div>
+    </div>
+    <svg class="diagram" viewBox="0 0 1664 428" role="img" aria-label="사업 연속성 구조: 본 사업 2026의 성과가 발주처 이관 패키지를 거쳐 차년도 사업으로 이어짐">
+      <text x="0" y="20" font-size="21" font-weight="700" fill="#16389E">사업 연속성: 올해로 끝나지 않게 만드는 이관 설계</text>
+      <rect x="0" y="40" width="400" height="330" rx="14" fill="#fff" stroke="#2E6FF2" stroke-width="2"/>
+      <text x="26" y="86" font-size="24" font-weight="800" fill="#2E6FF2">본 사업 (2026)</text>
+      <line x1="26" y1="104" x2="374" y2="104" stroke="#E3E8F1" stroke-width="2"/>
+      <text x="26" y="146" font-size="18" fill="#3A3F47">· 인증 통과 지역 강사 120명</text>
+      <text x="26" y="192" font-size="18" fill="#3A3F47">· 학생 1,200명 · 학부모 240명</text>
+      <text x="26" y="238" font-size="18" fill="#3A3F47">· 챌린지 300명 · 산출물 1,200건</text>
+      <text x="26" y="284" font-size="18" fill="#3A3F47">· 교재 12종 · VOD 강의 30개</text>
+      <text x="26" y="330" font-size="18" fill="#3A3F47">· AI 계정 1,740개 운영 기록</text>
+      <path d="M414 196 L444 205 L414 214 Z" fill="#97B7F8"/>
+      <rect x="452" y="40" width="760" height="330" rx="14" fill="#E9EFFE"/>
+      <text x="478" y="82" font-size="22" font-weight="800" fill="#16389E">발주처 이관 패키지</text>
+      <rect x="478" y="102" width="708" height="80" rx="10" fill="#fff"/>
+      <text x="500" y="134" font-size="19" font-weight="700" fill="#121314">교육과정 설계서 · 교재 12종 · VOD 강의 30개</text>
+      <text x="500" y="162" font-size="16" fill="#6B7280">웹 교안 + PDF 원본 · 학생 산출물 아카이브 포함</text>
+      <rect x="478" y="194" width="708" height="80" rx="10" fill="#fff"/>
+      <text x="500" y="226" font-size="19" font-weight="700" fill="#121314">강사 인력풀 DB + 파견 요청·배정·정산 표준 절차서</text>
+      <text x="500" y="254" font-size="16" fill="#6B7280">전문분야·가용시간·거주 권역·전력 조회 완료 여부 포함</text>
+      <rect x="478" y="286" width="708" height="80" rx="10" fill="#fff"/>
+      <text x="500" y="318" font-size="19" font-weight="700" fill="#121314">수료 체계 · 이수 기록 표준화</text>
+      <text x="500" y="346" font-size="16" fill="#6B7280">차년도 '전년도 수료자' 자격요건과 직접 연결되도록 설계</text>
+      <path d="M1226 196 L1256 205 L1226 214 Z" fill="#97B7F8"/>
+      <rect x="1264" y="40" width="400" height="330" rx="14" fill="#16389E"/>
+      <text x="1290" y="86" font-size="24" font-weight="800" fill="#fff">차년도 사업</text>
+      <line x1="1290" y1="104" x2="1638" y2="104" stroke="#3D63C8" stroke-width="2"/>
+      <text x="1290" y="142" font-size="18" fill="#C9D8FD">· 금년 수료 전문강사가</text>
+      <text x="1290" y="168" font-size="18" fill="#C9D8FD">&#160; '전년도 수료자' 요건 충족</text>
+      <text x="1290" y="212" font-size="18" fill="#C9D8FD">· 도내 학교·기관이 인력풀을</text>
+      <text x="1290" y="238" font-size="18" fill="#C9D8FD">&#160; 상시 요청·배치</text>
+      <text x="1290" y="282" font-size="18" fill="#C9D8FD">· 교재·VOD 재활용으로</text>
+      <text x="1290" y="308" font-size="18" fill="#C9D8FD">&#160; 차년도 개발 기간 단축</text>
+      <text x="1290" y="346" font-size="18" fill="#97B7F8">· 지역 AI 교육 자격 체계로 발전</text>
+      <text x="0" y="412" font-size="17" fill="#6B7280">※ 무상 부가 제안 5종은 제안 예산과 무관하게 추가 비용 없이 제공하며, 이관 항목은 최종보고 시 패키지로 제출합니다</text>
+    </svg>
+  </div>
+  <div class="foot" data-chapter="차별화"></div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">예산과 무관하게 제공 · 자산이 남는다 <span class="skip">시간 부족 시 생략 가능</span></div>
+      <p>제안 예산과 무관하게 <b>다섯 가지를 추가로</b> 드립니다. 이 사업에서 생산된 책과 VOD를 제외하고 전자책 17종과 VOD 강의 30개를 참여자 1,740명 전원에게, 초등용 웹 실습 환경, <b>제주 AI 컨퍼런스 300명 연계 개최</b>, 수료 후 커뮤니티 상시 운영, 그리고 발주처 협의 하에 교재 일부를 도민에게 공개하는 것입니다.</p>
+      <p>사업이 끝나도 <b>자산이 남고, 차년도 사업이 바로 이어받을 수 있는 구조</b>입니다.</p>
+  </div>
+</div>
+<div class="page">
+  <div class="phead">
+    <span class="pno">19 / 19</span>
+    <span class="ptitle">마무리</span>
+    <span class="ptime">0:30 <em>누적 14:20</em></span>
+  </div>
+  <div class="thumb"><div class="mini"><section class="slide closing blue-bg">
+  <div class="message" style="margin-bottom:64px">"제주가 키우고,<br>제주가 가르치는 AI"</div>
+  <div class="bignums" style="grid-template-columns:repeat(4,1fr);margin-bottom:88px">
+    <div class="bignum"><div class="v">120명</div><div class="k">지역 AI 강사 양성</div></div>
+    <div class="bignum"><div class="v">1,440명</div><div class="k">초등학생~성인 교육</div></div>
+    <div class="bignum"><div class="v">300명</div><div class="k">바이브 코딩 챌린지</div></div>
+    <div class="bignum"><div class="v">1,740계정</div><div class="k">1인 1계정 샌드박스</div></div>
+  </div>
+  <div class="contact">
+    <div>본 제안서와 발표자료에 기재한 모든 수치와 수행 방안은 객관적으로 입증 가능하며,</div>
+    <div>계약 체결 시 계약조건의 일부로 이행함을 확약합니다. 감사합니다.</div>
+  </div>
+</section></div></div>
+  <div class="script">
+    <div class="cue">확약으로 닫는다 </div>
+      <p>정리하겠습니다. 저희 제안은 <b>“제주가 키우고, 제주가 가르치는 AI”</b>입니다. 강사 120명, 학생 1,200명, 성인 240명, 챌린지 300명, 1,740계정.</p>
+      <p>오늘 말씀드린 <b>모든 수치와 수행 방안은 객관적으로 입증 가능하며, 계약 체결 시 계약조건의 일부로 이행할 것을 확약</b>드립니다.</p>
+      <p>감사합니다.</p>
+  </div>
+</div>
+<div class="page qa-page">
+  <div class="phead"><span class="pno">부록</span>
+    <span class="ptitle">예상 질의응답 10 (20분 대비)</span>
+    <span class="ptime">발표 후</span></div>
+  <div class="qawrap">
+    <div class="qa"><div class="q">Q1. 1,200명·1,440명 모집이 정말 가능한가?</div><div class="a">착수 즉시 도내 전 초·중·고 수요조사 공문 → 방문형+거점형 병행. 지연 시 거점형 추가 개설·주말반. 권역별 달성률을 <b>주간보고에 명시</b>해 미달을 조기 노출·조기 만회.</div></div>
+    <div class="qa"><div class="q">Q2. 학교 인터넷·PC 사양 문제는?</div><div class="a">학교망에 의존하지 않음. 고사양 노트북 반입 + 위성 포함 자체 회선 기반 <b>격리망</b>, 중·고 트랙은 별도 클라우드 실습 환경. 초등은 저사양에서도 되는 웹 실습 환경 제공.</div></div>
+    <div class="qa"><div class="q">Q3. 미성년자에게 AI 계정을 주는 게 안전한가?</div><div class="a"><b>미성년자 이용 가능 · Pro급 이상 · 엔터프라이즈급 보안 인증</b> 3대 요건 충족 서비스만 사용. 자체 랩핑 없이 정식 발급, LMS 계정과 1:1 대장 관리, 유해 프롬프트 내부 필터링, 종료 시 일괄 회수·파기 보고.</div></div>
+    <div class="qa"><div class="q">Q4. 강사 120명의 품질은 어떻게 담보하나?</div><div class="a">수료 기준이 <b>총점 70점 + 출석 80%</b>. 마이크로 티칭 40 / 프로젝트 40 / 참여도 20. 미달자 보강 후 재평가 1회. 수료자만 인력풀 DB에 등재해 배치.</div></div>
+    <div class="qa"><div class="q">Q5. 강사가 못 오면 수업은 어떻게 되나?</div><div class="a">전 회차 <b>주강–보조–임직원 3중 배치안 사전 확정</b>. 배정 불가 일정은 임직원이 직접 강의. 하도급 없음.</div></div>
+    <div class="qa"><div class="q">Q6. 일정이 촉박한데 플랫폼 구축은?</div><div class="a">LMS·웹 교안·실습 환경 모두 <b>기보유 자산</b>이라 구축 기간 0일. 계약 직후 전용 클래스 개설 가능.</div></div>
+    <div class="qa"><div class="q">Q7. 챌린지 훈격과 심사 공정성은?</div><div class="a">훈격 확보 절차를 <b>착수 단계부터</b> 개시(공문 협의·심사 규정 정비 선완료). 외부 전문가+강사단 심사위원회, 규정집·심사표 사전 공개.</div></div>
+    <div class="qa"><div class="q">Q8. 타 지역 업체 대비 강점은?</div><div class="a">제주 본사 <b>상근 30명</b>, 강의실·스튜디오·노트북 60대 자체 보유 → 소외지역 순회 즉시 실행. 공공 인력양성 15건 전건 완료. 2026 청년동행 일자리 우수기업(도내 3개사).</div></div>
+    <div class="qa"><div class="q">Q9. 사업이 끝나면 무엇이 남나?</div><div class="a">교재 12종 · VOD 강의 30개 · 인력풀 DB · 파견 절차서 · 산출물 아카이브를 <b>발주처 이관</b>. 수료생 커뮤니티는 종료 후에도 유지.</div></div>
+    <div class="qa"><div class="q">Q10. 추가 비용 요구는 없나?</div><div class="a">무상 5종은 <b>제안 예산과 무관하게</b> 제공. 기재한 모든 수치는 계약조건으로 이행 확약.</div></div>
+  </div>
+</div>
+<div class="pdfbar">
+  <span class="tip">인쇄 창에서 <b>여백: 없음</b> · <b>배율: 기본(100%)</b><br><b>배경 그래픽</b> 체크 → 대상: <b>PDF로 저장</b></span>
+  <button type="button" onclick="window.print()">PDF로 저장</button>
+</div>
+<script>
+document.querySelectorAll('.mini').forEach(function(m, i){
+  var f = m.querySelector('.foot');
+  if(!f) return;
+  f.innerHTML = '<span>제주 AX 대전환 인재양성 프로그램 운영 제안 발표</span>' +
+                '<span class="ch">' + (f.dataset.chapter || '') + '</span>' +
+                '<span class="pg">' + (i+1) + '</span>';
+});
+
+/* 한 장(A4)을 넘치는 페이지는 글자·행간·여백을 단계적으로 줄여 안으로 맞춘다.
+   대본을 길게 고치거나 슬라이드를 추가해도 잘리지 않게 하기 위한 안전장치.
+
+   ※ .page 는 overflow:hidden 이고 .script 는 flex:1 이라, 내용이 넘쳐도
+      page.scrollHeight 가 커지지 않는다(= 넘침을 page 기준으로 재면 못 잡는다).
+      그래서 '넘쳤는지'는 반드시 안쪽 상자(box)의 scrollHeight 로 판정한다. */
+function isOver(page, box){
+  if(page.scrollHeight > page.clientHeight + 1) return true;
+  if(box && box.scrollHeight > box.clientHeight + 1) return true;
+  return false;
+}
+
+/* knob = 줄일 값 하나. from → to 까지 step 씩 내리며 넘침이 사라지면 멈춘다. */
+function shrink(page, box, knobs){
+  for(var k = 0; k < knobs.length; k++){
+    if(!isOver(page, box)) return true;
+    var kn = knobs[k], v = kn.from, target = kn.el || box;
+    while(isOver(page, box) && v > kn.to + 1e-9){
+      v = Math.max(kn.to, +(v - kn.step).toFixed(3));
+      target.style.setProperty(kn.name, v + kn.unit);
+    }
+  }
+  return !isOver(page, box);
+}
+
+function fitPages(){
+  var overflowed = [];
+  document.querySelectorAll('.page').forEach(function(page, i){
+    var box = page.querySelector('.script') || page.querySelector('.qawrap');
+    var knobs;
+    if(box && box.classList.contains('qawrap')){
+      knobs = [{name:'--qfz', from:12.5, to:8.5,  step:0.25, unit:'pt'},
+               {name:'--qgap',from:4,    to:1.6,  step:0.2,  unit:'mm'}];
+    } else if(box){
+      knobs = [{name:'--sfz', from:16.5, to:10.5, step:0.25, unit:'pt'},
+               {name:'--slh', from:1.72, to:1.4,  step:0.02, unit:''},
+               {name:'--smb', from:4,    to:2,    step:0.2,  unit:'mm'}];
+    } else {
+      /* 표지: 슬라이드가 늘면 시간표가 길어진다 → 표 글자·행 높이·여백을 줄인다 */
+      knobs = [{name:'--cfz', from:12.5, to:8.5, step:0.25, unit:'pt', el:page},
+               {name:'--cpad',from:5,    to:1.5, step:0.25, unit:'px', el:page},
+               {name:'--cgap',from:8,    to:3,   step:0.5,  unit:'mm', el:page}];
+    }
+    if(!shrink(page, box, knobs)) overflowed.push(i + 1);
+  });
+  /* 그래도 안 들어가면 콘솔에 남긴다(내용을 줄여야 하는 페이지) */
+  if(overflowed.length) console.warn('[fitPages] 한 장에 못 담은 페이지:', overflowed.join(', '));
+}
+
+function fitWhenReady(){
+  fitPages();
+  /* 웹폰트가 늦게 잡히면 줄바꿈이 달라지므로 한 번 더 맞춘다 */
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitPages);
+}
+if(document.readyState === 'complete') fitWhenReady();
+else window.addEventListener('load', fitWhenReady);
+/* 인쇄 직전에도 한 번 더 (화면에서 창 크기를 바꿨거나 폰트가 바뀐 경우 대비) */
+window.addEventListener('beforeprint', fitPages);
+</script>
+</body>
+</html>

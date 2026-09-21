@@ -1,6 +1,7 @@
-// multimodal/player.js — 단계 재생 상태 기계. 화면을 모르고 이벤트만 낸다.
+// core/stepPlayer.js — 단계 재생 상태 기계. 화면을 모르고 이벤트만 낸다.
+// '이미지·음성의 비밀', '에이전트의 비밀'처럼 단계별로 넘기는 페이지들이 함께 쓴다.
 //   'reset' : 시나리오를 새로 골랐거나 처음부터 (index 0)
-//   'step'  : 다음 단계로 넘어감 ({ index, step })
+//   'step'  : 다음 또는 이전 단계로 옮겨감 ({ index, step })
 //   'done'  : 마지막 단계에 도착
 
 export class StepPlayer extends EventTarget {
@@ -30,5 +31,13 @@ export class StepPlayer extends EventTarget {
     this.index++;
     this.dispatchEvent(new CustomEvent('step', { detail: { index: this.index, step: this.current } }));
     if (this.done) this.dispatchEvent(new CustomEvent('done'));
+  }
+
+  /** 한 단계 뒤로. 처음까지 돌아가면 reset과 같다. */
+  prev() {
+    if (!this.scenario || this.index === 0) return;
+    this.index--;
+    if (this.index === 0) { this.reset(); return; }
+    this.dispatchEvent(new CustomEvent('step', { detail: { index: this.index, step: this.current } }));
   }
 }

@@ -149,6 +149,35 @@ ____                                       비빔밥  █ 14% …
 페이지 하단 '자료 출처와 기준일' 섹션을 함께 갱신해야 합니다. 다이얼 수는
 실제 파라미터 수가 아니라 상대 크기만 나타내는 교육용 어림값입니다.
 
+### 에이전트의 비밀 (`agent.html`)
+
+**"AI의 시대에서 Agent의 시대로"**를 눈으로 보는 페이지입니다. 묻고 답하던 AI가
+이제 직접 일합니다. "모아줘" 한 줄에 흩어진 파일을 찾아 모으고, "만들어줘" 한 줄에
+제안서·견적서·발표 자료·대본·카드뉴스가 파일로 나오는 흐름을, index.html처럼 세 패널
+위에 단계 설명 말풍선을 띄워 보여 줍니다. 파일 업로드·다운로드는 없습니다.
+
+1. **명령 두 줄: 모아줘, 만들어줘**: 바탕화면·다운로드·메일 첨부에 흩어진 파일 6개가
+   "모아줘" 한 줄에 폴더로 날아가 모이고(사람이 끌어다 놓지 않습니다), 질문지에서
+   "이 제안서를 기반으로 제주 AX 교육 자료 만들어줘"를 고르면 Skill이 켜지며
+   결과물이 나옵니다. 질문지의 다른 칩을 누르면 나오는 결과물이 바뀝니다.
+2. **프롬프트만 vs Skill과 함께**: 같은 명령 한 줄인데, 지난 견적서 5개를
+   첨부해야 하는 쪽과 규칙이 폴더에 적혀 있어 되묻기까지 하는 쪽을 나란히 둡니다.
+3. **제안서 하나가 넷으로**: 견적서·발표 자료·대본·카드뉴스가 모두 제안서의
+   내용을 형식만 바꾼 결과임을 보여 줍니다.
+
+세 패널은 높이가 고정이고 내용이 길어지면 패널 안에서 굴러가므로 조작부가 아래로
+밀리지 않습니다(조작부는 시뮬레이터를 보는 동안 화면 아래에 붙어 있습니다). 단계마다
+새로 나타난 요소(`data-fresh`)가 보이도록 패널 안을 굴려 주고, '이전으로' 버튼과
+키보드 ←/→로 앞뒤 단계를 오갈 수 있습니다. 결과물 그림을 누르면 실제 파일(PDF·HTML·Excel)이
+열리고, '실제 파일을 열어 보세요' 섹션에서 여섯 가지를 한꺼번에 볼 수 있습니다.
+
+데모 아래에 '무엇이 달라졌나요'(AI의 시대 vs Agent의 시대: 파일·규칙·결과·단계가
+누구 손에 있는지), '그때와 지금'(같은 결과물에 걸리던 시간 비교), 'Skill이 뭔가요'
+(폴더 구조와 만들기 전 세 가지 질문, 위니브가 쓰는 Skill 아홉 가지), 핵심 개념
+팝오버가 이어집니다. 결과물 그림 여섯 장은 위니브 전자책 『에센셜 Claude Skill』
+2장의 공개 샘플 화면이고(`assets/agent/`), 작업 기록과 걸린 시간은 흐름을 보여
+주기 위한 예시입니다. 검증은 `node tests/agent.test.mjs`로 실행합니다.
+
 ### 사용 통계 (`usage.html`)
 
 전 세계 사람들이 AI를 실제로 어떻게 쓰는지 보는 페이지입니다. 클릭할 수 있는
@@ -189,6 +218,7 @@ context.html            대화의 비밀 뼈대
 training.html           학습의 비밀 뼈대
 multimodal.html         이미지·음성의 비밀 뼈대
 models.html             모델의 비밀 뼈대
+agent.html              에이전트의 비밀 뼈대
 usage.html              사용 통계 뼈대
 assets/
   weniv-logo.svg        상단 내비게이션의 위니브 로고
@@ -196,6 +226,8 @@ assets/
   og-image.png          링크 공유 미리보기 이미지
   nolima-benchmark.png  NoLiMa 벤치마크 그래프 (대화의 비밀 연구 근거)
   world-map.svg         세계 지도 (사용 통계)
+  agent/*.webp          위니브 결과물 화면 사진 6장 + 휴대폰 화면 ('에이전트의 비밀')
+  agent/files/          위니브 결과물 실제 파일 10개 (제안서·발표 자료·대본 PDF/HTML, 대시보드·카드뉴스 HTML, 견적서 PDF/xlsx, 약 12MB)
 css/
   base.css              색상 변수(Tailwind 팔레트 기준 라이트 테마), 리셋, 폰트
   layout.css            페이지 큰 틀(내비게이션, 3단 배치, 반응형)
@@ -208,6 +240,7 @@ css/
   training.css          '학습의 비밀' 페이지 전용 스타일
   multimodal.css        '이미지·음성의 비밀' 페이지 전용 스타일
   models.css            '모델의 비밀' 페이지 전용 스타일
+  agent.css             '에이전트의 비밀' 페이지 전용 스타일
   usage.css             '사용 통계' 페이지 전용 스타일
 js/
   app.js                첫 페이지 시작점 — 엔진과 UI를 연결
@@ -216,12 +249,14 @@ js/
   utils.js              공용 도우미 함수
   data/scenarios.js     예시 문장(확률표) 데이터 — 문장 추가는 여기서
   core/model.js         장난감 언어 모델(확률 계산·온도·샘플링)
+  core/stepPlayer.js    단계 재생 상태 기계 (reset/step/done, next/prev) — 단계 재생 페이지 공용
   core/engine.js        생성 단계 상태 기계(이벤트 발행)
   ui/textView.js        입력 문장·토큰·벡터 패널
   ui/networkView.js     신경망 캔버스 애니메이션
   ui/probView.js        확률 막대·룰렛 연출
   ui/explainView.js     단계별 설명 팝업(관련 패널 위에 표시)
   ui/concepts.js        핵심 개념 버튼·팝오버 (여러 페이지 공용)
+  ui/typeFx.js          타자 효과와 연출 취소 (여러 페이지 공용)
   ui/controls.js        버튼·슬라이더 조작부
   ui/twinSim.js         두 질문 동시 재생 연출 ('환각의 비밀'·'계산의 비밀' 공용)
   tokens/app.js         토큰의 비밀 시작점
@@ -243,13 +278,16 @@ js/
   training/app.js       학습의 비밀 시작점
   training/dialSim.js   학습 vs 추론 다이얼 비교 + 수식 돋보기
   multimodal/app.js     이미지·음성의 비밀 시작점 (조작부·말풍선 연결)
-  multimodal/player.js  단계 재생 상태 기계 (reset/step/done 이벤트)
   multimodal/scenarios.js 데모 4개의 단계 설명과 세 패널 그리기 — 문구 수정은 여기서
   multimodal/draw.js    집 그림·격자·모자이크·파형·표 캡처 캔버스 그리기
-  multimodal/fx.js      타자 효과, 흐린 그림이 또렷해지는 생성 연출
+  multimodal/fx.js      흐린 그림이 또렷해지는 생성 연출
   multimodal/model.js   조각 평균 색, 시간 조각 세기, 목소리 모형 (순수 함수)
   models/app.js         모델의 비밀 시작점
   models/data.js        모델 가격·성능 지수·작업 목록 — 가격 갱신은 여기서
+  agent/app.js          에이전트의 비밀 시작점 (조작부·말풍선·패널 안 굴리기·아래쪽 읽을거리)
+  agent/data.js         파일·질문지·결과물(실제 파일 목록)·그때와 지금 — 문구 수정은 여기서
+  agent/parts.js        책상·폴더·질문지·Skill 카드 같은 화면 부품
+  agent/scenarios.js    데모 3개의 단계 설명과 세 패널 그리기
   usage/app.js          사용 통계 시작점
   usage/data.js         나라별 사용 통계 (Anthropic Economic Index 스냅숏)
 tests/
@@ -260,6 +298,7 @@ tests/
   prompt.test.mjs       프롬프트 시나리오 검증 (node tests/prompt.test.mjs)
   context.test.mjs      대화 각본 검증 (node tests/context.test.mjs)
   multimodal.test.mjs   조각 계산·목소리 모형·시나리오 구조 검증 (node tests/multimodal.test.mjs)
+  agent.test.mjs        결과물 그림·질문지·각본 구조·단계 재생기 앞뒤 이동 검증 (node tests/agent.test.mjs)
 docs/
   multimodal-chapter.md 이미지·음성의 비밀 수업 흐름·확인 질문·교사용 주의
 ```
@@ -286,6 +325,7 @@ node tests/calc.test.mjs
 node tests/prompt.test.mjs
 node tests/context.test.mjs
 node tests/multimodal.test.mjs
+node tests/agent.test.mjs
 ```
 
 모든 시나리오가 무한 루프 없이 끝나는지, 확률 합이 1인지, 온도 효과가 올바른지,
@@ -294,6 +334,8 @@ node tests/multimodal.test.mjs
 계산은 정답이 압도적 1등이고 어려운 계산은 어떤 경로로도 정답이 나오지 않는지,
 프롬프트 앞글이 의도한 방향을 압도적 1등으로 밀어 올리는지, 대화 각본의 토큰
 수가 매 턴 늘어나 1만 토큰 경고선을 넘는지, 이미지·음성 데모의 조각 평균 색이
-공간을 보존하고 다시 그린 집이 지붕 말고도 여러 곳 달라지는지 검사합니다.
+공간을 보존하고 다시 그린 집이 지붕 말고도 여러 곳 달라지는지, 에이전트 데모가
+가리키는 결과물 그림 파일이 실제로 있고 각본이 왼쪽에서 시작해 오른쪽에서
+끝나는지 검사합니다.
 
 ('모델의 비밀'·'사용 통계'는 아직 전용 테스트가 없습니다.)

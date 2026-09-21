@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI의 시대에서 Agent의 시대로 | 에이전트의 비밀</title>
+  <meta name="description" content="묻고 답하던 AI가 이제 직접 일해요. 모아줘 한 줄에 파일이 모이고, 만들어줘 한 줄에 제안서, 견적서, 발표 자료가 나와요. 위니브가 실제로 일하는 방식과 Agent, Skill 개념을 단계별로 보는 시뮬레이션" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM 시뮬레이터" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="AI의 시대에서 Agent의 시대로 | 에이전트의 비밀" />
+  <meta property="og:description" content="답하던 AI에서 일하는 Agent로. 모아줘, 만들어줘 두 줄로 결과물이 나오는 흐름과 Skill의 역할, 그때와 지금이 얼마나 달라졌는지 보는 시뮬레이션" />
+  <meta property="og:url" content="https://llmplay.weniv.co.kr/agent.html" />
+  <meta property="og:image" content="https://llmplay.weniv.co.kr/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/agent.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="주 메뉴">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="https://weniv.co.kr" target="_blank" rel="noopener" aria-label="위니브 홈페이지">
+        <img src="assets/weniv-logo.svg" alt="위니브" width="106" height="24" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">단어 맞히기</a>
+        <a href="tokens.html">토큰의 비밀</a>
+        <a href="hallucination.html">환각의 비밀</a>
+        <a href="calc.html">계산의 비밀</a>
+        <a href="prompt.html">프롬프트의 비밀</a>
+        <a href="context.html">대화의 비밀</a>
+        <a href="training.html">학습의 비밀</a>
+        <a href="multimodal.html">이미지·음성의 비밀</a>
+        <a href="models.html">모델의 비밀</a>
+        <a href="agent.html" class="active" aria-current="page">에이전트의 비밀</a>
+        <a href="usage.html">사용 통계</a>
+      </div>
+      <details class="nav-more">
+        <summary>위니브 서비스</summary>
+        <div class="nav-more-menu">
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 <span>무료로 보는 IT 전자책</span></a>
+          <a href="https://weniversity.co.kr/" target="_blank" rel="noopener">위니버시티 <span>온오프라인 코딩 강의</span></a>
+          <a href="https://discord.gg/MASRTmyu8a" target="_blank" rel="noopener">위니빌리지 <span>디스코드 커뮤니티</span></a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <header class="site-header">
+    <h1>AI의 시대에서 Agent의 시대로</h1>
+    <p class="subtitle">
+      묻고 답하던 AI가 이제 <strong>직접 일해요</strong>. "모아줘" 한 줄에 파일을 찾아 모으고,
+      "만들어줘" 한 줄에 제안서, 견적서, 발표 자료를 만들어요.
+      여기 나오는 결과물은 <strong>위니브가 실제 업무에서 이렇게 만든 것</strong>이에요.
+    </p>
+  </header>
+
+  <main>
+    <!-- ───────────────── 시뮬레이터 ───────────────── -->
+    <section class="sim" id="simulator" aria-label="에이전트 시뮬레이터">
+
+      <div class="sim-stage ag-stage">
+        <!-- 1) 왼쪽 패널 -->
+        <div class="panel ag-panel">
+          <div class="panel-tip" id="tip-left" hidden>
+            <span class="tip-badge"></span>
+            <p class="tip-body"></p>
+            <button class="tip-close" type="button" aria-label="설명 닫기">&times;</button>
+          </div>
+          <h2 class="panel-title" id="title-left">내 컴퓨터</h2>
+          <div class="ag-body" id="body-left" aria-live="polite"></div>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">→</div>
+
+        <!-- 2) 가운데 패널 -->
+        <div class="panel ag-panel">
+          <div class="panel-tip" id="tip-mid" hidden>
+            <span class="tip-badge"></span>
+            <p class="tip-body"></p>
+            <button class="tip-close" type="button" aria-label="설명 닫기">&times;</button>
+          </div>
+          <h2 class="panel-title" id="title-mid">Claude에게 시키기</h2>
+          <div class="ag-body" id="body-mid" aria-live="polite"></div>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">→</div>
+
+        <!-- 3) 오른쪽 패널 -->
+        <div class="panel ag-panel">
+          <div class="panel-tip" id="tip-right" hidden>
+            <span class="tip-badge"></span>
+            <p class="tip-body"></p>
+            <button class="tip-close" type="button" aria-label="설명 닫기">&times;</button>
+          </div>
+          <h2 class="panel-title" id="title-right">나온 결과물</h2>
+          <div class="ag-body" id="body-right" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <!-- 조작부: 패널이 아무리 길어져도 화면 아래에 붙어 있다 (agent.css) -->
+      <div class="controls ag-controls">
+        <div class="control-group control-scenario">
+          <label for="scenario-select">데모 고르기</label>
+          <select id="scenario-select"></select>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group">
+          <span class="control-label">재생 <em class="ag-progress" id="step-progress" aria-live="polite"></em></span>
+          <div class="btn-group">
+            <button id="btn-play" class="btn btn-primary" type="button">자동 재생</button>
+            <button id="btn-step" class="btn" type="button">한 단계씩</button>
+            <button id="btn-prev" class="btn" type="button">이전으로</button>
+            <button id="btn-reset" class="btn" type="button">처음부터</button>
+          </div>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group">
+          <label for="speed-select">속도</label>
+          <select id="speed-select">
+            <option value="0.6">느리게</option>
+            <option value="1" selected>보통</option>
+            <option value="1.8">빠르게</option>
+          </select>
+        </div>
+
+        <span class="controls-divider" aria-hidden="true"></span>
+
+        <div class="control-group control-toggle">
+          <span class="control-label">표시</span>
+          <label class="check-label" for="tips-toggle">
+            <input type="checkbox" id="tips-toggle" checked />
+            단계 설명
+          </label>
+        </div>
+
+        <p class="ag-keys" aria-hidden="true">키보드 → 다음, ← 이전</p>
+      </div>
+
+      <p class="ag-disclaimer">
+        파일을 올리거나 내려받는 곳이 아니에요. <strong>눈으로 보는 모형</strong>이에요.
+        작업 기록과 걸린 시간은 흐름을 보여 주려고 적은 예시이고,
+        결과물 그림은 위니브가 실제로 만든 파일의 화면이고, 누르면 그 파일이 열려요.
+      </p>
+    </section>
+
+    <!-- ───────────────── 데모 안내 ───────────────── -->
+    <section class="ag-demos" aria-label="세 가지 데모">
+      <h2 class="learn-title">세 가지 데모</h2>
+      <p class="learn-sub">순서대로 보면 좋아요. 카드를 누르면 그 데모로 바뀌어요.</p>
+      <div class="ag-demo-grid">
+        <button class="ag-demo-card" type="button" data-demo="gather">
+          <span class="ag-demo-no">1</span>
+          <strong>명령 두 줄: 모아줘, 만들어줘</strong>
+          <span>"모아줘" 한 줄에 Agent가 흩어진 파일을 찾아 모으고, "이 제안서를 기반으로 제주 AX 교육 자료 만들어줘" 한 줄에 결과물이 나와요.</span>
+        </button>
+        <button class="ag-demo-card" type="button" data-demo="compare">
+          <span class="ag-demo-no">2</span>
+          <strong>프롬프트만 vs Skill과 함께</strong>
+          <span>같은 명령 한 줄인데 결과가 갈려요. 매주 돌아오는 일에는 규칙을 적어 둬야 해요.</span>
+        </button>
+        <button class="ag-demo-card" type="button" data-demo="pipeline">
+          <span class="ag-demo-no">3</span>
+          <strong>제안서 하나가 넷으로</strong>
+          <span>견적서, 발표 자료, 대본, 카드뉴스는 전부 제안서의 내용을 형식만 바꾼 거예요.</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ───────────────── 실제 파일 ───────────────── -->
+    <section class="ag-section" aria-label="실제 파일 열어 보기">
+      <h2 class="learn-title">실제 파일을 열어 보세요</h2>
+      <p class="learn-sub">데모에 나온 여섯 가지 결과물이에요. 화면 사진이 아니라 위니브가 실제로 만든 파일 그대로예요</p>
+      <div class="ag-dl-grid" id="file-grid"></div>
+      <p class="ag-fine">
+        HTML은 브라우저에서 바로 열리고, 카드뉴스 HTML은 '모두 저장' 버튼으로 이미지를 내려받을 수 있어요.
+        사업명과 금액은 공개용 샘플이라 가칭·예시 값이에요.
+      </p>
+    </section>
+
+    <!-- ───────────────── AI의 시대 → Agent의 시대 ───────────────── -->
+    <section class="ag-section" aria-label="AI의 시대에서 Agent의 시대로">
+      <h2 class="learn-title">무엇이 달라졌나요?</h2>
+      <p class="learn-sub">AI는 답을 줬고, Agent는 일을 해요. 내가 하던 일이 어디로 갔는지 보세요</p>
+      <div class="ag-era">
+        <div class="panel ag-era-col ag-era-then">
+          <p class="ag-era-head"><span class="ag-era-tag">AI의 시대</span>묻고 답하기</p>
+          <ul class="ag-era-list">
+            <li><strong>파일은 내가 찾아 첨부</strong><span>어디 있는지 내가 알아야 했어요</span></li>
+            <li><strong>규칙은 내가 매번 설명</strong><span>"우리 양식은 이렇고, 단가는 이래"</span></li>
+            <li><strong>답은 글로 나옴</strong><span>복사해서 문서에 옮겨 적었어요</span></li>
+            <li><strong>한 번에 한 가지</strong><span>물어보고, 받고, 다시 물어보고</span></li>
+          </ul>
+          <p class="ag-era-line">내가 일하고, AI가 도와요</p>
+        </div>
+        <div class="ag-era-arrow" aria-hidden="true">→</div>
+        <div class="panel ag-era-col ag-era-now">
+          <p class="ag-era-head"><span class="ag-era-tag">Agent의 시대</span>시키고 검토하기</p>
+          <ul class="ag-era-list">
+            <li><strong>파일은 Agent가 찾아 모음</strong><span>"모아줘" 한 줄이면 돼요</span></li>
+            <li><strong>규칙은 Skill에 한 번만</strong><span>Agent가 알아서 꺼내 읽어요</span></li>
+            <li><strong>결과가 파일로 나옴</strong><span>제안서, 엑셀, 슬라이드가 저장돼요</span></li>
+            <li><strong>여러 단계를 이어서</strong><span>찾고, 읽고, 만들고, 되묻고</span></li>
+          </ul>
+          <p class="ag-era-line">Agent가 일하고, 내가 검토해요</p>
+        </div>
+      </div>
+      <p class="ag-fine">
+        Agent는 채팅창 밖으로 나온 AI예요. 내 컴퓨터의 파일을 열고, 도구를 쓰고, 파일을 만들어 저장해요.
+        그래서 "첨부"가 "모아줘"로, "복사해서 붙여넣기"가 "만들어줘"로 바뀌었어요.
+      </p>
+    </section>
+
+    <!-- ───────────────── 그때와 지금 ───────────────── -->
+    <section class="ag-section" aria-label="그때와 지금">
+      <h2 class="learn-title">그때와 지금</h2>
+      <p class="learn-sub">같은 결과물을 만드는 데 걸리던 시간이 이만큼 달라졌어요</p>
+      <div class="ag-tn" id="then-now"></div>
+      <p class="ag-fine">
+        위니브가 겪은 정도를 보여 주는 예시예요. 일과 사람에 따라 다르고,
+        검토하고 고치는 시간은 여기 들어 있지 않아요.
+      </p>
+      <div class="ag-tn-after panel">
+        <h3>줄어든 것과 늘어난 것</h3>
+        <div class="ag-tn-cols">
+          <div>
+            <p class="ag-label">줄어든 시간</p>
+            <ul>
+              <li>양식을 찾고 여는 시간</li>
+              <li>지난 파일에서 문장을 옮겨 적는 시간</li>
+              <li>표와 장표를 다시 그리는 시간</li>
+            </ul>
+          </div>
+          <div>
+            <p class="ag-label">늘어난 시간</p>
+            <ul>
+              <li>무엇을 약속할지 정하는 시간</li>
+              <li>숫자가 맞는지 확인하는 시간</li>
+              <li>본질을 다시 생각하는 시간</li>
+            </ul>
+          </div>
+        </div>
+        <p class="ag-note">
+          위니브는 이렇게 말해요. 전처럼 작성에 힘을 들이는 것이 아니라,
+          <strong>검토하고 상상하며 본질에 집중하기 위한 시간</strong>에 공을 들인다고요.
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────────────── Skill이 뭔가요 ───────────────── -->
+    <section class="ag-section" aria-label="Skill이란">
+      <h2 class="learn-title">그런데 Skill이 뭔가요?</h2>
+      <p class="learn-sub">Agent가 우리 방식대로 일하려면 규칙을 알아야 해요. 그 규칙이 적힌 폴더 하나예요</p>
+
+      <div class="ag-what">
+        <div class="panel ag-card">
+          <h3>Skill은 폴더예요</h3>
+          <div class="ag-tree">
+            <p class="ag-tree-head">weniv-quote/</p>
+            <ul>
+              <li><code>SKILL.md</code><span>언제 쓰는지, 무엇을 물어야 하는지</span></li>
+              <li><code>assets/단가표.md</code><span>품목별 단가. 바뀌면 여기만 고쳐요</span></li>
+              <li><code>assets/견적서_양식.xlsx</code><span>도장까지 들어간 회사 양식</span></li>
+            </ul>
+          </div>
+          <p class="ag-note">
+            압축하면 파일 하나가 되고, 풀면 다시 폴더예요. 안에 든 건 코드가 아니라
+            <strong>사람이 읽을 수 있는 글</strong>이에요. 그래서 모델이 바뀌어도, 다른 AI로 옮겨도 그대로 읽혀요.
+          </p>
+        </div>
+
+        <div class="panel ag-card">
+          <h3>Skill로 만들까? 세 가지 질문</h3>
+          <ol class="ag-ask">
+            <li><strong>다음 달에도 또 하나요?</strong><span>한 번 하고 말 일은 그냥 프롬프트로 하는 게 나아요. 만드는 시간이 아까워요.</span></li>
+            <li><strong>재료만 바뀌고 규칙은 같나요?</strong><span>일수와 인원은 매번 달라도 단가표와 양식이 같다면 Skill의 자리예요.</span></li>
+            <li><strong>나 말고 다른 사람도 하나요?</strong><span>규칙이 내 머릿속에만 있으면 팀원은 못 해요. 휴대폰만 든 나도 못 하고요.</span></li>
+          </ol>
+          <p class="ag-note">
+            세 가지 중 하나도 걸리지 않으면 Skill을 만들지 않아도 돼요.
+            로고와 메뉴 사진을 폴더에 넣고 한 번 시키면 끝나는 일도 많아요.
+          </p>
+        </div>
+      </div>
+
+      <h3 class="ag-sub">위니브가 실제로 쓰는 Skill 아홉 가지</h3>
+      <div class="ag-nine-grid" id="weniv-skills"></div>
+      <p class="ag-fine">
+        『에센셜 Claude Skill』 2장에 나오는 목록이에요. 이 중 md-to-hwpx와 public-bid-proposal은
+        공개되어 있고, 나머지는 회사 정보가 들어 있어 공개하지 않아요.
+      </p>
+    </section>
+
+    <!-- ───────────────── 핵심 개념 ───────────────── -->
+    <section class="learn" aria-label="핵심 개념">
+      <h2 class="learn-title">핵심 개념</h2>
+      <p class="learn-sub">시뮬레이션에서 방금 본 것들, 궁금한 개념을 눌러 보세요</p>
+
+      <div class="concept-row" id="concept-row">
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">맥락 (Context)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI에게 <strong>지금 무슨 일을 하는 중인지 알려 주는 재료</strong>예요.
+              공고문, 제안서, 단가표, 작년 보고서가 전부 맥락이에요.
+              맥락이 없으면 AI는 그럴듯한 일반론만 써요.
+              <a href="context.html">대화의 비밀</a>에서 AI가 맥락을 어떻게 기억하는지 볼 수 있어요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">Agent (에이전트)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI의 시대에는 채팅창에서 묻고 <strong>답</strong>을 받았어요. Agent는 답 대신 <strong>일</strong>을 해요.
+              내 컴퓨터의 파일을 찾고, 열고, 도구를 쓰고, 파일을 만들어 저장해요.
+              한 번에 끝나지 않으면 <em>찾고, 읽고, 만들고, 되묻는 여러 단계</em>를 스스로 이어요.
+              그 안에서 다음 단어를 고르는 원리는 <a href="index.html">단어 맞히기</a>와 같아요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">Skill (스킬)</button>
+          <div class="concept-pop" hidden>
+            <p>
+              <strong>맥락을 미리 묶어 둔 폴더</strong>예요. 설명서(SKILL.md)와 규칙 파일이 들어 있어요.
+              압축하면 파일 하나가 되고, 풀면 다시 폴더예요.
+              매번 같은 것을 설명하는 대신 한 번 적어 두는 것, 그게 전부예요.
+              <em>사람이 읽는 글</em>로 적혀 있어서 모델이 바뀌어도 그대로 읽혀요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">프롬프트와 Skill의 차이</button>
+          <div class="concept-pop" hidden>
+            <p>
+              프롬프트는 <strong>이번 한 번</strong>의 말이고, Skill은 <strong>매번 반복되는 규칙</strong>이에요.
+              한 번 할 일에 Skill을 만들면 만드는 시간이 아깝고,
+              매주 할 일을 프롬프트로만 하면 같은 설명을 매주 다시 해요.
+              질문이 달라지면 답이 달라지는 원리는 <a href="prompt.html">프롬프트의 비밀</a>에 있어요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">파이프라인</button>
+          <div class="concept-pop" hidden>
+            <p>
+              Skill 여러 개가 <strong>줄줄이 이어지는 것</strong>이에요.
+              공고를 고르고, 제안서를 쓰고, 그 제안서로 견적서와 발표 자료와 카드뉴스를 만들어요.
+              가운데에 제안서가 있어서, <em>제안서가 정확하면 나머지도 정확</em>해요.
+              반대로 제안서가 틀리면 넷이 같이 틀려요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">그래서 사람은 뭘 하나요</button>
+          <div class="concept-pop" hidden>
+            <p>
+              AI는 <a href="index.html">다음 단어를 확률로 고르는</a> 기계라서
+              <strong>그럴듯하게 틀릴 수 있어요</strong>. 숫자는 특히요.
+              그래서 사람이 남아요. 무엇을 약속할지 정하고, 숫자가 맞는지 보고, 책임을 지는 일이요.
+              줄어든 건 만드는 시간이고 <em>늘어난 건 판단하는 시간</em>이에요.
+            </p>
+          </div>
+        </div>
+
+        <div class="concept">
+          <button class="concept-btn" type="button" aria-expanded="false">실제와 다른 점</button>
+          <div class="concept-pop" hidden>
+            <p>
+              이 페이지에서 파일이 날아가는 모습, 작업 기록, 걸린 시간은 <em>연출</em>이에요.
+              실제로는 Agent에게 내 컴퓨터 폴더를 열어 주고 채팅으로 말하면 돼요.
+              어디까지 스스로 하게 둘지(파일 삭제, 메일 보내기 같은 것)는 사람이 정해요.
+              다만 <strong>결과물은 진짜</strong>예요. 위니브가 실제 사업에서 이렇게 만든 파일이고, 눌러서 열어 볼 수 있어요.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <details class="ag-sources">
+        <summary>여기 나온 결과물의 출처</summary>
+        <ul>
+          <li>
+            화면 사진 여섯 장은 위니브의 전자책
+            <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">『에센셜 Claude Skill』</a>
+            2장 '위니브 일하는 방식'에 실린 공개 샘플이에요. 제안서 35쪽, 견적서, 발표 자료 19장,
+            발표 대본, 카드뉴스 8장, 사업 탐색 대시보드예요.
+          </li>
+          <li>
+            원본 파일(PDF, HTML, Excel)은 위 '실제 파일을 열어 보세요'에서 그대로 열 수 있고,
+            같은 장에 공개 Skill 두 가지(md-to-hwpx, public-bid-proposal)도 올라와 있어요.
+          </li>
+          <li>
+            사업명 '제주 AX 대전환 인재양성 프로그램 운영(가칭)'은 책에 실린 샘플 그대로이고,
+            금액과 일정도 그 샘플의 값이에요.
+          </li>
+        </ul>
+      </details>
+    </section>
+  </main>
+
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/agent/app.js"></script>
+</body>
+</html>

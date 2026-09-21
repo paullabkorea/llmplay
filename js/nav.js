@@ -15,6 +15,7 @@ const PAGE_INTROS = {
   'training.html': '다이얼을 돌려 맞추는 과정',
   'multimodal.html': 'AI는 사진과 소리를 어떻게 읽을까',
   'models.html': '크기, 가격, 속도 비교해 고르기',
+  'agent.html': 'AI의 시대에서 Agent의 시대로',
   'usage.html': '세계는 AI를 얼마나 쓸까',
 };
 

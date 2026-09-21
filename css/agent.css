@@ -1,0 +1,1148 @@
+/* agent.css — '에이전트의 비밀' 페이지 전용 스타일
+   (패널·단계 설명 팝업·버튼 등 공용 부품은 components.css를 그대로 사용) */
+
+/* 세 패널을 비슷한 폭으로 */
+.sim-stage.ag-stage {
+  grid-template-columns: 1fr auto 1.05fr auto 1.05fr;
+}
+
+.ag-panel {
+  gap: 0;
+  /* 높이를 고정해 내용이 늘어도 조작부가 아래로 밀리지 않는다. 넘치는 내용은 본문 안에서 굴러간다 */
+  height: clamp(480px, calc(100vh - 430px), 720px);
+  min-height: 0;
+  scroll-margin-top: 70px; /* 좁은 화면에서 패널로 굴려 갈 때 상단 메뉴에 가리지 않게 */
+}
+
+/* 패널 제목에 Claude, Skill 같은 이름이 들어가서 대문자 변환은 끈다 */
+.ag-panel .panel-title {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.ag-body {
+  flex: 1;
+  min-height: 0; /* 이게 있어야 flex 자식이 넘칠 때 스크롤이 생긴다 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--panel-border) transparent;
+  padding-right: 6px;
+}
+
+/* 본문이 넘치면 굴러가야지, 안의 카드가 찌그러지면 안 된다
+   (overflow: hidden인 카드는 flex가 0까지 줄여 버린다) */
+.ag-body > * {
+  flex-shrink: 0;
+}
+
+/* 세로로 쌓이는 화면에서는 패널이 내용만큼 늘어난다 */
+@media (max-width: 1024px) {
+  .ag-panel {
+    height: auto;
+  }
+  .ag-body {
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+/* ── 공통 작은 글 ── */
+.ag-note {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.ag-note strong {
+  color: var(--text);
+}
+
+.ag-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.ag-ghost {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 140px;
+  padding: 24px 16px;
+  border: 1.5px dashed var(--panel-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+/* ── 말풍선 ── */
+.ag-bubble {
+  max-width: 100%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-bubble-me {
+  align-self: flex-end;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-deep);
+  border-bottom-right-radius: 4px;
+  font-weight: 600;
+}
+
+.ag-bubble-ai {
+  align-self: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-bottom-left-radius: 4px;
+}
+
+/* ── 책상: 흩어진 파일이 폴더로 모인다 ── */
+.ag-desk {
+  position: relative;
+  height: 300px;
+  flex-shrink: 0;
+  border: 1.5px dashed var(--panel-border);
+  border-radius: var(--radius-sm);
+  background: var(--track);
+  overflow: hidden;
+}
+
+.ag-file {
+  position: absolute;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  /* 종이가 아무렇게나 놓인 느낌 */
+  transform: rotate(var(--tilt, -2deg));
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+}
+
+.ag-file:nth-child(odd) { --tilt: 2.5deg; }
+.ag-file:nth-child(3n) { --tilt: -3.5deg; }
+
+/* 폴더 한가운데로 빨려 들어간 상태 */
+.ag-file-in {
+  transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.25) rotate(0deg);
+  opacity: 0;
+}
+
+.ag-file-instant {
+  transition: none;
+}
+
+.ag-file-icon {
+  font-size: 1rem;
+}
+
+.ag-file-name {
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.ag-file-kind {
+  color: var(--text-soft);
+}
+
+/* 원래 있던 자리: 카드 오른쪽 위에 스티커처럼 붙여 카드 높이를 늘리지 않는다 */
+.ag-file-where {
+  position: absolute;
+  top: -9px;
+  right: -6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  color: var(--text-dim);
+  font-size: 0.66rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+}
+
+.ag-file-where::before {
+  content: '📍 ';
+}
+
+/* 폴더는 책상 아래쪽 한가운데. 파일은 그 위에 흩어져 있다가 여기로 내려온다 */
+.ag-folder {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 66%;
+  z-index: 2;
+  background: var(--panel);
+  border: 1.5px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 12px 14px;
+  transition: width 0.4s ease;
+}
+
+.ag-folder-full {
+  width: 86%;
+}
+
+.ag-folder-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.ag-folder-empty {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.ag-folder-list {
+  list-style: none;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.ag-folder-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: pop-in 0.3s ease backwards;
+}
+
+/* ── 질문지와 요청 입력창 ── */
+.ag-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ag-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ag-chip {
+  text-align: left;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.ag-chip:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.ag-chip-on {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  color: var(--accent-deep);
+}
+
+.ag-input {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #0f172a;           /* slate-900 — 터미널처럼 */
+  color: #e2e8f0;                /* slate-200 */
+  font-size: 0.95rem;
+  line-height: 1.5;
+  min-height: 3.2em;
+}
+
+.ag-input-mark {
+  color: #7dd3fc;                /* sky-300 */
+  font-weight: 800;
+}
+
+.ag-input-text {
+  font-weight: 600;
+}
+
+/* ── AI가 일하는 모습 ── */
+.ag-reads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ag-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--track);
+  border: 1px solid var(--panel-border);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-read-mark {
+  color: #047857;                /* emerald-700 */
+  font-weight: 800;
+}
+
+.ag-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ag-skill {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-skill-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.ag-skill-role {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.ag-log {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  background: var(--track);
+  border-radius: var(--radius-sm);
+}
+
+.ag-log-line {
+  display: flex;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-log-mark {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.ag-used {
+  align-self: flex-start;
+  font-size: 0.78rem;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* ── 결과물 카드 ── */
+.ag-out {
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  animation: pop-in 0.4s ease backwards;
+}
+
+.ag-out-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid var(--panel-border);
+  background: var(--track);
+}
+
+/* 그림을 감싼 링크: 누르면 실제 파일이 열린다 */
+.ag-out-open {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ag-out-hint {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.ag-out-open:hover .ag-out-hint,
+.ag-out-open:focus-visible .ag-out-hint {
+  opacity: 1;
+}
+
+.ag-out-open:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* 파일 열기/받기 링크 줄 */
+.ag-file-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px 12px;
+}
+
+.ag-file-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.ag-file-link::before {
+  content: '↗';
+  font-size: 0.7rem;
+}
+
+.ag-file-link[download]::before {
+  content: '↓';
+}
+
+.ag-file-link:hover {
+  background: var(--accent-border);
+}
+
+.ag-out-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px 2px;
+  font-size: 0.95rem;
+}
+
+.ag-out-meta {
+  font-size: 0.76rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.ag-out-note {
+  padding: 0 12px 10px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.ag-photo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+
+.ag-photo img {
+  display: block;
+  flex: 0 0 96px;
+  width: 96px;
+  height: auto;
+  aspect-ratio: 429 / 900;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+}
+
+.ag-photo figcaption {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+/* ── 걸린 시간 배지 ── */
+.ag-time {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-time-now {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+}
+
+.ag-time-then {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+/* ── ✓ / ✗ 목록 ── */
+.ag-check {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+
+.ag-check li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-check li:nth-child(2) { animation-delay: 80ms; }
+.ag-check li:nth-child(3) { animation-delay: 160ms; }
+.ag-check li:nth-child(4) { animation-delay: 240ms; }
+
+.ag-check-mark {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.ag-check .ok .ag-check-mark {
+  background: #d1fae5;           /* emerald-100 */
+  color: #047857;                /* emerald-700 */
+}
+
+.ag-check .bad .ag-check-mark {
+  background: #fee2e2;           /* red-100 */
+  color: #b91c1c;                /* red-700 */
+}
+
+.ag-lost .bad span:last-child {
+  color: var(--text-dim);
+}
+
+/* ── Skill 폴더 속 ── */
+.ag-tree {
+  padding: 12px 14px;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  background: var(--track);
+  animation: pop-in 0.3s ease backwards;
+}
+
+.ag-tree-head {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  margin-bottom: 6px;
+}
+
+.ag-tree ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-left: 12px;
+  border-left: 1.5px solid var(--panel-border);
+}
+
+.ag-tree li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ag-tree code {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ag-tree li span {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+/* ── 조작부: 시뮬레이터 영역을 보는 동안 화면 아래에 붙어 있다 ── */
+.ag-controls {
+  position: sticky;
+  bottom: 12px;
+  z-index: 25;
+  box-shadow: var(--shadow-lg);
+}
+
+.control-scenario select {
+  max-width: 100%;
+}
+
+.ag-progress {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--accent);
+  margin-left: 4px;
+}
+
+.ag-keys {
+  margin-left: auto;
+  align-self: flex-end;
+  padding-bottom: 9px;
+  font-size: 0.74rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.ag-disclaimer {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ── 세 가지 데모 카드 ── */
+.ag-demos {
+  margin-top: 72px;
+}
+
+.ag-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ag-demo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text);
+  line-height: 1.5;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.ag-demo-card:hover {
+  border-color: var(--accent-border);
+  transform: translateY(-2px);
+}
+
+.ag-demo-card strong {
+  font-size: 1.05rem;
+}
+
+.ag-demo-card > span:last-child {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.ag-demo-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+/* ── 아래쪽 읽을거리 공통 ── */
+.ag-section {
+  margin-top: 72px;
+}
+
+.ag-sub {
+  margin: 36px 0 16px;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.ag-fine {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+/* ── AI의 시대 → Agent의 시대 ── */
+.ag-era {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.ag-era-col {
+  min-height: 0;
+  gap: 14px;
+}
+
+.ag-era-arrow {
+  align-self: center;
+  font-size: 1.8rem;
+  color: var(--text-soft);
+}
+
+.ag-era-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.ag-era-tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--track);
+  color: var(--text-dim);
+}
+
+.ag-era-now .ag-era-tag {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+}
+
+.ag-era-now {
+  border-color: var(--accent-border);
+}
+
+.ag-era-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 0;
+}
+
+.ag-era-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 14px;
+  border-left: 3px solid var(--panel-border);
+  font-size: 0.95rem;
+}
+
+.ag-era-now .ag-era-list li {
+  border-left-color: var(--accent-border);
+}
+
+.ag-era-list li span {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.ag-era-then .ag-era-list strong {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.ag-era-line {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--panel-border);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.ag-era-now .ag-era-line {
+  color: var(--accent-deep);
+}
+
+/* ── 그때와 지금 ── */
+.ag-tn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.ag-tn-row {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 20px;
+}
+
+.ag-tn-job {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.ag-tn-ratio {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.ag-tn-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.ag-tn-fill {
+  display: block;
+  height: 14px;
+  border-radius: 999px;
+  min-width: 5px;
+}
+
+.ag-tn-fill-then {
+  background: var(--track);
+  border: 1px solid var(--panel-border);
+}
+
+.ag-tn-fill-now {
+  background: var(--accent);
+}
+
+.ag-tn-text {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.ag-tn-text-now {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.ag-tn-after {
+  margin-top: 24px;
+  min-height: 0;
+  gap: 14px;
+}
+
+.ag-tn-after h3 {
+  font-size: 1.1rem;
+}
+
+.ag-tn-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ag-tn-cols ul {
+  margin-top: 6px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.93rem;
+  color: var(--text-dim);
+}
+
+/* ── Skill이 뭔가요 ── */
+.ag-what {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ag-card {
+  min-height: 0;
+  gap: 12px;
+}
+
+.ag-card h3 {
+  font-size: 1.1rem;
+}
+
+.ag-card .ag-tree {
+  animation: none;
+}
+
+.ag-ask {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.ag-ask li span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.ag-nine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ag-nine {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+.ag-nine-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.ag-nine-role {
+  font-size: 0.86rem;
+  color: var(--text-dim);
+}
+
+/* ── 출처 ── */
+.ag-sources {
+  margin-top: 18px;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  background: var(--panel);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.ag-sources summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ag-sources ul {
+  margin-top: 12px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── 실제 파일 여섯 가지 ── */
+.ag-dl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ag-dl {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.ag-dl-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid var(--panel-border);
+  background: var(--track);
+}
+
+.ag-dl-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px 8px;
+  font-size: 1rem;
+}
+
+.ag-dl .ag-file-links {
+  padding: 0 14px 14px;
+}
+
+/* ── 좁은 화면 ── */
+@media (max-width: 1024px) {
+  .sim-stage.ag-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .ag-desk {
+    height: 300px;
+  }
+
+  .ag-demo-grid,
+  .ag-nine-grid,
+  .ag-dl-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ag-demo-grid,
+  .ag-nine-grid,
+  .ag-dl-grid,
+  .ag-tn,
+  .ag-tn-cols,
+  .ag-what,
+  .ag-era {
+    grid-template-columns: 1fr;
+  }
+
+  .ag-era-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+    font-size: 1.4rem;
+  }
+
+  .ag-demos,
+  .ag-section {
+    margin-top: 48px;
+  }
+
+  .ag-file {
+    width: 46%;
+    font-size: 0.7rem;
+  }
+
+  .ag-skill {
+    grid-template-columns: auto 1fr;
+  }
+
+  .ag-skill-role {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  /* 화면 아래에 붙는 바가 너무 크지 않게: 두 줄로 접고 '표시'와 키 안내는 뺀다 */
+  .ag-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px 14px;
+    padding: 12px 14px;
+    bottom: 8px;
+  }
+
+  .ag-controls .control-scenario {
+    flex: 1 1 100%;
+  }
+
+  /* 둘째 줄: 버튼 네 개가 남는 폭을 나눠 갖고, 속도는 오른쪽 끝에 */
+  .ag-controls .control-group:has(.btn-group) {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .ag-controls .btn-group {
+    display: flex;
+  }
+
+  .ag-controls .btn-group .btn {
+    flex: 1;
+    padding: 8px 4px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .ag-controls .control-toggle,
+  .ag-controls .ag-keys {
+    display: none;
+  }
+
+}
